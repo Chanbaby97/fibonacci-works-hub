@@ -43,7 +43,7 @@ const WORKSHOPS = [
       { label: "Planting Schedule", detail: "Know exactly when to start seeds and when to plant outside" },
       { label: "Growing Techniques", detail: "Spacing, watering, sunlight — the fundamentals done right" },
       { label: "Frost Awareness", detail: "Understand Cape Breton's frost dates and how to work around them" },
-      { label: "Materials & Cost", detail: "Session uses trays, mix, seeds/seedlings, soil samples; DIY redo ~$15–35 CAD (estimate — confirm locally)" },
+      { label: "Materials & Cost", detail: "Session kit about $20–45; at-home DIY redo about $25–50 CAD (estimate — confirm locally)" },
       { label: "At-Home Redo", detail: "Refill a tray, sow or transplant, label, water evenly, follow your Cape Breton planting calendar" },
     ],
   },
