@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-label="WS11 · Local Voice What's Next">
+  <rect width="960" height="540" fill="#143f3c"/>
+  <rect x="0" y="0" width="18" height="540" fill="#34b3a8"/>
+  <circle cx="820" cy="90" r="100" fill="#1f6e6a" opacity="0.55"/>
+  <circle cx="860" cy="150" r="40" fill="#34b3a8" opacity="0.35"/>
+  <text x="56" y="78" fill="#b7e4df" font-family="Courier New, monospace" font-size="22" letter-spacing="4">THE FIBONACCI WORKS</text>
+  <text x="56" y="168" fill="#f2fbfa" font-family="Georgia, serif" font-size="54">WS11 · Local Voice</text>
+  <text x="56" y="220" fill="#34b3a8" font-family="Courier New, monospace" font-size="28" letter-spacing="3">WHAT'S NEXT</text>
+  <line x1="56" y1="248" x2="420" y2="248" stroke="#34b3a8" stroke-width="3"/>
+  <g transform="translate(460,40)">
+  <rect x="158" y="150" width="160" height="80" rx="16" fill="#1f6e6a"/>
+  <rect x="240" y="200" width="140" height="64" rx="16" fill="#34b3a8"/>
+  <polygon points="180,230 160,260 210,230" fill="#1f6e6a"/>
+  </g>
+  <text x="56" y="490" fill="#b7e4df" font-family="Courier New, monospace" font-size="18">PLACEHOLDER · NOT A PHOTO · STREAM COLOUR</text>
+</svg>

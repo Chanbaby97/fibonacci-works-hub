@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.DS_Store
+*.bak
+*.bak-*
+# Deck PDFs are ~25 MB each (~350 MB). Kept locally in public/decks, not in git.
+public/decks/*.pdf
