@@ -1,17 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-label="WS02 · Raised Beds Discussion">
-  <rect width="960" height="540" fill="#2d4a25"/>
-  <rect x="0" y="0" width="18" height="540" fill="#7ab648"/>
-  <circle cx="820" cy="90" r="88" fill="#4a7c3f" opacity="0.55"/>
-  <circle cx="860" cy="150" r="40" fill="#7ab648" opacity="0.35"/>
-  <text x="56" y="78" fill="#c9dbb4" font-family="Courier New, monospace" font-size="22" letter-spacing="4">THE FIBONACCI WORKS</text>
-  <text x="56" y="168" fill="#f4f7ef" font-family="Georgia, serif" font-size="54">WS02 · Raised Beds</text>
-  <text x="56" y="220" fill="#7ab648" font-family="Courier New, monospace" font-size="28" letter-spacing="3">DISCUSSION</text>
-  <line x1="56" y1="248" x2="420" y2="248" stroke="#7ab648" stroke-width="3"/>
-  <g transform="translate(460,40)">
-  <rect x="138" y="210" width="280" height="70" rx="6" fill="none" stroke="#7ab648" stroke-width="8"/>
-  <rect x="154" y="222" width="248" height="36" fill="#4a7c3f"/>
-  <rect x="150" y="150" width="18" height="70" fill="#c9dbb4"/><rect x="360" y="150" width="18" height="70" fill="#c9dbb4"/>
-  </g>
-  <text x="56" y="490" fill="#c9dbb4" font-family="Courier New, monospace" font-size="18">PLACEHOLDER · NOT A PHOTO · STREAM COLOUR</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-label="WS02 Raised beds — Together">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0.2" y2="1">
+      <stop offset="0" stop-color="#241833"/>
+      <stop offset="0.38" stop-color="#2d4a25"/>
+      <stop offset="0.72" stop-color="#4a7c3f"/>
+      <stop offset="1" stop-color="#f3e6cf"/>
+    </linearGradient>
+    <radialGradient id="lantern" cx="72%" cy="38%" r="48%">
+      <stop offset="0" stop-color="#fff6e2" stop-opacity="0.85"/>
+      <stop offset="0.4" stop-color="#c4843a" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#c4843a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="960" height="540" fill="url(#sky)"/>
+  <rect width="960" height="540" fill="url(#lantern)"/>
+  
+    <circle cx="836" cy="70" r="46" fill="#c8b6ff" opacity="0.2"/>
+    <circle cx="836" cy="70" r="24" fill="#f7f1ff" opacity="0.9"/>
+    <circle cx="841.28" cy="67.12" r="16.799999999999997" fill="#fffaf3"/>
+  <path d="M0 396 C 180 348, 340 416, 520 378 S 820 416, 960 368 V 540 H 0 Z" fill="#2d4a25" opacity="0.55"/>
+  <path d="M0 460 C 220 450, 400 500, 640 470 S 900 500, 960 470 V 540 H 0 Z" fill="#2d4a25" opacity="0.85"/>
+  <path d="M78 470 c 18-8 28-28 18-44 -12-18 -40-16 -52 2 -16 24 8 52 40 52 40 0 68-36 60-74 -10-46-62-66-104-46" fill="none" stroke="#efe8ff" stroke-width="1.4" opacity="0.35"/>
+  <ellipse cx="823.7" cy="331.8" rx="34" ry="14" fill="#f6efe2" opacity="0.9"/>
+              <ellipse cx="823.7" cy="325.8" rx="22" ry="8" fill="#e7f0dc"/><ellipse cx="766.4" cy="360.3" rx="34" ry="14" fill="#f6efe2" opacity="0.9"/>
+              <ellipse cx="766.4" cy="354.3" rx="22" ry="8" fill="#e7f0dc"/><ellipse cx="685.3" cy="370.0" rx="34" ry="14" fill="#f6efe2" opacity="0.9"/>
+              <ellipse cx="685.3" cy="364.0" rx="22" ry="8" fill="#e7f0dc"/><ellipse cx="605.7" cy="357.9" rx="34" ry="14" fill="#f6efe2" opacity="0.9"/>
+              <ellipse cx="605.7" cy="351.9" rx="22" ry="8" fill="#e7f0dc"/><ellipse cx="552.3" cy="327.8" rx="34" ry="14" fill="#f6efe2" opacity="0.9"/>
+              <ellipse cx="552.3" cy="321.8" rx="22" ry="8" fill="#e7f0dc"/><circle cx="690" cy="292" r="36" fill="#fff1c9" opacity="0.35"/>
+  <g transform="translate(610 200) scale(0.72)">
+    <rect x="28" y="78" width="196" height="78" rx="3" fill="#6b4328"/>
+    <rect x="36" y="86" width="180" height="54" fill="#4a311c"/>
+    <path d="M40 108 H 210" stroke="#c4843a" stroke-width="3" opacity="0.85"/>
+    <path d="M40 124 H 210" stroke="#8a5a32" stroke-width="3"/>
+    <ellipse cx="126" cy="100" rx="72" ry="14" fill="#3d5a30"/>
+    <path d="M126 98 V72" stroke="#234018" stroke-width="3"/>
+    <path d="M126 86 C 108 74 100 66 104 60 C 118 70 124 80 126 86 Z" fill="#7ab648"/>
+    <rect x="18" y="150" width="70" height="12" rx="2" fill="#c4843a"/>
+    <rect x="96" y="154" width="90" height="10" rx="2" fill="#8a5a32"/></g>
+  <text x="56" y="78" fill="#f6f1e6" font-family="Georgia, Palatino, serif" font-size="15" letter-spacing="3.5" opacity="0.82">THE FIBONACCI WORKS</text>
+  <text x="56" y="136" fill="#fffaf3" font-family="Georgia, Palatino, serif" font-size="48">Together</text>
+  <text x="58" y="176" fill="#c4843a" font-family="Georgia, Palatino, serif" font-size="20">WS02 · Raised beds</text>
+  <text x="58" y="210" fill="#f6f1e6" font-family="Georgia, Palatino, serif" font-size="16" opacity="0.78">Around the same table</text>
 </svg>

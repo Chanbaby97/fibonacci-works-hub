@@ -1,17 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-label="WS14 · Stewardship Take-Home">
-  <rect width="960" height="540" fill="#243619"/>
-  <rect x="0" y="0" width="18" height="540" fill="#7a9e3f"/>
-  <circle cx="820" cy="90" r="94" fill="#3f5a32" opacity="0.55"/>
-  <circle cx="860" cy="150" r="40" fill="#7a9e3f" opacity="0.35"/>
-  <text x="56" y="78" fill="#d5e2b8" font-family="Courier New, monospace" font-size="22" letter-spacing="4">THE FIBONACCI WORKS</text>
-  <text x="56" y="168" fill="#f6f8ef" font-family="Georgia, serif" font-size="54">WS14 · Stewardship</text>
-  <text x="56" y="220" fill="#7a9e3f" font-family="Courier New, monospace" font-size="28" letter-spacing="3">TAKE-HOME</text>
-  <line x1="56" y1="248" x2="420" y2="248" stroke="#7a9e3f" stroke-width="3"/>
-  <g transform="translate(460,40)">
-  <path d="M80 200 Q 160 160 240 210 T 420 190" fill="none" stroke="#7a9e3f" stroke-width="6"/>
-  <path d="M80 230 Q 170 200 250 236 T 430 220" fill="none" stroke="#d5e2b8" stroke-width="4"/>
-  <circle cx="318" cy="140" r="18" fill="#7a9e3f" opacity="0.85"/>
-  </g>
-  <text x="56" y="490" fill="#d5e2b8" font-family="Courier New, monospace" font-size="18">PLACEHOLDER · NOT A PHOTO · STREAM COLOUR</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-label="WS14 Land &amp; water — Take home">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0.2" y2="1">
+      <stop offset="0" stop-color="#241833"/>
+      <stop offset="0.38" stop-color="#243619"/>
+      <stop offset="0.72" stop-color="#3f5a32"/>
+      <stop offset="1" stop-color="#f3e6cf"/>
+    </linearGradient>
+    <radialGradient id="lantern" cx="72%" cy="38%" r="48%">
+      <stop offset="0" stop-color="#fff6e2" stop-opacity="0.85"/>
+      <stop offset="0.4" stop-color="#5aaf7a" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#5aaf7a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="960" height="540" fill="url(#sky)"/>
+  <rect width="960" height="540" fill="url(#lantern)"/>
+  
+    <circle cx="852" cy="66" r="42" fill="#c8b6ff" opacity="0.2"/>
+    <circle cx="852" cy="66" r="20" fill="#f7f1ff" opacity="0.9"/>
+    <circle cx="856.4" cy="63.6" r="14" fill="#fffaf3"/>
+  <path d="M0 396 C 180 332, 340 416, 520 362 S 820 416, 960 352 V 540 H 0 Z" fill="#243619" opacity="0.55"/>
+  <path d="M0 460 C 220 450, 400 500, 640 470 S 900 500, 960 470 V 540 H 0 Z" fill="#243619" opacity="0.85"/>
+  <path d="M78 470 c 18-8 28-28 18-44 -12-18 -40-16 -52 2 -16 24 8 52 40 52 40 0 68-36 60-74 -10-46-62-66-104-46" fill="none" stroke="#efe8ff" stroke-width="1.4" opacity="0.35"/>
+  
+      <rect x="500" y="250" width="380" height="160" rx="16" fill="#c9a36a"/>
+      <rect x="500" y="250" width="380" height="28" rx="10" fill="#a88452"/>
+      <path d="M500 278 H 880" stroke="#8a6a3e" stroke-width="2"/>
+      <path d="M560 250 V 220 H 820 V 250" fill="none" stroke="#5aaf7a" stroke-width="3"/>
+  <g transform="translate(600 195) scale(0.7)">
+    <path d="M48 150 H 150 L 140 96 H 58 Z" fill="#6b8f9a"/>
+    <ellipse cx="99" cy="96" rx="48" ry="12" fill="#5aaf7a"/>
+    <path d="M86 70 C 86 50 112 50 112 70 C 112 88 99 98 99 98 C 99 98 86 88 86 70 Z" fill="#7ec8e0"/>
+    <rect x="164" y="108" width="14" height="52" fill="#8a5a32"/>
+    <circle cx="171" cy="96" r="18" fill="#fff4cc"/>
+    <path d="M150 160 C 180 140 210 150 230 132" fill="none" stroke="#5aaf7a" stroke-width="4" stroke-linecap="round"/>
+    <path d="M40 166 H 220" stroke="#3f5a32" stroke-width="4" stroke-linecap="round"/></g>
+  <text x="56" y="78" fill="#f6f1e6" font-family="Georgia, Palatino, serif" font-size="15" letter-spacing="3.5" opacity="0.82">THE FIBONACCI WORKS</text>
+  <text x="56" y="136" fill="#fffaf3" font-family="Georgia, Palatino, serif" font-size="48">Take home</text>
+  <text x="58" y="176" fill="#5aaf7a" font-family="Georgia, Palatino, serif" font-size="20">WS14 · Land &amp; water</text>
+  <text x="58" y="210" fill="#f6f1e6" font-family="Georgia, Palatino, serif" font-size="16" opacity="0.78">What leaves with you</text>
 </svg>

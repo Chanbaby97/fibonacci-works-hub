@@ -459,7 +459,7 @@ function DeckActions({ number, color }) {
     alignItems: "center",
     gap: "6px",
     padding: "10px 18px",
-    borderRadius: "8px",
+    borderRadius: "12px",
     fontSize: "13px",
     fontWeight: 600,
     letterSpacing: "0.5px",
@@ -586,31 +586,93 @@ const resolveContinueTarget = (progress) => {
 };
 
 const STYLE = `
-  :root { --fw-safe-b: env(safe-area-inset-bottom, 0px); --fw-safe-t: env(safe-area-inset-top, 0px); }
-  .fw-app { max-width: 430px; margin: 0 auto; min-height: 100vh; min-height: 100dvh; background: #f7f5f0; position: relative; box-shadow: 0 0 0 1px rgba(0,0,0,0.04), 0 12px 40px rgba(0,0,0,0.06); }
-  @media (max-width: 480px) { .fw-app { max-width: 100%; box-shadow: none; } }
-  .fw-card { transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease; }
-  .fw-card:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
-  .fw-tap:focus-visible, .fw-card:focus-visible { outline: 2px solid #1a1a1a; outline-offset: 2px; border-radius: 8px; }
-  .fw-link:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; border-radius: 6px; }
-  .fw-cta:hover { filter: brightness(1.06); }
-  .fw-tint-card { background: linear-gradient(135deg, var(--fw-tint, #fff) 0%, #fff 48%); }
+  :root {
+    --fw-safe-b: env(safe-area-inset-bottom, 0px);
+    --fw-safe-t: env(safe-area-inset-top, 0px);
+    --fw-ink: #241c16;
+    --fw-paper: #f6f0e6;
+    --fw-card: #fffaf3;
+    --fw-line: rgba(70, 48, 32, 0.1);
+    --fw-color: #4a7c3f;
+    --fw-accent: #c4a06a;
+  }
+  .fw-app {
+    max-width: 440px;
+    margin: 0 auto;
+    min-height: 100vh;
+    min-height: 100dvh;
+    position: relative;
+    color: var(--fw-ink);
+    background:
+      radial-gradient(120% 72% at 110% -12%, color-mix(in srgb, var(--fw-accent) 34%, transparent), transparent 48%),
+      radial-gradient(80% 48% at -10% 108%, rgba(92, 64, 148, 0.1), transparent 54%),
+      linear-gradient(180deg, #fbf7f0 0%, var(--fw-paper) 46%, #f1e8da 100%);
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.06), 0 28px 80px rgba(16, 10, 28, 0.38);
+  }
+  .fw-app::before {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(80, 52, 28, 0.045) 0.7px, transparent 0.7px);
+    background-size: 3px 3px;
+    mix-blend-mode: multiply;
+    opacity: 0.55;
+    z-index: 0;
+  }
+  .fw-app > * { position: relative; z-index: 1; }
+  @media (max-width: 520px) {
+    .fw-app { max-width: 100%; box-shadow: none; }
+  }
+  @keyframes fw-rise {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: none; }
+  }
+  .fw-rise { animation: fw-rise .5s ease; }
+  .fw-card { transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease; }
+  .fw-card:hover { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(48, 28, 64, 0.08); }
+  .fw-tap:focus-visible, .fw-card:focus-visible { outline: 2px solid var(--fw-color); outline-offset: 3px; border-radius: 14px; }
+  .fw-link:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; border-radius: 8px; }
+  .fw-cta:hover { filter: brightness(1.05); }
+  .fw-tint-card { background: linear-gradient(135deg, var(--fw-tint, #fff) 0%, var(--fw-card) 48%); }
   .fw-cta, .fw-tap, .fw-row { min-height: 44px; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+  .fw-figure { margin: 0 0 16px; }
+  .fw-figure img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 18px;
+    box-shadow: 0 18px 40px rgba(28, 16, 40, 0.16);
+  }
+  .fw-hero-still {
+    width: 100%;
+    margin-top: 18px;
+    border-radius: 20px;
+    display: block;
+    border: 1px solid rgba(255,255,255,0.28);
+    box-shadow: 0 18px 40px rgba(12, 8, 24, 0.28);
+  }
   .fw-teach-bar {
     position: sticky; bottom: 0; z-index: 40;
-    padding: 10px 12px calc(10px + var(--fw-safe-b));
-    background: rgba(255,255,255,0.96); backdrop-filter: blur(10px);
-    border-top: 1px solid #e4e4de;
+    padding: 10px 12px calc(12px + var(--fw-safe-b));
+    background: rgba(255, 250, 243, 0.9);
+    backdrop-filter: blur(16px);
+    border-top: 1px solid var(--fw-line);
     display: flex; align-items: center; gap: 8px;
+    box-shadow: 0 -16px 36px rgba(40, 24, 60, 0.06);
   }
   .fw-menu-panel {
-    position: absolute; top: calc(100% + 6px); right: 0; left: 0;
-    background: #fff; border: 1px solid #e4e4de; border-radius: 12px;
-    box-shadow: 0 16px 40px rgba(0,0,0,0.14); z-index: 50; max-height: 70vh; overflow: auto;
+    position: absolute; top: calc(100% + 8px); right: 0; left: 0;
+    background: var(--fw-card);
+    border: 1px solid rgba(70, 48, 32, 0.08);
+    border-radius: 18px;
+    box-shadow: 0 22px 50px rgba(24, 14, 36, 0.16);
+    z-index: 50; max-height: 70vh; overflow: auto;
   }
   .fw-print-only { display: none; }
   @media (prefers-reduced-motion: reduce) {
     * { transition: none !important; }
+    .fw-rise { animation: none; }
     .fw-card:hover { transform: none; }
   }
   @media print {
@@ -621,7 +683,7 @@ const STYLE = `
       background: #fff !important; color: #000 !important; padding: 24px !important;
       box-shadow: none !important; border: none !important;
     }
-    .fw-no-print, .fw-teach-bar, .fw-app-chrome { display: none !important; visibility: hidden !important; }
+    .fw-no-print, .fw-teach-bar, .fw-app-chrome, .fw-app::before { display: none !important; visibility: hidden !important; }
   }
 `;
 
@@ -630,11 +692,11 @@ const keyActivate = (fn) => (e) => {
 };
 
 const Footer = () => (
-  <div style={{ borderTop: "1px solid #e8e8e8", padding: "24px 20px calc(24px + env(safe-area-inset-bottom, 0px))", textAlign: "center", background: "#fff" }}>
-    <div style={{ fontSize: "11px", color: "#bbb", letterSpacing: "1px", marginBottom: "6px" }}>Community Workshop Series · Cape Breton Mi'kmaq Communities</div>
-    <div style={{ fontSize: "12px", color: "#888", letterSpacing: "1px", marginBottom: "4px" }}>© 2026 Isaiah Chandler</div>
-    <div style={{ fontSize: "13px", color: "#4a7c3f", letterSpacing: "2px", marginBottom: "4px", fontWeight: 600 }}>The Fibonacci Works™</div>
-    <div style={{ fontSize: "10px", color: "#ccc", letterSpacing: "1px" }}>All rights reserved.</div>
+  <div style={{ borderTop: "1px solid rgba(70,48,32,0.08)", padding: "28px 22px calc(28px + env(safe-area-inset-bottom, 0px))", textAlign: "center", background: "transparent" }}>
+    <div style={{ fontSize: "11px", color: "#9a8b78", letterSpacing: "0.6px", marginBottom: "8px", lineHeight: 1.5 }}>Community Workshop Series · Cape Breton Mi'kmaq Communities</div>
+    <div style={{ fontSize: "12px", color: "#8a7b68", letterSpacing: "0.4px", marginBottom: "4px" }}>© 2026 Isaiah Chandler</div>
+    <div style={{ fontSize: "13px", color: "#4a7c3f", letterSpacing: "1.5px", marginBottom: "4px", fontWeight: 600 }}>The Fibonacci Works™</div>
+    <div style={{ fontSize: "10px", color: "#b3a494", letterSpacing: "0.8px" }}>All rights reserved.</div>
   </div>
 );
 
@@ -645,7 +707,7 @@ const ctaBtn = (bg, color, border) => ({
   gap: "8px",
   padding: "12px 16px",
   minHeight: 44,
-  borderRadius: "10px",
+  borderRadius: "14px",
   fontSize: "14px",
   fontWeight: 600,
   letterSpacing: "0.4px",
@@ -658,8 +720,8 @@ const ctaBtn = (bg, color, border) => ({
   textAlign: "center",
 });
 
-const AppShell = ({ children }) => (
-  <div className="fw-app" style={{ fontFamily: "'Georgia', serif", color: "#1a1a1a" }}>
+const AppShell = ({ children, tone }) => (
+  <div className="fw-app" style={{ fontFamily: '"Iowan Old Style", Palatino, "Palatino Linotype", Georgia, serif', color: "#241c16", ...tone }}>
     {children}
   </div>
 );
@@ -669,11 +731,11 @@ function SectionPlaceholder({ w, section }) {
   if (!src) return null;
   const caption = `WS${w.number} · ${section.label}`;
   return (
-    <figure style={{ margin: "0 0 14px" }}>
+    <figure className="fw-figure">
       <img
         src={src}
         alt={caption}
-        style={{ width: "100%", height: "auto", display: "block", borderRadius: 12, border: `1px solid ${w.color}33`, background: w.dark || "#243619" }}
+        style={{ background: w.dark || "#243619" }}
       />
     </figure>
   );
@@ -716,12 +778,12 @@ function buildPrintSections(w) {
 function PrintSheetView({ w, onClose, onPrint }) {
   const sections = buildPrintSections(w);
   return (
-    <div style={{ minHeight: "100vh", background: "#f7f5f0" }}>
-      <div className="fw-app-chrome fw-no-print" style={{ position: "sticky", top: 0, zIndex: 20, background: "rgba(247,245,240,0.96)", backdropFilter: "blur(8px)", borderBottom: "1px solid #e4e4de", borderTop: `3px solid ${w.color}`, padding: "calc(10px + env(safe-area-inset-top, 0px)) 14px 10px", display: "flex", gap: 8, alignItems: "center" }}>
+    <div style={{ minHeight: "100vh", background: "transparent" }}>
+      <div className="fw-app-chrome fw-no-print" style={{ position: "sticky", top: 0, zIndex: 20, background: "rgba(251,247,240,0.92)", backdropFilter: "blur(14px)", borderBottom: "1px solid rgba(70,48,32,0.08)", borderTop: `3px solid ${w.color}`, padding: "calc(10px + env(safe-area-inset-top, 0px)) 14px 10px", display: "flex", gap: 8, alignItems: "center" }}>
         <button type="button" className="fw-tap fw-cta" onClick={onClose} style={{ ...ctaBtn("#fff", w.color, `1.5px solid ${w.color}`), flex: 1 }}>← Back</button>
         <button type="button" className="fw-tap fw-cta" onClick={onPrint} style={{ ...ctaBtn(w.color, "#fff"), flex: 1 }}>🖨 Print sheet</button>
       </div>
-      <div className="fw-print-sheet" style={{ padding: "20px 18px 40px", background: "#fff", margin: "12px", borderRadius: 12, border: "1px solid #e8e8e8" }}>
+      <div className="fw-print-sheet" style={{ padding: "22px 18px 40px", background: "#fffaf3", margin: "14px", borderRadius: 18, border: "1px solid rgba(70,48,32,0.08)", boxShadow: "0 12px 32px rgba(40,24,16,0.05)" }}>
         <div style={{ fontSize: 11, letterSpacing: 2, color: "#888", fontFamily: "'Courier New', monospace", textTransform: "uppercase", marginBottom: 6 }}>The Fibonacci Works™ · Handout</div>
         <h1 style={{ margin: "0 0 4px", fontSize: 22, fontWeight: 400 }}>{w.emoji} {w.title}</h1>
         <div style={{ fontSize: 12, color: "#666", marginBottom: 16, fontFamily: "'Courier New', monospace" }}>Workshop {w.number} · {w.duration} · {w.stream}</div>
@@ -758,7 +820,7 @@ function TeachMenu({ w, open, onClose, step, onJump, onPrint, onExit, aboutOpen,
   const openHref = deck?.pdf || deck?.canvaUrl;
   return (
     <div className="fw-menu-panel fw-no-print" role="menu">
-      <div style={{ padding: "10px 14px", borderBottom: "1px solid #eee", fontSize: 11, letterSpacing: 2, color: "#888", fontFamily: "'Courier New', monospace" }}>TEACH MENU</div>
+      <div style={{ padding: "12px 16px", borderBottom: "1px solid rgba(70,48,32,0.08)", fontSize: 11, letterSpacing: 2, color: "#9a8b78", fontFamily: "'Courier New', monospace" }}>TEACH MENU</div>
 
       <button type="button" className="fw-tap" onClick={() => setAboutOpen(!aboutOpen)} style={{ width: "100%", textAlign: "left", background: "none", border: "none", padding: "14px 16px", borderBottom: "1px solid #f2f2ee", display: "flex", justifyContent: "space-between", cursor: "pointer", fontSize: 14, fontWeight: 600 }}>
         <span>About</span><span>{aboutOpen ? "▴" : "▾"}</span>
@@ -837,9 +899,9 @@ function TeachMode({ w, onExit, onPrint }) {
   const atEnd = step >= total - 1;
 
   return (
-    <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", background: "#f7f5f0", ["--fw-accent"]: w.accent || w.color, ["--fw-tint"]: (w.accent || w.color) + "14" }}>
+    <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", background: "transparent", ["--fw-accent"]: w.accent || w.color, ["--fw-color"]: w.color, ["--fw-tint"]: (w.accent || w.color) + "14" }}>
       {/* Top chrome */}
-      <div className="fw-app-chrome fw-no-print" style={{ position: "sticky", top: 0, zIndex: 30, background: `linear-gradient(160deg, ${w.color} 0%, ${w.dark} 100%)`, padding: "calc(12px + env(safe-area-inset-top, 0px)) 14px 14px", color: "#fff" }}>
+      <div className="fw-app-chrome fw-no-print" style={{ position: "sticky", top: 0, zIndex: 30, background: `linear-gradient(165deg, #221830 0%, ${w.dark} 46%, ${w.color} 100%)`, padding: "calc(14px + env(safe-area-inset-top, 0px)) 16px 16px", color: "#fffaf3" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, marginBottom: 10 }}>
           <div style={{ fontSize: 11, letterSpacing: 2, opacity: 0.85, fontFamily: "'Courier New', monospace" }}>LIVE TEACH · WS {w.number}</div>
           <div style={{ position: "relative" }}>
@@ -874,7 +936,7 @@ function TeachMode({ w, onExit, onPrint }) {
         <div style={{ fontSize: 13, opacity: 0.9, marginBottom: 4 }}>{w.emoji} {w.title}</div>
         <div style={{ display: "flex", gap: 4, marginTop: 10 }}>
           {sections.map((_, i) => (
-            <div key={i} style={{ flex: 1, height: 4, borderRadius: 2, background: i <= step ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.25)" }} />
+            <div key={i} style={{ flex: 1, height: 5, borderRadius: 99, background: i <= step ? "rgba(255,250,243,0.95)" : "rgba(255,250,243,0.22)", boxShadow: i === step ? "0 0 10px rgba(255,244,220,0.65)" : "none" }} />
           ))}
         </div>
       </div>
@@ -884,17 +946,17 @@ function TeachMode({ w, onExit, onPrint }) {
       )}
 
       {/* Step body */}
-      <div style={{ flex: 1, padding: "20px 16px 12px" }}>
-        <div style={{ background: `linear-gradient(180deg, ${w.color}0a 0%, #fff 28%)`, borderRadius: 14, border: `1px solid ${w.color}33`, padding: "20px 16px", minHeight: 280, boxShadow: `0 8px 24px ${w.color}12` }}>
+      <div style={{ flex: 1, padding: "18px 14px 12px" }}>
+        <div key={step} className="fw-rise" style={{ background: `linear-gradient(180deg, ${w.color}16 0%, #fffaf3 36%)`, borderRadius: 22, border: `1px solid ${w.color}24`, padding: "22px 16px 20px", minHeight: 280, boxShadow: "0 16px 40px rgba(36, 22, 48, 0.06)" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 14 }}>
             <span style={{ fontSize: 32 }}>{s.icon}</span>
             <div>
-              <div style={{ fontSize: 11, letterSpacing: 2, color: "#aaa", fontFamily: "'Courier New', monospace" }}>STEP {step + 1} OF {total}</div>
-              <h2 style={{ margin: 0, fontSize: 20, fontWeight: 600, color: w.color }}>{s.label}</h2>
+              <div style={{ fontSize: 11, letterSpacing: 2, color: "#a89884", fontFamily: "'Courier New', monospace" }}>STEP {step + 1} OF {total}</div>
+              <h2 style={{ margin: "2px 0 0", fontSize: 22, fontWeight: 500, color: w.color, letterSpacing: "0.2px" }}>{s.label}</h2>
             </div>
           </div>
           <SectionPlaceholder w={w} section={s} />
-          <div style={{ fontSize: 15, lineHeight: 1.75, color: "#333", whiteSpace: "pre-line" }}>{s.content}</div>
+          <div style={{ fontSize: 16, lineHeight: 1.7, color: "#3a3128", whiteSpace: "pre-line" }}>{s.content}</div>
         </div>
 
         {/* Quick jump chips */}
@@ -906,8 +968,8 @@ function TeachMode({ w, onExit, onPrint }) {
               className="fw-tap"
               onClick={() => setStep(i)}
               style={{
-                flexShrink: 0, minHeight: 40, padding: "8px 12px", borderRadius: 20, border: `1.5px solid ${i === step ? w.color : "#ddd"}`,
-                background: i === step ? w.color : "#fff", color: i === step ? "#fff" : "#444", fontSize: 12, fontWeight: 600, cursor: "pointer",
+                flexShrink: 0, minHeight: 40, padding: "8px 14px", borderRadius: 999, border: `1.5px solid ${i === step ? w.color : "rgba(70,48,32,0.12)"}`,
+                background: i === step ? w.color : "#fffaf3", color: i === step ? "#fffaf3" : "#5c5148", fontSize: 12, fontWeight: 600, cursor: "pointer",
                 fontFamily: "'Courier New', monospace",
               }}
             >
@@ -949,16 +1011,17 @@ function Hub({ onOpen }) {
 
   return (
     <AppShell>
-      <div style={{ background: "linear-gradient(160deg, #2f3a2b 0%, #1c241a 100%)", padding: "calc(28px + env(safe-area-inset-top, 0px)) 16px 28px", position: "relative", overflow: "hidden" }}>
-        <div style={{ position: "absolute", bottom: -60, right: -60, width: 160, height: 160, borderRadius: "50%", border: "1px solid rgba(255,255,255,0.05)" }} />
+      <div style={{ background: "linear-gradient(168deg, #221830 0%, #2a2840 22%, #3c4a34 70%, #6a6248 100%)", padding: "calc(36px + env(safe-area-inset-top, 0px)) 20px 32px", position: "relative", overflow: "hidden" }}>
+        <div aria-hidden="true" style={{ position: "absolute", top: -50, right: -30, width: 240, height: 240, borderRadius: "50%", background: "radial-gradient(circle, rgba(255,236,206,0.5), rgba(196,160,106,0) 68%)" }} />
+        <div aria-hidden="true" style={{ position: "absolute", bottom: -50, left: -30, width: 200, height: 200, borderRadius: "50%", background: "radial-gradient(circle, rgba(122,182,72,0.28), transparent 70%)" }} />
         <div style={{ position: "relative" }}>
           <div style={{ fontSize: "11px", letterSpacing: "3px", color: "rgba(255,255,255,0.55)", marginBottom: "6px", textTransform: "uppercase", fontFamily: "'Courier New', monospace" }}>
             The Fibonacci Works™
           </div>
-          <h1 style={{ fontSize: "clamp(24px, 7vw, 32px)", color: "#fff", margin: "0 0 10px", fontWeight: 400, letterSpacing: "0.5px", lineHeight: 1.15 }}>
+          <h1 style={{ fontSize: "clamp(28px, 8vw, 36px)", color: "#fffaf3", margin: "0 0 10px", fontWeight: 400, letterSpacing: "0.2px", lineHeight: 1.12 }}>
             Community Workshop Series
           </h1>
-          <p style={{ fontSize: "13px", lineHeight: 1.6, color: "rgba(255,255,255,0.72)", margin: "0 0 14px" }}>
+          <p style={{ fontSize: "15px", lineHeight: 1.55, color: "rgba(255,250,243,0.78)", margin: "0 0 16px" }}>
             14 live teach workshops · 4 streams · phone-ready for the room.
           </p>
           <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginBottom: "16px" }}>
@@ -977,11 +1040,12 @@ function Hub({ onOpen }) {
             onClick={() => onOpen(continueTarget)}
             onKeyDown={keyActivate(() => onOpen(continueTarget))}
             style={{
-              ...ctaBtn("#7ab648", "#fff"),
+              ...ctaBtn("linear-gradient(180deg, #8fbf62, #5f9140)", "#fffaf3"),
               width: "100%",
-              padding: "14px 16px",
+              padding: "16px 16px",
               fontSize: "14px",
-              boxShadow: "0 8px 24px rgba(0,0,0,0.25)",
+              borderRadius: 18,
+              boxShadow: "0 14px 32px rgba(20,16,8,0.28)",
               flexDirection: "column",
               alignItems: "flex-start",
               gap: "4px",
@@ -1004,11 +1068,11 @@ function Hub({ onOpen }) {
           const items = WORKSHOPS.filter((w) => w.stream === stream.name);
           return (
             <div key={stream.name} style={{ marginTop: "22px" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "10px", padding: "0 4px" }}>
-                <div style={{ width: "4px", alignSelf: "stretch", minHeight: "28px", borderRadius: "2px", background: stream.color }} />
+              <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "12px", padding: "0 4px" }}>
+                <div style={{ width: "5px", alignSelf: "stretch", minHeight: "32px", borderRadius: "99px", background: `linear-gradient(180deg, ${stream.accent}, ${stream.color})`, boxShadow: `0 0 12px ${stream.color}55` }} />
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: "10px", letterSpacing: "2px", color: "#aaa", fontFamily: "'Courier New', monospace", textTransform: "uppercase", marginBottom: "1px" }}>{stream.range}</div>
-                  <h2 style={{ margin: 0, fontSize: "16px", fontWeight: 500, letterSpacing: "0.2px", color: "#1a1a1a" }}>{stream.name}</h2>
+                  <h2 style={{ margin: 0, fontSize: "17px", fontWeight: 500, letterSpacing: "0.15px", color: "#241c16" }}>{stream.name}</h2>
                 </div>
               </div>
 
@@ -1027,25 +1091,22 @@ function Hub({ onOpen }) {
                       onClick={() => onOpen(w.number)}
                       onKeyDown={keyActivate(() => onOpen(w.number))}
                       style={{
-                        background: done
-                          ? `linear-gradient(110deg, ${bar}14 0%, #ffffff 42%)`
-                          : "#fff",
-                        border: `1px solid ${done ? bar + "33" : "#e8e8e8"}`,
-                        borderLeft: `4px solid ${done ? bar : "#dcdcd6"}`,
-                        borderRadius: "10px",
+                        background: `linear-gradient(115deg, ${bar}18 0%, #fffaf3 46%)`,
+                        border: `1px solid ${bar}22`,
+                        borderRadius: "18px",
                         padding: "12px 12px",
                         cursor: "pointer",
                         display: "flex",
                         alignItems: "center",
                         gap: "12px",
-                        minHeight: 56,
-                        boxShadow: done ? `inset 0 0 0 1px ${bar}10` : "none",
+                        minHeight: 64,
+                        boxShadow: "0 8px 22px rgba(48, 32, 24, 0.04)",
                       }}
                     >
-                      <span style={{ fontSize: "11px", letterSpacing: "1px", color: done ? bar : "#bbb", fontFamily: "'Courier New', monospace", fontWeight: 700, width: 22 }}>{w.number}</span>
-                      <span style={{ fontSize: "22px", lineHeight: 1 }}>{w.emoji}</span>
+                      <span style={{ fontSize: "11px", letterSpacing: "1px", color: bar, fontFamily: "'Courier New', monospace", fontWeight: 700, width: 22 }}>{w.number}</span>
+                      <span style={{ width: 42, height: 42, borderRadius: 14, display: "grid", placeItems: "center", background: `${bar}1c`, fontSize: "22px", lineHeight: 1, flexShrink: 0 }}>{w.emoji}</span>
                       <div style={{ flex: 1, minWidth: 0 }}>
-                        <div style={{ fontSize: "14px", fontWeight: 600, lineHeight: 1.25, color: "#1a1a1a" }}>
+                        <div style={{ fontSize: "15px", fontWeight: 600, lineHeight: 1.25, color: "#241c16" }}>
                           {w.title || `Workshop ${w.number}`}
                         </div>
                         <div style={{ fontSize: "11px", color: "#999", marginTop: 2, fontFamily: "'Courier New', monospace" }}>
@@ -1114,15 +1175,16 @@ function FullGuide({ w, onOpen, next, onHome, onTeach, onPrint }) {
 
   return (
     <>
-      <div style={{ background: `linear-gradient(160deg, ${w.color} 0%, ${w.dark} 100%)`, padding: "28px 16px 24px", position: "relative", overflow: "hidden" }}>
-        <div style={{ position: "absolute", top: -40, right: -40, width: 160, height: 160, borderRadius: "50%", background: "rgba(255,255,255,0.05)" }} />
+      <div className="fw-rise" style={{ background: `linear-gradient(${140 + Number(w.number) * 4}deg, #221830 0%, ${w.dark} 48%, ${w.color} 100%)`, padding: "calc(26px + env(safe-area-inset-top, 0px)) 18px 26px", position: "relative", overflow: "hidden" }}>
+        <div aria-hidden="true" style={{ position: "absolute", top: -60, right: -40, width: 220, height: 220, borderRadius: "50%", background: `radial-gradient(circle, ${w.accent}88, transparent 68%)`, opacity: 0.55 }} />
+        <div aria-hidden="true" style={{ position: "absolute", bottom: -40, left: -20, width: 160, height: 160, borderRadius: "50%", background: "radial-gradient(circle, rgba(200,182,255,0.28), transparent 70%)" }} />
         <div style={{ position: "relative" }}>
           <div style={{ fontSize: "11px", letterSpacing: "3px", color: "rgba(255,255,255,0.6)", marginBottom: "6px", textTransform: "uppercase", fontFamily: "'Courier New', monospace" }}>The Fibonacci Works™ · Workshop {w.number}</div>
           <div style={{ fontSize: "11px", letterSpacing: "2px", color: w.accent, marginBottom: "10px", fontFamily: "'Courier New', monospace" }}>{w.stream}</div>
           <div style={{ fontSize: "40px", marginBottom: "8px" }}>{w.emoji}</div>
-          <h1 style={{ fontSize: "clamp(22px, 6vw, 30px)", color: "#fff", margin: "0 0 10px", fontWeight: 400, letterSpacing: "0.5px", lineHeight: 1.2 }}>{w.title}</h1>
+          <h1 style={{ fontSize: "clamp(26px, 7vw, 34px)", color: "#fffaf3", margin: "0 0 12px", fontWeight: 400, letterSpacing: "0.2px", lineHeight: 1.15 }}>{w.title}</h1>
           <div style={{ display: "inline-block", background: "rgba(255,255,255,0.15)", border: "1px solid rgba(255,255,255,0.2)", borderRadius: "20px", padding: "6px 14px", fontSize: "12px", color: "#fff", letterSpacing: "1px", fontFamily: "'Courier New', monospace" }}>⏱ {w.duration}</div>
-          <img src={`placeholders/ws${w.number}-welcome.svg`} alt={`WS${w.number} · ${w.title}`} style={{ width: "100%", marginTop: 16, borderRadius: 12, display: "block", border: "1px solid rgba(255,255,255,0.2)" }} />
+          <img className="fw-hero-still" src={`placeholders/ws${w.number}-welcome.svg`} alt={`WS${w.number} · ${w.title}`} />
         </div>
       </div>
 
@@ -1140,7 +1202,7 @@ function FullGuide({ w, onOpen, next, onHome, onTeach, onPrint }) {
       </div>
 
       <div style={{ padding: "20px 16px 0" }}>
-        <p style={{ fontSize: "14px", lineHeight: 1.7, color: "#444", margin: 0, borderLeft: `3px solid ${w.color}`, paddingLeft: "14px" }}>{w.about}</p>
+        <p style={{ fontSize: "15.5px", lineHeight: 1.65, color: "#3d342c", margin: 0, borderLeft: `3px solid ${w.color}`, paddingLeft: "14px" }}>{w.about}</p>
       </div>
 
       <div style={{ padding: "20px 16px" }}>
@@ -1158,7 +1220,7 @@ function FullGuide({ w, onOpen, next, onHome, onTeach, onPrint }) {
               tabIndex={0}
               onClick={() => toggle(kp.label)}
               onKeyDown={keyActivate(() => toggle(kp.label))}
-              style={{ background: checked[kp.label] ? `${w.color}14` : "#fff", border: `1px solid ${checked[kp.label] ? w.color : "#e8e8e8"}`, borderRadius: "10px", padding: "12px 14px", cursor: "pointer", display: "flex", alignItems: "flex-start", gap: "12px", minHeight: 52 }}
+              style={{ background: checked[kp.label] ? `${w.color}14` : "#fffaf3", border: `1px solid ${checked[kp.label] ? w.color : "rgba(70,48,32,0.08)"}`, borderRadius: "16px", padding: "13px 14px", cursor: "pointer", display: "flex", alignItems: "flex-start", gap: "12px", minHeight: 52, boxShadow: "0 6px 16px rgba(48,32,24,0.03)" }}
             >
               <div style={{ width: "22px", height: "22px", borderRadius: "50%", border: `2px solid ${checked[kp.label] ? w.color : "#ccc"}`, background: checked[kp.label] ? w.color : "transparent", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: "1px" }}>
                 {checked[kp.label] && <span style={{ color: "#fff", fontSize: "11px" }}>✓</span>}
@@ -1184,14 +1246,14 @@ function FullGuide({ w, onOpen, next, onHome, onTeach, onPrint }) {
                 tabIndex={0}
                 onClick={() => setActiveSection(activeSection === s.id ? null : s.id)}
                 onKeyDown={keyActivate(() => setActiveSection(activeSection === s.id ? null : s.id))}
-                style={{ background: activeSection === s.id ? w.color : "#fff", border: `1px solid ${activeSection === s.id ? w.color : "#e8e8e8"}`, borderRadius: activeSection === s.id ? "10px 10px 0 0" : "10px", padding: "14px 14px", cursor: "pointer", display: "flex", alignItems: "center", gap: "12px", minHeight: 48 }}
+                style={{ background: activeSection === s.id ? w.color : "#fffaf3", border: `1px solid ${activeSection === s.id ? w.color : "rgba(70,48,32,0.08)"}`, borderRadius: activeSection === s.id ? "16px 16px 0 0" : "16px", padding: "14px 14px", cursor: "pointer", display: "flex", alignItems: "center", gap: "12px", minHeight: 52, boxShadow: activeSection === s.id ? "none" : "0 6px 16px rgba(48,32,24,0.03)" }}
               >
                 <span style={{ fontSize: "20px" }}>{s.icon}</span>
                 <span style={{ flex: 1, fontSize: "14px", fontWeight: 600, color: activeSection === s.id ? "#fff" : "#1a1a1a" }}>{s.label}</span>
                 <span style={{ fontSize: "18px", color: activeSection === s.id ? "#fff" : "#ccc", transform: activeSection === s.id ? "rotate(180deg)" : "none" }}>▾</span>
               </div>
               {activeSection === s.id && (
-                <div style={{ background: `${w.color}0d`, border: `1px solid ${w.color}`, borderTop: "none", borderRadius: "0 0 10px 10px", padding: "14px", fontSize: "13px", lineHeight: 1.8, color: "#444", whiteSpace: "pre-line" }}>
+                <div className="fw-rise" style={{ background: `linear-gradient(180deg, ${w.color}18, #fffaf3 42%)`, border: `1px solid ${w.color}`, borderTop: "none", borderRadius: "0 0 16px 16px", padding: "16px", fontSize: "15.5px", lineHeight: 1.7, color: "#3a3128", whiteSpace: "pre-line" }}>
                   <SectionPlaceholder w={w} section={s} />
                   {s.content}
                   {s.id === "next" && renderContinue("14px")}
@@ -1214,7 +1276,7 @@ function StubGuide({ w, onOpen, next, onHome }) {
   const meta = streamMeta(w.stream);
   return (
     <>
-      <div style={{ background: `linear-gradient(160deg, ${w.color || meta.color} 0%, ${w.dark || meta.dark} 100%)`, padding: "28px 16px 24px", position: "relative", overflow: "hidden" }}>
+      <div style={{ background: `linear-gradient(165deg, #221830 0%, ${w.dark || meta.dark} 50%, ${w.color || meta.color} 100%)`, padding: "28px 18px 26px", position: "relative", overflow: "hidden" }}>
         <div style={{ position: "relative" }}>
           <div style={{ fontSize: "11px", letterSpacing: "3px", color: "rgba(255,255,255,0.6)", marginBottom: "6px", textTransform: "uppercase", fontFamily: "'Courier New', monospace" }}>The Fibonacci Works™ · Workshop {w.number}</div>
           <div style={{ fontSize: "11px", letterSpacing: "2px", color: w.accent || meta.accent, marginBottom: "10px", fontFamily: "'Courier New', monospace" }}>{w.stream}</div>
@@ -1262,7 +1324,7 @@ function Detail({ number, onHome, onOpen }) {
 
   if (view === "teach" && isComplete(w)) {
     return (
-      <AppShell>
+      <AppShell tone={{ ["--fw-color"]: w.color, ["--fw-accent"]: w.accent || w.color }}>
         <TeachMode w={w} onExit={() => setView("guide")} onPrint={() => setView("print")} />
       </AppShell>
     );
@@ -1270,7 +1332,7 @@ function Detail({ number, onHome, onOpen }) {
 
   if (view === "print" && isComplete(w)) {
     return (
-      <AppShell>
+      <AppShell tone={{ ["--fw-color"]: w.color, ["--fw-accent"]: w.accent || w.color }}>
         <PrintSheetView
           w={w}
           onClose={() => setView("guide")}
@@ -1281,8 +1343,8 @@ function Detail({ number, onHome, onOpen }) {
   }
 
   return (
-    <AppShell>
-      <div className="fw-app-chrome" style={{ position: "sticky", top: 0, zIndex: 10, background: "rgba(247,245,240,0.94)", backdropFilter: "blur(8px)", borderBottom: "1px solid #ececec", borderTop: `3px solid ${accent}`, paddingTop: "env(safe-area-inset-top, 0px)" }}>
+    <AppShell tone={{ ["--fw-color"]: accent, ["--fw-accent"]: w.accent || accent }}>
+      <div className="fw-app-chrome" style={{ position: "sticky", top: 0, zIndex: 10, background: "rgba(251,247,240,0.9)", backdropFilter: "blur(16px)", borderBottom: "1px solid rgba(70,48,32,0.08)", borderTop: `3px solid ${accent}`, paddingTop: "env(safe-area-inset-top, 0px)" }}>
         <div style={{ padding: "10px 12px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px" }}>
           <span
             className="fw-link fw-tap"
@@ -1340,18 +1402,18 @@ function Detail({ number, onHome, onOpen }) {
 
       <div style={{ padding: "8px 12px 12px", display: "flex", gap: "8px" }}>
         {prev ? (
-          <div className="fw-card fw-link fw-tap" role="button" tabIndex={0} onClick={() => onOpen(prev.number)} onKeyDown={keyActivate(() => onOpen(prev.number))} style={{ flex: 1, background: "#fff", border: "1px solid #e8e8e8", borderRadius: "10px", padding: "12px", cursor: "pointer" }}>
+          <div className="fw-card fw-link fw-tap" role="button" tabIndex={0} onClick={() => onOpen(prev.number)} onKeyDown={keyActivate(() => onOpen(prev.number))} style={{ flex: 1, background: "#fffaf3", border: "1px solid rgba(70,48,32,0.08)", borderRadius: "16px", padding: "14px", cursor: "pointer", boxShadow: "0 8px 18px rgba(48,32,24,0.04)" }}>
             <div style={{ fontSize: "10px", letterSpacing: "1px", color: "#aaa", fontFamily: "'Courier New', monospace", marginBottom: "4px" }}>← PREV · {prev.number}</div>
             <div style={{ fontSize: "12px", fontWeight: 600, color: "#1a1a1a", lineHeight: 1.3 }}>{prev.title || `Workshop ${prev.number}`}</div>
           </div>
         ) : <div style={{ flex: 1 }} />}
         {next ? (
-          <div className="fw-card fw-link fw-tap" role="button" tabIndex={0} onClick={() => onOpen(next.number)} onKeyDown={keyActivate(() => onOpen(next.number))} style={{ flex: 1, background: "#fff", border: `1.5px solid ${accent}`, borderRadius: "10px", padding: "12px", cursor: "pointer", textAlign: "right" }}>
+          <div className="fw-card fw-link fw-tap" role="button" tabIndex={0} onClick={() => onOpen(next.number)} onKeyDown={keyActivate(() => onOpen(next.number))} style={{ flex: 1, background: "#fffaf3", border: `1.5px solid ${accent}`, borderRadius: "16px", padding: "14px", cursor: "pointer", textAlign: "right", boxShadow: "0 8px 18px rgba(48,32,24,0.04)" }}>
             <div style={{ fontSize: "10px", letterSpacing: "1px", color: accent, fontFamily: "'Courier New', monospace", marginBottom: "4px" }}>{next.number} · NEXT →</div>
             <div style={{ fontSize: "12px", fontWeight: 600, color: "#1a1a1a", lineHeight: 1.3 }}>{next.title || `Workshop ${next.number}`}</div>
           </div>
         ) : (
-          <div className="fw-card fw-link fw-tap" role="button" tabIndex={0} onClick={onHome} onKeyDown={keyActivate(onHome)} style={{ flex: 1, background: "#fafaf8", border: "1px solid #e8e8e8", borderRadius: "10px", padding: "12px", cursor: "pointer", textAlign: "right" }}>
+          <div className="fw-card fw-link fw-tap" role="button" tabIndex={0} onClick={onHome} onKeyDown={keyActivate(onHome)} style={{ flex: 1, background: "#fffaf3", border: "1px solid rgba(70,48,32,0.08)", borderRadius: "16px", padding: "14px", cursor: "pointer", textAlign: "right" }}>
             <div style={{ fontSize: "10px", letterSpacing: "1px", color: "#aaa", fontFamily: "'Courier New', monospace", marginBottom: "4px" }}>SERIES COMPLETE</div>
             <div style={{ fontSize: "12px", fontWeight: 600, color: "#1a1a1a", lineHeight: 1.3 }}>← All workshops</div>
           </div>

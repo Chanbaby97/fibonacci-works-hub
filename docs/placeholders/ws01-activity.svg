@@ -1,18 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-label="WS01 · Soil Hands-On">
-  <rect width="960" height="540" fill="#2d4a25"/>
-  <rect x="0" y="0" width="18" height="540" fill="#7ab648"/>
-  <circle cx="820" cy="90" r="82" fill="#4a7c3f" opacity="0.55"/>
-  <circle cx="860" cy="150" r="40" fill="#7ab648" opacity="0.35"/>
-  <text x="56" y="78" fill="#c9dbb4" font-family="Courier New, monospace" font-size="22" letter-spacing="4">THE FIBONACCI WORKS</text>
-  <text x="56" y="168" fill="#f4f7ef" font-family="Georgia, serif" font-size="54">WS01 · Soil</text>
-  <text x="56" y="220" fill="#7ab648" font-family="Courier New, monospace" font-size="28" letter-spacing="3">HANDS-ON</text>
-  <line x1="56" y1="248" x2="420" y2="248" stroke="#7ab648" stroke-width="3"/>
-  <g transform="translate(460,40)">
-  <ellipse cx="216" cy="250" rx="70" ry="28" fill="#4a7c3f"/>
-  <ellipse cx="216" cy="238" rx="48" ry="18" fill="#7ab648" opacity="0.9"/>
-  <circle cx="268" cy="160" r="16" fill="#7ab648"/>
-  <rect x="300" y="226" width="16" height="70" rx="4" fill="#c9dbb4"/>
-  </g>
-  <text x="56" y="490" fill="#c9dbb4" font-family="Courier New, monospace" font-size="18">PLACEHOLDER · NOT A PHOTO · STREAM COLOUR</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-label="WS01 Gardening — Hands on">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0.2" y2="1">
+      <stop offset="0" stop-color="#241833"/>
+      <stop offset="0.38" stop-color="#2d4a25"/>
+      <stop offset="0.72" stop-color="#4a7c3f"/>
+      <stop offset="1" stop-color="#f3e6cf"/>
+    </linearGradient>
+    <radialGradient id="lantern" cx="72%" cy="38%" r="48%">
+      <stop offset="0" stop-color="#fff6e2" stop-opacity="0.85"/>
+      <stop offset="0.4" stop-color="#7ab648" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#7ab648" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="960" height="540" fill="url(#sky)"/>
+  <rect width="960" height="540" fill="url(#lantern)"/>
+  
+    <circle cx="846" cy="58" r="36" fill="#c8b6ff" opacity="0.2"/>
+    <circle cx="846" cy="58" r="14" fill="#f7f1ff" opacity="0.9"/>
+    <circle cx="849.08" cy="56.32" r="9.799999999999999" fill="#fffaf3"/>
+  <path d="M0 408 C 180 356, 340 428, 520 386 S 820 428, 960 376 V 540 H 0 Z" fill="#2d4a25" opacity="0.55"/>
+  <path d="M0 460 C 220 450, 400 500, 640 470 S 900 500, 960 470 V 540 H 0 Z" fill="#2d4a25" opacity="0.85"/>
+  <path d="M78 470 c 18-8 28-28 18-44 -12-18 -40-16 -52 2 -16 24 8 52 40 52 40 0 68-36 60-74 -10-46-62-66-104-46" fill="none" stroke="#efe8ff" stroke-width="1.4" opacity="0.35"/>
+  
+      <g stroke="#7ab648" stroke-width="3" stroke-linecap="round" opacity="0.75" fill="none">
+        <path d="M470 150 l18 -22"/><path d="M520 128 l10 -20"/><path d="M590 118 l22 -12"/>
+      </g>
+      <circle cx="700" cy="210" r="120" fill="#fff6e0" opacity="0.16"/>
+  <g transform="translate(500 155) scale(1.12)">
+    <ellipse cx="120" cy="156" rx="78" ry="20" fill="#2f4a28"/>
+    <ellipse cx="120" cy="148" rx="52" ry="14" fill="#7ab648"/>
+    <path d="M120 148 V58" stroke="#234018" stroke-width="5" stroke-linecap="round"/>
+    <path d="M120 108 C 86 88 70 64 78 50 C 104 70 116 90 120 108 Z" fill="#7ab648"/>
+    <path d="M120 92 C 156 72 176 50 168 38 C 142 58 128 76 120 92 Z" fill="#e7f0dc"/>
+    <circle cx="168" cy="34" r="7" fill="#fff4cc"/>
+    <circle cx="70" cy="150" r="5" fill="#fff6e4" opacity="0.8"/>
+    <circle cx="168" cy="152" r="4" fill="#fff6e4" opacity="0.7"/></g>
+  <text x="56" y="78" fill="#f6f1e6" font-family="Georgia, Palatino, serif" font-size="15" letter-spacing="3.5" opacity="0.82">THE FIBONACCI WORKS</text>
+  <text x="56" y="136" fill="#fffaf3" font-family="Georgia, Palatino, serif" font-size="48">Hands on</text>
+  <text x="58" y="176" fill="#7ab648" font-family="Georgia, Palatino, serif" font-size="20">WS01 · Gardening</text>
+  <text x="58" y="210" fill="#f6f1e6" font-family="Georgia, Palatino, serif" font-size="16" opacity="0.78">Hands in the making</text>
 </svg>
