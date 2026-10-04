@@ -1429,3 +1429,123 @@ export const SLIDE_ENRICH = {
     }
   ]
 };
+
+/** Card label → deck slide title when the names differ but the bullets are that point. */
+const POINT_SLIDE_ALIAS = {
+  "02|bed assembly": "hands on today",
+  "03|food networks": "community networks",
+  "04|year round growing": "year round crops",
+  "05|garden to jar": "why preserve",
+  "07|winterization": "cape breton winter",
+  "12|clean recycling": "rinsing recyclables",
+  "12|bag and store": "bagging and storing",
+  "12|to the centre": "getting it there",
+};
+
+export const normPoint = (s) =>
+  String(s || "")
+    .toLowerCase()
+    .replace(/&/g, " and ")
+    .replace(/['’]/g, "")
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+
+function markedLines(text, marker, stops) {
+  if (!text) return [];
+  const at = text.indexOf(marker);
+  if (at < 0) return [];
+  const after = text.slice(at);
+  const nl = after.indexOf("\n");
+  let body = nl >= 0 ? after.slice(nl + 1) : "";
+  let end = body.length;
+  for (const stop of stops) {
+    const j = body.indexOf(stop);
+    if (j >= 0 && j < end) end = j;
+  }
+  return body
+    .slice(0, end)
+    .split("\n")
+    .map((line) => line.replace(/^[\s•✓✔\-–—]+/, "").replace(/^\d+\.\s*/, "").trim())
+    .filter((line) => line && !/^[🧰💵🏠]/.test(line));
+}
+
+function findTalkingSlide(number, label) {
+  const slides = SLIDE_ENRICH[number] || [];
+  const n = normPoint(label);
+  const alias = POINT_SLIDE_ALIAS[`${number}|${n}`];
+  if (alias) {
+    const hit = slides.find((s) => normPoint(s.title) === alias);
+    if (hit) return { slide: hit, match: "alias" };
+  }
+  const exact = slides.find((s) => normPoint(s.title) === n);
+  if (exact) return { slide: exact, match: "title" };
+  const prefix = slides.filter((s) => {
+    const t = normPoint(s.title);
+    return t.startsWith(`${n} `) || n.startsWith(`${t} `);
+  });
+  if (prefix.length) {
+    prefix.sort((a, b) => normPoint(a.title).length - normPoint(b.title).length);
+    return { slide: prefix[0], match: "prefix" };
+  }
+  const words = n.split(" ").filter((w) => w.length > 2);
+  if (words.length >= 2) {
+    const contained = slides.filter((s) => {
+      const tw = normPoint(s.title).split(" ");
+      return words.every((w) => tw.includes(w));
+    });
+    if (contained.length === 1) return { slide: contained[0], match: "words" };
+  }
+  if (words.length === 1) {
+    const hits = slides.filter((s) => normPoint(s.title).split(" ").includes(words[0]));
+    if (hits.length === 1) return { slide: hits[0], match: "word" };
+  }
+  return null;
+}
+
+/**
+ * Answer body for a key learning point. Uses existing deck bullets, or the
+ * hands-on cost / at-home redo block already written for that workshop.
+ * Does not write new curriculum. `match: "teaser"` means only kp.detail exists.
+ */
+export function learningPointAnswer(number, label, sections) {
+  const n = normPoint(label);
+  const list = sections || [];
+  const activity = list.find((s) => s.id === "activity")?.content || "";
+  const take = list.find((s) => s.id === "takehome")?.content || "";
+
+  if (n === "materials and cost") {
+    const lines = markedLines(activity, "💵", ["🏠"]);
+    return {
+      lines,
+      source: lines.length ? "Hands-on cost notes in this workshop" : "",
+      slideTitle: "",
+      match: lines.length ? "section-cost" : "teaser",
+    };
+  }
+  if (n === "at home redo") {
+    let lines = markedLines(activity, "🏠", []);
+    let source = "At-home redo steps in the hands-on section";
+    if (!lines.length) {
+      lines = markedLines(take, "🏠", []);
+      source = "At-home redo steps in Take-Home";
+    }
+    return {
+      lines,
+      source: lines.length ? source : "",
+      slideTitle: "",
+      match: lines.length ? "section-redo" : "teaser",
+    };
+  }
+
+  const found = findTalkingSlide(number, label);
+  if (found?.slide?.bullets?.length) {
+    const sameName = found.match === "title" || found.match === "prefix";
+    return {
+      lines: found.slide.bullets,
+      source: sameName ? "Deck talking points" : `Deck talking points · ${found.slide.title}`,
+      slideTitle: found.slide.title,
+      match: found.match,
+    };
+  }
+  return { lines: [], source: "", slideTitle: "", match: "teaser" };
+}

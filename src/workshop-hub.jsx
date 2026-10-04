@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { SLIDE_ENRICH } from "./slide-enrich.js";
+import { SLIDE_ENRICH, learningPointAnswer } from "./slide-enrich.js";
 
 /* ─────────────────────────────────────────────────────────────
    THE FIBONACCI WORKS™ — WORKSHOP HUB
@@ -669,6 +669,38 @@ const STYLE = `
     box-shadow: 0 22px 50px rgba(24, 14, 36, 0.16);
     z-index: 50; max-height: 70vh; overflow: auto;
   }
+
+  .fw-sheet-scrim {
+    position: fixed;
+    inset: 0;
+    z-index: 80;
+    background: rgba(18, 12, 28, 0.58);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 10px 10px calc(10px + var(--fw-safe-b));
+  }
+  .fw-sheet {
+    width: min(440px, 100%);
+    max-height: min(84dvh, 680px);
+    overflow: auto;
+    background:
+      radial-gradient(120% 80% at 100% 0%, rgba(196, 160, 106, 0.18), transparent 46%),
+      linear-gradient(180deg, #fffaf3 0%, #f4ecdf 100%);
+    color: #241c16;
+    border-radius: 26px;
+    border: 1px solid rgba(255, 248, 236, 0.7);
+    box-shadow: 0 28px 70px rgba(12, 8, 22, 0.42);
+    padding: 8px 16px 16px;
+  }
+  .fw-sheet-handle {
+    width: 42px;
+    height: 4px;
+    border-radius: 99px;
+    background: rgba(70, 48, 32, 0.18);
+    margin: 6px auto 12px;
+  }
+
   .fw-print-only { display: none; }
   @media (prefers-reduced-motion: reduce) {
     * { transition: none !important; }
@@ -1128,10 +1160,81 @@ function Hub({ onOpen }) {
   );
 }
 
+
+function KeyPointSheet({ w, kp, covered, onClose, onToggleCovered }) {
+  const answer = learningPointAnswer(w.number, kp.label, w.sections);
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [onClose]);
+
+  return (
+    <div className="fw-sheet-scrim fw-no-print" onClick={onClose} role="presentation">
+      <div
+        className="fw-sheet fw-rise"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="fw-kp-title"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="fw-sheet-handle" aria-hidden="true" />
+        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 12 }}>
+          <div style={{ fontSize: 11, letterSpacing: 2, color: w.color, fontFamily: "'Courier New', monospace", textTransform: "uppercase" }}>
+            Key learning · answer
+          </div>
+          <button
+            type="button"
+            className="fw-tap"
+            aria-label="Close"
+            onClick={onClose}
+            style={{ ...ctaBtn("#fff", "#5c5148", "1px solid rgba(70,48,32,0.12)"), width: 44, height: 44, padding: 0, borderRadius: 14, fontSize: 18 }}
+          >
+            ×
+          </button>
+        </div>
+        <h2 id="fw-kp-title" style={{ margin: "8px 0 6px", fontSize: 26, fontWeight: 500, letterSpacing: "0.2px", lineHeight: 1.2 }}>{kp.label}</h2>
+        <p style={{ margin: "0 0 14px", fontSize: 14, lineHeight: 1.5, color: "#7a6b5c" }}>{kp.detail}</p>
+        {answer.lines.length ? (
+          <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
+            {answer.lines.map((line) => (
+              <li key={line} style={{ display: "flex", gap: 10, alignItems: "flex-start", background: "rgba(255,255,255,0.72)", border: "1px solid rgba(70,48,32,0.08)", borderRadius: 14, padding: "10px 12px", fontSize: 15.5, lineHeight: 1.45 }}>
+                <span aria-hidden="true" style={{ color: w.color, fontWeight: 700, marginTop: 1 }}>·</span>
+                <span>{line}</span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p style={{ margin: 0, fontSize: 14, lineHeight: 1.55, color: "#6d5e50" }}>
+            A longer answer is not in the deck talking points or the hands-on notes for this point.
+          </p>
+        )}
+        {answer.source && (
+          <div style={{ marginTop: 12, fontSize: 11, letterSpacing: 0.4, color: "#9a8b78", fontFamily: "'Courier New', monospace" }}>{answer.source}</div>
+        )}
+        <div style={{ display: "flex", gap: 8, marginTop: 16 }}>
+          <button type="button" className="fw-tap fw-cta" onClick={onToggleCovered} style={{ ...ctaBtn("#fff", w.color, `1.5px solid ${w.color}`), flex: 1 }}>
+            {covered ? "Covered ✓" : "Mark covered"}
+          </button>
+          <button type="button" className="fw-tap fw-cta" onClick={onClose} style={{ ...ctaBtn(w.color, "#fffaf3"), flex: 1 }}>
+            Done
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ── DETAIL: full guide ───────────────────────────────────── */
 function FullGuide({ w, onOpen, next, onHome, onTeach, onPrint }) {
   const [activeSection, setActiveSection] = useState(null);
   const [checked, setChecked] = useState({});
+  const [openPoint, setOpenPoint] = useState(null);
   const toggle = (id) => setChecked((p) => ({ ...p, [id]: !p[id] }));
   const allChecked = w.keypoints.every((k) => checked[k.label]);
 
@@ -1206,32 +1309,51 @@ function FullGuide({ w, onOpen, next, onHome, onTeach, onPrint }) {
       </div>
 
       <div style={{ padding: "20px 16px" }}>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "12px" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "4px" }}>
           <h2 style={{ fontSize: "12px", letterSpacing: "2px", color: "#888", margin: 0, fontFamily: "'Courier New', monospace", textTransform: "uppercase" }}>Key Learning Points</h2>
           {allChecked && <span style={{ fontSize: "11px", color: w.color, letterSpacing: "1px", fontFamily: "'Courier New', monospace" }}>ALL COVERED ✓</span>}
         </div>
+        <p style={{ margin: "0 0 12px", fontSize: "12px", color: "#9a8b78", fontFamily: "'Courier New', monospace", letterSpacing: "0.3px" }}>Tap a point for the answer</p>
         <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
           {w.keypoints.map((kp) => (
             <div
               key={kp.label}
-              className="fw-tap"
-              role="checkbox"
-              aria-checked={!!checked[kp.label]}
-              tabIndex={0}
-              onClick={() => toggle(kp.label)}
-              onKeyDown={keyActivate(() => toggle(kp.label))}
-              style={{ background: checked[kp.label] ? `${w.color}14` : "#fffaf3", border: `1px solid ${checked[kp.label] ? w.color : "rgba(70,48,32,0.08)"}`, borderRadius: "16px", padding: "13px 14px", cursor: "pointer", display: "flex", alignItems: "flex-start", gap: "12px", minHeight: 52, boxShadow: "0 6px 16px rgba(48,32,24,0.03)" }}
+              style={{ background: checked[kp.label] ? `${w.color}14` : "#fffaf3", border: `1px solid ${checked[kp.label] ? w.color : "rgba(70,48,32,0.08)"}`, borderRadius: "16px", padding: "10px 12px 10px 10px", display: "flex", alignItems: "flex-start", gap: "10px", minHeight: 52, boxShadow: "0 6px 16px rgba(48,32,24,0.03)" }}
             >
-              <div style={{ width: "22px", height: "22px", borderRadius: "50%", border: `2px solid ${checked[kp.label] ? w.color : "#ccc"}`, background: checked[kp.label] ? w.color : "transparent", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: "1px" }}>
-                {checked[kp.label] && <span style={{ color: "#fff", fontSize: "11px" }}>✓</span>}
-              </div>
-              <div>
-                <div style={{ fontSize: "14px", fontWeight: 600, color: checked[kp.label] ? w.color : "#1a1a1a", marginBottom: "2px" }}>{kp.label}</div>
-                <div style={{ fontSize: "12px", color: "#888", lineHeight: 1.4 }}>{kp.detail}</div>
-              </div>
+              <button
+                type="button"
+                className="fw-tap"
+                aria-label={checked[kp.label] ? `Unmark ${kp.label}` : `Mark ${kp.label} covered`}
+                aria-pressed={!!checked[kp.label]}
+                onClick={() => toggle(kp.label)}
+                style={{ width: 44, height: 44, borderRadius: "50%", border: `2px solid ${checked[kp.label] ? w.color : "#ccc"}`, background: checked[kp.label] ? w.color : "transparent", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, padding: 0, cursor: "pointer" }}
+              >
+                {checked[kp.label] && <span style={{ color: "#fff", fontSize: "13px" }}>✓</span>}
+              </button>
+              <button
+                type="button"
+                className="fw-tap"
+                onClick={() => setOpenPoint(kp.label)}
+                style={{ flex: 1, minWidth: 0, textAlign: "left", background: "none", border: "none", padding: "4px 0", cursor: "pointer", display: "flex", alignItems: "center", gap: 8, color: "inherit" }}
+              >
+                <span style={{ flex: 1, minWidth: 0 }}>
+                  <span style={{ display: "block", fontSize: "14px", fontWeight: 600, color: checked[kp.label] ? w.color : "#1a1a1a", marginBottom: "2px" }}>{kp.label}</span>
+                  <span style={{ display: "block", fontSize: "12px", color: "#888", lineHeight: 1.4 }}>{kp.detail}</span>
+                </span>
+                <span style={{ flexShrink: 0, fontSize: "11px", letterSpacing: "0.4px", color: w.color, fontFamily: "'Courier New', monospace", fontWeight: 700 }}>Answer ›</span>
+              </button>
             </div>
           ))}
         </div>
+        {openPoint && (
+          <KeyPointSheet
+            w={w}
+            kp={w.keypoints.find((k) => k.label === openPoint)}
+            covered={!!checked[openPoint]}
+            onClose={() => setOpenPoint(null)}
+            onToggleCovered={() => toggle(openPoint)}
+          />
+        )}
       </div>
 
       <div style={{ padding: "0 16px 20px" }}>
