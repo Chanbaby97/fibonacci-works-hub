@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-label="WS13 · Beekeeping What's Next">
+  <rect width="960" height="540" fill="#243619"/>
+  <rect x="0" y="0" width="18" height="540" fill="#7a9e3f"/>
+  <circle cx="820" cy="90" r="100" fill="#3f5a32" opacity="0.55"/>
+  <circle cx="860" cy="150" r="40" fill="#7a9e3f" opacity="0.35"/>
+  <text x="56" y="78" fill="#d5e2b8" font-family="Courier New, monospace" font-size="22" letter-spacing="4">THE FIBONACCI WORKS</text>
+  <text x="56" y="168" fill="#f6f8ef" font-family="Georgia, serif" font-size="54">WS13 · Beekeeping</text>
+  <text x="56" y="220" fill="#7a9e3f" font-family="Courier New, monospace" font-size="28" letter-spacing="3">WHAT'S NEXT</text>
+  <line x1="56" y1="248" x2="420" y2="248" stroke="#7a9e3f" stroke-width="3"/>
+  <g transform="translate(460,40)">
+  <polygon points="289.7,222.3 289.7,244.3 270.7,255.3 251.6,244.3 251.6,222.3 270.7,211.3" fill="#3f5a32" stroke="#f6f8ef" stroke-width="2"/>
+  <polygon points="241.9,218.6 241.9,240.6 222.8,251.6 203.8,240.6 203.8,218.6 222.8,207.6" fill="#7a9e3f" stroke="#f6f8ef" stroke-width="2"/>
+  <polygon points="221.2,175.3 221.2,197.3 202.1,208.3 183.1,197.3 183.1,175.3 202.1,164.3" fill="#3f5a32" stroke="#f6f8ef" stroke-width="2"/>
+  <polygon points="248.4,135.7 248.4,157.7 229.3,168.7 210.3,157.7 210.3,135.7 229.3,124.7" fill="#7a9e3f" stroke="#f6f8ef" stroke-width="2"/>
+  <polygon points="296.2,139.4 296.2,161.4 277.2,172.4 258.1,161.4 258.1,139.4 277.2,128.4" fill="#3f5a32" stroke="#f6f8ef" stroke-width="2"/>
+  <polygon points="316.9,182.7 316.9,204.7 297.9,215.7 278.8,204.7 278.8,182.7 297.9,171.7" fill="#7a9e3f" stroke="#f6f8ef" stroke-width="2"/>
+  <polygon points="267.3,180.0 267.3,200.0 250.0,210.0 232.7,200.0 232.7,180.0 250.0,170.0" fill="#243619" stroke="#7a9e3f" stroke-width="2"/>
+  </g>
+  <text x="56" y="490" fill="#d5e2b8" font-family="Courier New, monospace" font-size="18">PLACEHOLDER · NOT A PHOTO · STREAM COLOUR</text>
+</svg>

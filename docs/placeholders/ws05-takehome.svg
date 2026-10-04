@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-label="WS05 · Preservation Take-Home">
+  <rect width="960" height="540" fill="#2d4a25"/>
+  <rect x="0" y="0" width="18" height="540" fill="#7ab648"/>
+  <circle cx="820" cy="90" r="94" fill="#4a7c3f" opacity="0.55"/>
+  <circle cx="860" cy="150" r="40" fill="#7ab648" opacity="0.35"/>
+  <text x="56" y="78" fill="#c9dbb4" font-family="Courier New, monospace" font-size="22" letter-spacing="4">THE FIBONACCI WORKS</text>
+  <text x="56" y="168" fill="#f4f7ef" font-family="Georgia, serif" font-size="54">WS05 · Preservation</text>
+  <text x="56" y="220" fill="#7ab648" font-family="Courier New, monospace" font-size="28" letter-spacing="3">TAKE-HOME</text>
+  <line x1="56" y1="248" x2="420" y2="248" stroke="#7ab648" stroke-width="3"/>
+  <g transform="translate(460,40)">
+  <rect x="204.4" y="150" width="90" height="120" rx="8" fill="none" stroke="#7ab648" stroke-width="6"/>
+  <rect x="214.4" y="200" width="70" height="70" fill="#4a7c3f"/>
+  <rect x="224.4" y="138" width="50" height="14" rx="4" fill="#c9dbb4"/>
+  </g>
+  <text x="56" y="490" fill="#c9dbb4" font-family="Courier New, monospace" font-size="18">PLACEHOLDER · NOT A PHOTO · STREAM COLOUR</text>
+</svg>
