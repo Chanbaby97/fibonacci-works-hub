@@ -174,6 +174,16 @@ export const SLIDE_ENRICH = {
       ]
     },
     {
+      "title": "BED ASSEMBLY",
+      "bullets": [
+        "Cut, fasten, assemble your bed",
+        "Square the corners; fasten; eyes on",
+        "Level ground before assembly",
+        "Supervised tool use throughout",
+        "Take the finished bed home"
+      ]
+    },
+    {
       "title": "HANDS-ON TODAY",
       "bullets": [
         "Talk while you build \u2014 hands stay busy",
@@ -477,6 +487,16 @@ export const SLIDE_ENRICH = {
         "Botulism risk: low-acid canning needs care",
         "Date everything you store",
         "Care for those you feed"
+      ]
+    },
+    {
+      "title": "GARDEN TO JAR",
+      "bullets": [
+        "Extend harvest into winter",
+        "Reduce waste from surplus",
+        "Pickling / fermentation demo",
+        "Starter jar to take home",
+        "Close the garden loop"
       ]
     },
     {
@@ -1432,10 +1452,8 @@ export const SLIDE_ENRICH = {
 
 /** Card label → deck slide title when the names differ but the bullets are that point. */
 const POINT_SLIDE_ALIAS = {
-  "02|bed assembly": "hands on today",
   "03|food networks": "community networks",
   "04|year round growing": "year round crops",
-  "05|garden to jar": "why preserve",
   "07|winterization": "cape breton winter",
   "12|clean recycling": "rinsing recyclables",
   "12|bag and store": "bagging and storing",
