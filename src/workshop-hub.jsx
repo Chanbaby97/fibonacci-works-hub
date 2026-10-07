@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { SLIDE_ENRICH, learningPointAnswer } from "./slide-enrich.js";
+import { examplesForPoint, workshopExamplePack } from "./workshop-examples.js";
 
 /* ─────────────────────────────────────────────────────────────
    THE FIBONACCI WORKS™ — WORKSHOP HUB
@@ -61,7 +62,7 @@ const WORKSHOPS = [
     sections: [
       { id: "welcome", label: "Welcome & Opening", icon: "🤝", image: "placeholders/ws02-welcome.svg", content: "We gather on Mi'kmaq territory in Unama'ki. Open with a warm land acknowledgement (honour the territory; thank communities hosting via MSGAM — do not speak for Mi'kmaq people). Brief introductions and a clear session overview. This is hands-on-while-talking: printouts and a QR for phone follow-along sit on the table while you build. Preview today's physical kit — untreated lumber, fasteners, soil layers, supervised tools — before you lift a saw." },
       { id: "knowledge", label: "The Knowledge", icon: "📋", image: "placeholders/ws02-knowledge.svg", content: "Talk through the core points while people measure, cut, and assemble — not a lecture then a lab. Cover lumber selection (untreated for food beds), tool safety, bed dimensions you can reach, soil layering, and planting layout. Keep each point plain and practical. Point to printouts and the QR so people can follow on their phone while their hands stay busy." },
-      { id: "activity", label: "Hands-On Activity", icon: "🪵", image: "placeholders/ws02-activity.svg", content: "• Facilitator talks while you build — hands stay busy\n• Cut, fasten, assemble your bed; supervised tools\n• Layer soil together; plant seeds or seedlings\n• Use printouts + QR on your phone\n• Your finished bed goes HOME planted\n\nRedo path: after class, open Take-Home for numbered at-home steps — materials and costs below stay here for the DIY rebuild.\n\n🧰 Materials needed (session):\n• Untreated lumber cut to plan (cedar or spruce preferred for Cape Breton)\n• Exterior screws / fasteners; corner brackets if used\n• Measuring tape, square, saw, drill (shared/supervised)\n• PPE — eye protection; gloves as needed\n• Cardboard or woody base layer; compost + topsoil fill\n• Seeds or seedlings for first planting\n• Printed soil mix guide + tool safety card\n• QR card for phone follow-along\n\n🧰 Take-home kit (physical — what leaves with you):\n• Fully built, planted raised garden bed\n• Soil mix & layering guide · tool safety quick card · Certificate of Completion\n• (Shared tools stay with facilitator unless you own them)\n\n💵 Rough cost (CAD, Cape Breton/local — estimate — confirm locally):\n• Session materials per person: about $80–220 for a small household bed (included in MSGAM session materials when booked)\n• At-home DIY redo of one bed: about $80–220 (lumber $40–120, soil fill $30–80, fasteners $10–20)\n\n🏠 At-home redo guide:\n1. Sketch size you can reach from both sides; level the ground.\n2. Cut untreated lumber; assemble square corners; fasten securely.\n3. Layer cardboard/branches, then compost + topsoil; water to settle.\n4. Plant with spacing from class; mulch edges if windy.\n5. Follow tool-safety card — no rushing with saws or drills." },
+      { id: "activity", label: "Hands-On Activity", icon: "🪵", image: "placeholders/ws02-activity.svg", content: "• Facilitator talks while you build — hands stay busy\n• Cut, fasten, assemble your bed; supervised tools\n• Layer soil together; plant seeds or seedlings\n• Use printouts + QR on your phone\n• Your finished bed goes HOME planted\n\nRedo path: after class, open Take-Home for numbered at-home steps — materials and costs below stay here for the DIY rebuild.\n\n🧰 Materials needed (session):\n• Untreated lumber cut to plan (cedar or spruce preferred for Cape Breton)\n• Exterior screws / fasteners; corner brackets if used\n• Measuring tape, square, saw, drill (shared/supervised)\n• PPE — eye protection; gloves as needed\n• Plain cardboard weed barrier (no tape, no glossy ink); finished compost + topsoil — no fresh-branch fill\n• Seeds or seedlings for first planting\n• Printed soil mix guide + tool safety card\n• QR card for phone follow-along\n\n🧰 Take-home kit (physical — what leaves with you):\n• Fully built, planted raised garden bed\n• Soil mix & layering guide · tool safety quick card · Certificate of Completion\n• (Shared tools stay with facilitator unless you own them)\n\n💵 Rough cost (CAD, Cape Breton/local — estimate — confirm locally):\n• Session materials per person: about $80–220 for a small household bed (included in MSGAM session materials when booked)\n• At-home DIY redo of one bed: about $80–220 (lumber $40–120, soil fill $30–80, fasteners $10–20)\n\n🏠 At-home redo guide:\n1. Mark a width you can reach — about 1.2 m (4 ft) from both sides; narrower from one side. Level the ground.\n2. Cut untreated lumber; assemble square corners; fasten securely.\n3. On grass: plain cardboard only (no tape, no gloss). Add topsoil + finished compost; water to settle; top up to about 20–30 cm.\n4. Plant with spacing from class; mulch edges if windy.\n5. Follow tool-safety card — no rushing with saws or drills." },
       { id: "discussion", label: "Community Discussion", icon: "💬", image: "placeholders/ws02-discussion.svg", content: "Open floor for community-specific questions:\n• Where will you put your bed at home?\n• What do you want to grow first?\n• How can we connect gardens across the community?\n• Ideas for a community garden space?\n• Who has a lumber yard or scrap-wood source nearby?\n• What would a shared community bed cost if we pooled materials?\n\n📌 Takeaway to write down:\n• Write where your bed will sit, what you will grow first, and one lumber or scrap-wood source nearby." },
       { id: "takehome", label: "Take-Home", icon: "🎁", image: "placeholders/ws02-takehome.svg", content: "Every participant leaves with a physical kit:\n✓ Fully built, planted raised garden bed\n✓ Soil mix & layering guide\n✓ Tool safety quick card\n✓ Certificate of Completion\n\n📦 What you need:\n• Fully built, planted raised garden bed\n• Soil mix & layering guide\n• Tool safety quick card\n• Soil mix & layering guide (in kit)\n• Tool-safety card — supervised tools if cutting\n\n✅ Done looks like:\n• A square, level untreated bed topped up or built, planted with spacing from class, and cost notes ready for Workshop 03.\n\n🏠 At-home redo (after class):\n1. Use your soil mix guide to top up or build a second bed.\n2. Re-check square and level before filling with soil.\n3. Keep untreated wood only for food beds.\n4. Plant next succession using skills from Workshop 01.\n5. Note what it cost to fill and plant — bring numbers to Workshop 03." },
       { id: "next", label: "What's Next", icon: "➡️", image: "placeholders/ws02-next.svg", content: "Ready to go further? The next workshop in the series:\n\n💰 Crop Monetization & Food Sovereignty — 2.5 Hour Session\n\nLearn how to turn your garden into both a food security system and a source of income.\n\nBook through MSGAM. This is one of 14 workshops that run on repeat for new cohorts. At home, note what it cost to fill and plant your bed — bring those numbers to Workshop 03. Printouts / QR stay available for booking info.\n\nAt-home first: finish the Take-Home redo steps before or beside booking the next session — Hands-On has materials and cost notes if you need to rebuild the kit." },
@@ -888,6 +889,71 @@ function BlockCard({ color, title, icon, items, numbered }) {
   );
 }
 
+
+function ExampleCards({ color, pointExamples, pack, slot }) {
+  /* slot: "point" | "activity" | "takehome" */
+  const cards = [];
+  if (slot === "point" && pointExamples?.examples?.length) {
+    cards.push({ icon: "🔎", title: "Examples", items: pointExamples.examples });
+  }
+  if (slot === "point" && pointExamples?.gaps?.length) {
+    cards.push({ icon: "📝", title: "Confirm locally", items: pointExamples.gaps });
+  }
+  if ((slot === "activity" || slot === "takehome") && pack) {
+    if (slot === "activity" && pack.blueprint) {
+      const bp = pack.blueprint;
+      cards.push({
+        icon: "📐",
+        title: "Blueprint · " + bp.title,
+        items: [
+          ...(bp.dimensions || []).map((d) => "Size: " + d),
+          ...(bp.cutList || []).map((d) => "Materials: " + d),
+          ...(bp.layers || []).map((d) => "Layer: " + d),
+          ...(bp.assembly || []),
+        ],
+        pre: bp.diagram || "",
+      });
+    }
+    if (slot === "activity" && pack.handsOn?.examples?.length) {
+      cards.push({ icon: "🔎", title: "Examples", items: pack.handsOn.examples });
+    }
+    if (slot === "activity" && pack.handsOn?.tryThis?.length) {
+      cards.push({ icon: "✋", title: "Try this", items: pack.handsOn.tryThis });
+    }
+    if (slot === "takehome" && pack.takeHome?.tryThis?.length) {
+      cards.push({ icon: "✋", title: "Try this · same specs as class", items: pack.takeHome.tryThis });
+    }
+    if (slot === "takehome" && pack.blueprint?.dimensions?.length) {
+      cards.push({
+        icon: "📐",
+        title: "Blueprint specs (match the room)",
+        items: pack.blueprint.dimensions,
+      });
+    }
+  }
+  if (!cards.length) return null;
+  return (
+    <>
+      {cards.map((c) => (
+        <div key={c.title} className="fw-block" style={{ borderColor: `${color}33`, background: "rgba(255,250,243,0.95)" }}>
+          <div className="fw-block-title" style={{ color }}>{c.icon} {c.title}</div>
+          {c.pre ? (
+            <pre className="fw-blueprint" style={{ margin: "0 0 10px", padding: "10px 12px", background: "rgba(36,28,22,0.04)", borderRadius: 10, fontSize: 11.5, lineHeight: 1.35, overflowX: "auto", color: "#3a3128", fontFamily: "'Courier New', monospace", whiteSpace: "pre" }}>{c.pre}</pre>
+          ) : null}
+          <ul>
+            {c.items.map((item, i) => (
+              <li key={`${c.title}-${i}`}>
+                <span aria-hidden="true" style={{ color, fontWeight: 700, marginTop: 1 }}>·</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </>
+  );
+}
+
 function SectionRichBody({ w, section, footer }) {
   const color = w.color || "#4a7c3f";
   const { leadItems, blocks } = parseSectionContent(section?.content || "");
@@ -922,6 +988,7 @@ function SectionRichBody({ w, section, footer }) {
           <BlockCard color={color} icon="🎁" title="Leaves with you" items={leaveItems} />
           <BlockCard color={color} icon="📦" title="What you need" items={byKey.need?.items || []} />
           <BlockCard color={color} icon="✅" title="Done looks like" items={byKey.done?.items || []} />
+          <ExampleCards color={color} pack={workshopExamplePack(w.number)} slot="takehome" />
           <BlockCard color={color} icon="🏠" title="At-home redo — numbered steps" items={byKey.redo?.items || []} numbered />
         </>
       )}
@@ -934,6 +1001,7 @@ function SectionRichBody({ w, section, footer }) {
               <p style={{ margin: 0, fontSize: 14.5, lineHeight: 1.5, color: "#3a3128" }}>{byKey.redopath.items.join(" ")}</p>
             </div>
           ) : null}
+          <ExampleCards color={color} pack={workshopExamplePack(w.number)} slot="activity" />
           <BlockCard color={color} icon="🧰" title="Materials needed (session)" items={byKey.materials?.items || []} />
           <BlockCard color={color} icon="🎁" title="Take-home kit" items={byKey.kit?.items || []} />
           <BlockCard color={color} icon="💵" title="Rough cost (confirm locally)" items={byKey.cost?.items || []} />
@@ -1462,6 +1530,9 @@ function KeyPointSheet({ w, kp, covered, onClose, onToggleCovered }) {
         {answer.source && (
           <div style={{ marginTop: 12, fontSize: 11, letterSpacing: 0.4, color: "#9a8b78", fontFamily: "'Courier New', monospace" }}>{answer.source}</div>
         )}
+        <div style={{ marginTop: 14 }}>
+          <ExampleCards color={w.color} pointExamples={examplesForPoint(w.number, kp.label)} slot="point" />
+        </div>
         <div style={{ display: "flex", gap: 8, marginTop: 16 }}>
           <button type="button" className="fw-tap fw-cta" onClick={onToggleCovered} style={{ ...ctaBtn("#fff", w.color, `1.5px solid ${w.color}`), flex: 1 }}>
             {covered ? "Covered ✓" : "Mark covered"}

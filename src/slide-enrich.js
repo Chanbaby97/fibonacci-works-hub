@@ -1,5 +1,4 @@
-/* Block 4A from WS01–WS14 research packs — print/teach enrich. Do not invent Canva URLs. */
-export const SLIDE_ENRICH = {
+/* Block 4A from WS01–WS14 research packs — print/teach enrich. Do not invent Canva URLs. */export const SLIDE_ENRICH = {
   "01": [
     {
       "title": "SPRING STARTS HERE",
@@ -8,17 +7,17 @@ export const SLIDE_ENRICH = {
         "Soil, seeds, and timing work together",
         "Cape Breton needs local knowledge",
         "Community plots and home yards both count",
-        "Spring rewards the prepared \u2014 start now"
+        "Spring rewards the prepared — start now"
       ]
     },
     {
       "title": "SOIL HEALTH",
       "bullets": [
-        "Feel texture \u2014 sand, clay, loam",
-        "Organic matter builds living soil",
-        "Compost feeds plants over seasons",
+        "Moisten a pinch: gritty sand, sticky clay, crumbly loam",
+        "Compost feeds soil life — texture changes slowly",
+        "Finished compost: dark, crumbly, earthy — not hot or sour",
         "Drainage matters on Cape Breton ground",
-        "Healthy soil grows itself \u2014 feed it first"
+        "Feed the soil you have — every season"
       ]
     },
     {
@@ -35,8 +34,8 @@ export const SLIDE_ENRICH = {
       "title": "SEED SELECTION",
       "bullets": [
         "Choose varieties for short seasons",
-        "Cool-season crops thrive here",
-        "Read days-to-maturity on the packet",
+        "Cool crops fit: greens, roots, peas, brassicas, potatoes",
+        "Read days-to-maturity — from seed or from transplant",
         "Start with reliable local staples",
         "Right seed beats fancy seed"
       ]
@@ -44,37 +43,37 @@ export const SLIDE_ENRICH = {
     {
       "title": "PLANTING SCHEDULE",
       "bullets": [
-        "Start indoors before last frost",
-        "Plant out after frost risk passes",
-        "Succession keeps harvest steady",
-        "Use your Cape Breton calendar",
+        "Start long crops indoors while frost is still outside",
+        "Direct-sow many cool crops before tomatoes go out",
+        "Sydney-area averages often fall in late May — not island-wide",
+        "Averages are history — use this year's forecast",
         "Timing beats guessing"
       ]
     },
     {
       "title": "GROWING TECHNIQUES",
       "bullets": [
-        "Space for air and easy harvest",
-        "Water evenly \u2014 not flood then drought",
-        "Match sun hours to each crop",
+        "Leave the spacing the packet prints",
+        "Water evenly — not flood then drought",
+        "Fruiting crops want a full day of sun; greens take more shade",
         "Label variety and date every tray",
-        "Fundamentals done right first"
+        "Same steps every tray — that is the skill"
       ]
     },
     {
       "title": "FROST AWARENESS",
       "bullets": [
-        "Typical CB last frost: mid\u2013late May \u2014 check local",
-        "Protect young plants when frost threatens",
-        "Row cover or bring pots in; watch wind",
-        "Keep planting through spring and summer",
+        "Do not teach one frost date for all of Unama'ki",
+        "Sydney-area published averages often sit in late May",
+        "Highlands and inland spots run later — check local",
+        "Forecast frost: cover rows or bring pots in; wind steals heat",
         "Later: short fall winterizing card"
       ]
     },
     {
       "title": "HANDS-ON TODAY",
       "bullets": [
-        "Talk while you plant \u2014 hands stay busy",
+        "Talk while you plant — hands stay busy",
         "Plant your pots / starter tray",
         "Feel-test sand, clay, and loam",
         "Printouts + QR on your phone",
@@ -84,7 +83,7 @@ export const SLIDE_ENRICH = {
     {
       "title": "TAKE-HOME",
       "bullets": [
-        "Bag of soil \u00b7 pots \u00b7 shovel \u00b7 gloves \u00b7 seeds",
+        "Bag of soil · pots · shovel · gloves · seeds",
         "Seedlings / starter tray planted today",
         "Seasonal planting calendar for Cape Breton",
         "Soil health quick reference card",
@@ -94,7 +93,7 @@ export const SLIDE_ENRICH = {
     {
       "title": "WHAT'S NEXT",
       "bullets": [
-        "Building Raised Garden Beds \u2014 5 Hours",
+        "Building Raised Garden Beds — 5 Hours",
         "Your bed goes home planted",
         "Book through MSGAM",
         "14 workshops run on repeat for new cohorts",
@@ -106,21 +105,21 @@ export const SLIDE_ENRICH = {
     {
       "title": "WHY RAISED BEDS",
       "bullets": [
-        "Better drainage & warmer soil",
+        "Raised mix often drains and warms sooner in spring",
         "Accessibility for all ages",
         "Control soil quality yourself",
-        "Fewer weeds \u2014 clearer edges",
+        "Edges make weeds easier — they do not vanish",
         "Food sovereignty starts with structure"
       ]
     },
     {
       "title": "LUMBER SELECTION",
       "bullets": [
-        "Choose untreated wood for food beds",
-        "Cedar & spruce last in Cape Breton",
-        "Avoid treated lumber near crops",
-        "Plan cut list before you measure twice",
-        "Safe wood feeds safe food"
+        "Prefer untreated wood for food beds",
+        "Cedar resists rot; wet spruce fails sooner",
+        "Never creosote, old CCA, or scrap you cannot name",
+        "Mark the cut list before any saw starts",
+        "Safe wood is wood you can name"
       ]
     },
     {
@@ -136,40 +135,40 @@ export const SLIDE_ENRICH = {
     {
       "title": "TOOL SAFETY",
       "bullets": [
-        "Saw, drill, square, measuring tape",
-        "PPE \u2014 eyes, hands, steady footing",
-        "One tool, one task, clear space",
-        "Ask before you power on",
+        "Tape and square first — then saw or drill",
+        "Eyes on; sleeves and hair tied; steady feet",
+        "One person, one tool, clear the swing path",
+        "Ask, then power on; unplug to change a blade",
         "Safety is community care"
       ]
     },
     {
       "title": "BED DIMENSIONS",
       "bullets": [
-        "Width you can reach from both sides",
-        "Length that fits your yard",
-        "Height for soil depth & knees",
-        "Level ground before assembly",
-        "Plan paths between beds"
+        "Both sides: about 1.2 m (4 ft) — never step in",
+        "One side only: stay inside an arm's reach",
+        "About 20–30 cm of mix for most vegetables",
+        "Length follows the yard and the lumber",
+        "Level the ground, then leave a path you can walk"
       ]
     },
     {
       "title": "SOIL LAYERING",
       "bullets": [
-        "Cardboard or branches at base",
-        "Compost & topsoil mix next",
-        "Leave room for planting depth",
-        "Water to settle layers",
-        "Healthy layers feed the season"
+        "On grass: plain cardboard only — no tape, no gloss",
+        "Do not fill the root zone with fresh branches",
+        "Topsoil plus finished compost — then stop",
+        "Water, let it settle, top up before you plant",
+        "Plant into settled mix — fluff sinks later"
       ]
     },
     {
       "title": "PLANTING LAYOUT",
       "bullets": [
-        "Spacing for air & harvest access",
-        "Companion planting basics",
-        "Start with reliable Cape Breton crops",
-        "Leave room to walk the edges",
+        "Follow the spacing printed on the packet",
+        "Group by height and water — skip companion folklore",
+        "Start with cool crops that fit this coast",
+        "Paths stay outside the frame",
         "Your bed goes home planted"
       ]
     },
@@ -178,15 +177,15 @@ export const SLIDE_ENRICH = {
       "bullets": [
         "Cut, fasten, assemble your bed",
         "Square the corners; fasten; eyes on",
-        "Level ground before assembly",
+        "Level the ground, then leave a path you can walk",
         "Supervised tool use throughout",
-        "Take the finished bed home"
+        "Your finished bed goes home planted"
       ]
     },
     {
       "title": "HANDS-ON TODAY",
       "bullets": [
-        "Talk while you build \u2014 hands stay busy",
+        "Talk while you build — hands stay busy",
         "Cut, fasten, assemble your bed",
         "Supervised tool use throughout",
         "Layer soil; plant seeds or seedlings",
@@ -206,11 +205,11 @@ export const SLIDE_ENRICH = {
     {
       "title": "WHAT'S NEXT",
       "bullets": [
-        "Crop Monetization & Food Sovereignty \u2014 2.5 Hours",
+        "Crop Monetization & Food Sovereignty — 2.5 Hours",
         "Bring your bed cost notes",
         "Book through MSGAM",
         "14 workshops run on repeat for new cohorts",
-        "Build once \u2014 grow for years"
+        "Build once — grow for years"
       ]
     }
   ],
@@ -218,11 +217,11 @@ export const SLIDE_ENRICH = {
     {
       "title": "WHY THIS MATTERS",
       "bullets": [
-        "Gardens can feed and fund households",
+        "Gardens can feed a household — income is a choice",
         "Surplus is a community asset",
         "Fair prices keep skills local",
-        "Preservation extends the season",
-        "Sovereignty \u2014 not charity"
+        "Safe preservation extends the season",
+        "Sovereignty — not charity"
       ]
     },
     {
@@ -230,8 +229,8 @@ export const SLIDE_ENRICH = {
       "bullets": [
         "Keep what your household needs",
         "Share with elders & neighbours",
-        "Sell what the market will hold",
-        "Preserve the rest for winter",
+        "Sell only what the rules and the market allow",
+        "Preserve with freeze, dry, or a tested canning card",
         "Plan before harvest peaks"
       ]
     },
@@ -248,21 +247,21 @@ export const SLIDE_ENRICH = {
     {
       "title": "PRICING PRODUCE",
       "bullets": [
-        "Know your true growing costs",
-        "Match local Cape Breton markets",
-        "Fair to grower and buyer",
-        "Worksheet with local examples",
-        "Price with dignity \u2014 not race-to-bottom"
+        "List seed, soil, and water you actually pay",
+        "Look up one live local price — no sample dollars here",
+        "Do not price under your costs just to move food",
+        "Jars and prepared food may need NS market rules",
+        "If you are paid, it may be taxable — not tax advice"
       ]
     },
     {
       "title": "PRESERVATION INTRO",
       "bullets": [
-        "Extend harvest into winter stores",
-        "Canning, drying, freezing basics",
-        "Link to Workshop 05 for depth",
-        "Household food security first",
-        "Waste less \u2014 feed more"
+        "Freezing and drying are the safe first skills",
+        "Canning is not basic — tested recipes only",
+        "Workshop 05 teaches water-bath versus pressure",
+        "Household stores first — then share",
+        "A full freezer beats a guessed jar"
       ]
     },
     {
@@ -278,17 +277,17 @@ export const SLIDE_ENRICH = {
     {
       "title": "FOOD SOVEREIGNTY",
       "bullets": [
-        "Growing as household resilience",
-        "Skills stay in the community",
-        "Land knowledge passed forward",
-        "Income without losing the mission",
-        "Empowerment \u2014 not dependency"
+        "Food sovereignty: people decide their own food system",
+        "That includes how food is grown, shared, and sold",
+        "Indigenous food sovereignty is defined by Indigenous peoples",
+        "Honour Mi'kmaq territory — do not speak for the Nation",
+        "Household skill first — income second"
       ]
     },
     {
       "title": "HANDS-ON TODAY",
       "bullets": [
-        "Talk while you work \u2014 hands stay busy",
+        "Talk while you work — hands stay busy",
         "Cost-benefit for a small plot",
         "Market pricing worksheet",
         "Draft a household surplus plan",
@@ -308,7 +307,7 @@ export const SLIDE_ENRICH = {
     {
       "title": "WHAT'S NEXT",
       "bullets": [
-        "Greenhouse Design & Management \u2014 5 Hours",
+        "Greenhouse Design & Management — 5 Hours",
         "Bring your cost and benefit notes",
         "Book through MSGAM",
         "14 workshops run on repeat for new cohorts",
@@ -320,21 +319,21 @@ export const SLIDE_ENRICH = {
     {
       "title": "WHY GREENHOUSES",
       "bullets": [
-        "Extend Cape Breton seasons",
-        "Protect crops from wind & frost",
-        "Community food security year-round",
-        "Shared or home-scale options",
-        "Paper plan first \u2014 build when ready"
+        "A cover can stretch Cape Breton's short season",
+        "It buffers wind and light frost — it is not a heater",
+        "Year-round food needs heat, crop choice, and a snow plan",
+        "Home or shared — both need a person who maintains",
+        "Paper plan first — build when ready"
       ]
     },
     {
       "title": "SITE SELECTION",
       "bullets": [
-        "Sun path across the day",
-        "Wind exposure & shelter",
-        "Access for people & materials",
-        "Drainage on Cape Breton ground",
-        "Choose sites you can care for"
+        "Track sun — fruiting crops want a full day",
+        "Cape Breton wind: shelter the site, skip the ridge",
+        "Plan water, materials, and winter access to clear snow",
+        "Drainage matters — do not site a house in a puddle",
+        "Choose a site you will actually maintain"
       ]
     },
     {
@@ -350,51 +349,51 @@ export const SLIDE_ENRICH = {
     {
       "title": "STRUCTURE TYPES",
       "bullets": [
-        "Hoop house \u2014 flexible & affordable",
-        "Polycarbonate \u2014 durable light",
-        "Glass \u2014 premium & heavy",
-        "DIY options for local builds",
-        "Match budget to climate needs"
+        "A hoop extends the season — it is not snow-proof",
+        "Rigid poly costs more and still needs vents",
+        "Glass is heavy, costly, and must carry snow",
+        "Any DIY frame needs a wind plan and a snow plan",
+        "Match the frame to weather before you match budget"
       ]
     },
     {
       "title": "CLIMATE CONTROL",
       "bullets": [
-        "Ventilation stops heat stress",
-        "Frost protection on cold nights",
-        "Moisture balance for plants",
-        "Simple monitoring habits",
-        "Work with Cape Breton weather"
+        "Sun can overheat a closed house on a cool day — vent",
+        "Frost still happens; a cover is not a heater",
+        "Wet leaves invite disease — vent, don't soak foliage",
+        "Read a thermometer; write the high and the low",
+        "Snow and wind are design loads — not afterthoughts"
       ]
     },
     {
       "title": "YEAR-ROUND CROPS",
       "bullets": [
-        "Cool greens thrive under cover",
-        "Plan heat lovers carefully",
-        "Succession keeps harvest steady",
-        "Seed starting inside the house",
-        "Food through shoulder seasons"
+        "Cool greens are the realistic shoulder-season crop",
+        "Heat-lovers belong in warm months, with vents open",
+        "Replant short crops — do not promise a winter tomato",
+        "You can start seeds under cover — still harden them",
+        "Winter harvest only with heat, crop choice, and snow care"
       ]
     },
     {
       "title": "FUNDING PATHWAYS",
       "bullets": [
-        "Band council proposal outline",
-        "Community grants & partners",
-        "MSGAM connection points",
-        "Clear costs & community benefit",
-        "Draft ready for funders"
+        "One page: who eats, who maintains, quote line blank",
+        "Do not invent a grant name or a dollar ask",
+        "Check current AAFC and NS program pages yourself",
+        "MSGAM can point to a local path — you confirm it",
+        "Band council only if that is your community's process"
       ]
     },
     {
       "title": "HANDS-ON TODAY",
       "bullets": [
-        "Talk while you plan \u2014 hands stay busy",
-        "Site assessment exercise",
-        "Layout planning on paper",
-        "Funding pathway research",
-        "Draft greenhouse proposal outline"
+        "1. Talk while you draw — hands stay busy",
+        "2. Site notes: sun, wind, water, snow access",
+        "3. Layout on paper only — no frame today",
+        "4. Leave the quote line blank",
+        "5. Paper plan first — build when ready"
       ]
     },
     {
@@ -410,8 +409,8 @@ export const SLIDE_ENRICH = {
     {
       "title": "WHAT'S NEXT",
       "bullets": [
-        "Preservation, Mead & Fermentation \u2014 2.5 Hours",
-        "Garden to jar \u2014 canning & ferment",
+        "Preservation, Mead & Fermentation — 2.5 Hours",
+        "Garden to jar — canning & ferment",
         "Book through MSGAM",
         "14 workshops run on repeat for new cohorts",
         "Cover grows possibility"
@@ -425,18 +424,18 @@ export const SLIDE_ENRICH = {
         "Extend harvest into winter",
         "Reduce waste from surplus",
         "Household food security",
-        "Skills rooted in tradition",
-        "Flavour & culture together"
+        "Tradition is not a safety test — use a tested card",
+        "Flavour follows safety — not the other way around"
       ]
     },
     {
       "title": "CANNING & PICKLING",
       "bullets": [
-        "Safe water-bath basics for acid foods",
-        "Clean jars \u2014 clean process every time",
-        "Low-acid foods need tested pressure methods",
-        "Label dates & contents",
-        "When unsure \u2014 ask a trusted mentor"
+        "Boiling-water canner: high-acid only (pH 4.6 or lower)",
+        "Tomatoes are borderline — tested recipes add acid",
+        "Low-acid veg, meat, seafood, soup: pressure canner only",
+        "Never change time, jar size, or ingredients",
+        "A mentor does not replace a current tested recipe"
       ]
     },
     {
@@ -452,41 +451,41 @@ export const SLIDE_ENRICH = {
     {
       "title": "FERMENTATION BASICS",
       "bullets": [
-        "Salt, time, and clean tools",
-        "Vegetables become living food",
-        "Watch for healthy signs",
-        "Start small \u2014 learn the rhythm",
-        "Tradition meets kitchen science"
+        "Use a tested salt ferment — do not invent the salt",
+        "Keep vegetables under the brine the whole time",
+        "Early bubbles and a clean sour smell can be normal",
+        "Fuzzy mould: discard the jar — do not taste it",
+        "One jar until the habit is easy — then repeat it"
       ]
     },
     {
       "title": "VINEGAR & MEAD INTRO",
       "bullets": [
-        "Fruit & honey pathways",
-        "Sanitation before flavour",
-        "Patience is part of the craft",
-        "Taste carefully \u2014 learn safely",
-        "Link to local ingredients"
+        "Pickling vinegar is 5% acid — dilute only if the card says",
+        "Follow the tested card — this deck has no recipe",
+        "Mead is alcohol: personal use, not for sale, not for minors",
+        "Confirm NS liquor rules before any brew — no brew today",
+        "No garlic or herbs in oil in this class"
       ]
     },
     {
       "title": "MI'KMAQ FOOD TRADITIONS",
       "bullets": [
-        "Respect knowledge keepers",
-        "Seasonal foods of this land",
-        "Preserve with gratitude",
-        "Community sharing practices",
-        "Skills that stay with us"
+        "We do not teach Mi'kmaq food knowledge",
+        "Knowledge keepers speak for themselves, if they choose",
+        "Do not retell, adapt, or improve those practices",
+        "Honour Unama'ki and hosts working through MSGAM",
+        "Today's skill is a safe jar — offered with respect"
       ]
     },
     {
       "title": "SAFETY FIRST",
       "bullets": [
-        "Clean workspace every time",
-        "Match method to the food type",
-        "Botulism risk: low-acid canning needs care",
-        "Date everything you store",
-        "Care for those you feed"
+        "Clean hands, tools, and jars before food is on the table",
+        "Method follows the food: fridge, ferment, bath, or pressure",
+        "Botulism toxin has no look, no smell, and no taste",
+        "Suspect jar: throw it out — never taste to check",
+        "Label food, date, and method before it leaves"
       ]
     },
     {
@@ -502,11 +501,11 @@ export const SLIDE_ENRICH = {
     {
       "title": "HANDS-ON TODAY",
       "bullets": [
-        "Talk while you pack \u2014 hands stay busy",
-        "Pickling / fermentation demo",
-        "Starter jar to take home",
-        "Taste & discuss safely",
-        "Label contents + date"
+        "1. Wash hands, jars, board, and knife",
+        "2. Follow the printed tested card only",
+        "3. Pack a fridge pickle or a tested ferment start",
+        "4. No water-bath of low-acid food today",
+        "5. Label food, date, and method"
       ]
     },
     {
@@ -522,8 +521,8 @@ export const SLIDE_ENRICH = {
     {
       "title": "WHAT'S NEXT",
       "bullets": [
-        "Basic Roofing for Homeowners \u2014 2.5 Hours",
-        "Trades stream next \u00b7 Book through MSGAM",
+        "Basic Roofing for Homeowners — 2.5 Hours",
+        "Trades stream next · Book through MSGAM",
         "Redo a jar at home this week",
         "14 workshops run on repeat for new cohorts",
         "Close the garden loop"
@@ -534,21 +533,11 @@ export const SLIDE_ENRICH = {
     {
       "title": "WHY ROOFS MATTER",
       "bullets": [
-        "Protect the whole home",
-        "Cape Breton weather is hard",
-        "Early inspection saves money",
+        "The roof keeps water out of everything else",
+        "Wind, wet snow, and ice dams hit this coast",
+        "Catch stains before water spreads",
         "Know when to call a pro",
-        "Empowered homeowners decide better"
-      ]
-    },
-    {
-      "title": "INSPECTION BASICS",
-      "bullets": [
-        "Look from the ground first \u2014 safety",
-        "Note missing or curled shingles",
-        "Check flashing around chimneys from below",
-        "Watch for soft spots, stains, sagging gutters",
-        "Document with photos and dated notes"
+        "You decide — you do not climb"
       ]
     },
     {
@@ -557,58 +546,68 @@ export const SLIDE_ENRICH = {
         "We gather on Mi'kmaq territory in Unama'ki",
         "Honour the land we meet on today",
         "Thank communities hosting via MSGAM",
-        "Skills stay in this community",
-        "Scan QR / use printouts to follow along"
+        "Introductions and session intentions",
+        "Kit preview — then checklist in hand"
+      ]
+    },
+    {
+      "title": "INSPECTION BASICS",
+      "bullets": [
+        "Both eyes, then binoculars — stay on the ground",
+        "Missing, curled, or wind-lifted shingles",
+        "Rust streaks or gaps at chimney flashing",
+        "Sagging roof or gutters — not soft spots",
+        "Photo, date, and name the wall"
       ]
     },
     {
       "title": "DAMAGE ID",
       "bullets": [
-        "Wind lift and storm damage",
-        "Ice dam clues after freeze\u2013thaw",
-        "Leak stains on ceilings and attic",
-        "Moss, age wear, and rot signals",
-        "Know repair vs replace signals early"
+        "Lifted tabs after a wind storm",
+        "Ice ridge at the eaves — a dam clue",
+        "Ceiling stains; attic frost or wet wood",
+        "Granules in the gutter; moss holding damp",
+        "One flaw vs a worn field"
       ]
     },
     {
       "title": "MATERIALS OVERVIEW",
       "bullets": [
-        "Asphalt shingles common locally",
-        "Metal options for longevity",
-        "Underlayment and flashing roles",
-        "Match materials to Cape Breton climate",
-        "Ask contractors clear material questions"
+        "Asphalt is the usual house roof here",
+        "Metal can outlast it — salt eats cheap screws",
+        "Underlayment is the backup water shed",
+        "Flashing moves water at chimneys and walls",
+        "Ask the product name and the written warranty"
       ]
     },
     {
       "title": "REPAIR VS REPLACE",
       "bullets": [
-        "Small repairs vs full reroof",
-        "Age and overall condition matter",
-        "Estimate framework \u2014 get local quotes",
-        "Get more than one opinion",
-        "Safety first \u2014 height is serious"
+        "Sound field, one leak: often a repair",
+        "Curl, bald spots, many leaks, or a sag: replace talk",
+        "Ask the install year — do not invent a lifespan",
+        "Two written quotes, same scope",
+        "This class does not go up"
       ]
     },
     {
       "title": "WORKING WITH CONTRACTORS",
       "bullets": [
-        "Ask about insurance and warranty",
-        "Clarify scope in writing",
-        "MSGAM and community referrals",
-        "Trust but verify credentials",
-        "You stay in charge of decisions"
+        "Roofer tickets are voluntary in Nova Scotia",
+        "Still ask TMI: training, safety plan, WCB letter",
+        "Liability insurance and a written scope",
+        "Similar reroof is often permit-exempt — ask your town",
+        "You decide; height work is theirs"
       ]
     },
     {
       "title": "HANDS-ON TODAY",
       "bullets": [
-        "Talk while you work \u2014 hands stay busy",
-        "Inspection checklist walkthrough",
-        "Material ID samples",
-        "Printouts + QR on your phone",
-        "Plan your next home lookover"
+        "1. Walk every wall from the ground",
+        "2. Binoculars on eaves, ridge, chimney",
+        "3. Photo, date, and name the wall",
+        "4. Touch samples; circle the quote scope",
+        "5. Write TMI questions — then stop"
       ]
     },
     {
@@ -618,17 +617,17 @@ export const SLIDE_ENRICH = {
         "Material ID quick card",
         "Contractor questions sheet",
         "Certificate of Completion",
-        "Ground-level only \u2014 hire height work"
+        "Ground-level only — hire height work"
       ]
     },
     {
       "title": "WHAT'S NEXT",
       "bullets": [
-        "Home Maintenance Fundamentals \u2014 5 Hours",
-        "Seasonal prep and winterization",
+        "Home Maintenance Fundamentals — 5 Hours",
+        "Seasonal prep and Cape Breton winterization",
+        "Weatherproofing, shutoffs, outage readiness",
         "Book through MSGAM",
-        "14 workshops run on repeat for new cohorts",
-        "Scan QR / stay community warm"
+        "14 workshops run on repeat for new cohorts"
       ]
     }
   ],
@@ -644,73 +643,73 @@ export const SLIDE_ENRICH = {
       ]
     },
     {
-      "title": "SEASONAL PREP",
-      "bullets": [
-        "Spring check after thaw",
-        "Fall seal before hard freeze",
-        "Gutters, doors, windows cycle",
-        "Calendar beats memory",
-        "Plan tools before storm season"
-      ]
-    },
-    {
       "title": "WELCOME & LAND",
       "bullets": [
         "We gather on Mi'kmaq territory in Unama'ki",
         "Honour the land we meet on today",
         "Thank communities hosting via MSGAM",
-        "Skills stay in this community",
-        "Scan QR / use printouts to follow along"
+        "Introductions and session intentions",
+        "Kit preview — then hands on seals and tags"
+      ]
+    },
+    {
+      "title": "SEASONAL PREP",
+      "bullets": [
+        "Spring walk after the thaw",
+        "Fall seal before a hard freeze",
+        "Hoses off; seals on; gutters clear",
+        "Sydney A frost averages about Oct 10",
+        "Highlands freeze earlier — use the forecast"
       ]
     },
     {
       "title": "WEATHERPROOFING",
       "bullets": [
-        "Seal drafts at doors and windows",
-        "Insulation awareness basics",
-        "Protect pipes from freeze",
-        "Exterior check after storms",
-        "Warm homes use less energy"
+        "Tissue flutters = a draft",
+        "Strip moving joints; caulk fixed gaps",
+        "V-strip up top; sweep on the bottom",
+        "Do not seal an egress window shut",
+        "Door must still latch when you are done"
       ]
     },
     {
       "title": "PLUMBING AWARENESS",
       "bullets": [
-        "Know your water shut-off valve",
-        "Spot drips early",
-        "Avoid DIY on gas lines",
-        "When to call a licensed tech",
-        "Prevent water damage fast"
+        "Find the main where the water enters",
+        "Handle across the pipe means off",
+        "Stuck valve: stop — call a plumber",
+        "Gas smell: leave, no switches, call outside",
+        "Fixture stops live under the sinks too"
       ]
     },
     {
       "title": "ELECTRICAL SAFETY",
       "bullets": [
-        "Never work live circuits",
-        "GFCI awareness in wet areas",
-        "Overloaded outlets are warnings",
-        "Hire qualified help for wiring",
-        "Safety is non-negotiable"
+        "Do not open the panel or work live",
+        "Monthly: lamp on, TEST, light dies, RESET",
+        "Warm or scorched outlet: unplug and call",
+        "A breaker that trips again: stop resetting",
+        "House wiring is a compulsory trade in NS"
       ]
     },
     {
       "title": "CAPE BRETON WINTER",
       "bullets": [
-        "Ice, wet snow, freeze\u2013thaw on the home",
-        "Coastal wind stresses seals and siding",
-        "Salt air / road spray wear exterior hardware",
-        "Outage kit, heat plan, and neighbour contacts",
-        "Check heat sources early \u2014 stay warm and safe"
+        "Watch ice and wet snow from the ground",
+        "Wind drives rain through tired seals",
+        "Salt air and road spray eat hardware",
+        "Outage kit before the first hard freeze",
+        "Generator and BBQ stay outside"
       ]
     },
     {
       "title": "HANDS-ON TODAY",
       "bullets": [
-        "Talk while you work \u2014 hands stay busy",
-        "Tools and materials walkthrough",
-        "Build your maintenance calendar",
-        "Weatherproofing demo points",
-        "Plan a fall/spring checklist"
+        "1. Tissue-test, then strip the moving joint",
+        "2. Sweep the bottom — door must still latch",
+        "3. Tag the shutoff; say which way is off",
+        "4. Point at the panel — do not open it",
+        "5. Outage rule: combustion stays outside"
       ]
     },
     {
@@ -726,11 +725,11 @@ export const SLIDE_ENRICH = {
     {
       "title": "WHAT'S NEXT",
       "bullets": [
-        "Tool Safety & Basic Construction \u2014 2.5 Hours",
+        "Tool Safety & Basic Construction — 2.5 Hours",
         "Safe tools and a small build",
+        "Supervised practice for beginners",
         "Book through MSGAM",
-        "14 workshops run on repeat for new cohorts",
-        "Scan QR / stay community warm"
+        "14 workshops run on repeat for new cohorts"
       ]
     }
   ],
@@ -741,18 +740,8 @@ export const SLIDE_ENRICH = {
         "Safe use of hand and power tools",
         "Reading a tape measure true",
         "Basic cutting, fastening, framing",
-        "Designed for beginners \u2014 no prior experience",
+        "Designed for beginners — no prior experience",
         "Supervised practice builds confidence"
-      ]
-    },
-    {
-      "title": "HAND TOOLS",
-      "bullets": [
-        "Hammers, squares, levels \u2014 hold them right",
-        "Know each tool's purpose",
-        "Store sharp tools safely",
-        "Respect the craft in your hands",
-        "Foundation before power tools"
       ]
     },
     {
@@ -761,58 +750,68 @@ export const SLIDE_ENRICH = {
         "We gather on Mi'kmaq territory in Unama'ki",
         "Honour the land we meet on today",
         "Thank communities hosting via MSGAM",
-        "Skills stay in this community",
-        "Scan QR / use printouts to follow along"
+        "Introductions and session intentions",
+        "Kit preview — then PPE on, stations open"
+      ]
+    },
+    {
+      "title": "HAND TOOLS",
+      "bullets": [
+        "Grip the hammer near the end of the handle",
+        "Square: heel tight to the board, then mark",
+        "Level: bubble sitting between the lines",
+        "Sheathe sharp tools when you set them down",
+        "Hand tools first — power only after PPE"
       ]
     },
     {
       "title": "POWER TOOL SAFETY",
       "bullets": [
-        "Drills and saws \u2014 non-negotiable safety rules",
-        "One person operates power tools",
-        "PPE \u2014 glasses, gloves, hearing as needed",
-        "Clear floor \u2014 clear mind",
-        "Coach feedback in real time"
+        "Glasses on before the tool starts",
+        "One operator per spinning tool",
+        "Hearing on before a saw runs",
+        "Floor clear before the tool starts",
+        "Bad cord, guard, or switch: tag it out"
       ]
     },
     {
       "title": "MEASURING TRUE",
       "bullets": [
-        "Read a tape measure accurately every time",
-        "Square for right angles",
-        "Mark clearly before cutting",
-        "Level for plumb and true",
-        "Accuracy is respect for material"
+        "The hook slides on purpose — seat it, then read",
+        "Read the mark the work crosses",
+        "Square the line; mark the waste side",
+        "Measure twice before you cut",
+        "Bent hook: do not trust that tape"
       ]
     },
     {
       "title": "CUTTING & FASTENING",
       "bullets": [
-        "Clean cuts \u2014 secure the workpiece",
-        "Screws vs nails \u2014 choose the right fastener",
-        "Joints beginners can trust",
+        "Clamp so both hands stay on the tool",
+        "Screws come back out; nails fight you",
+        "Drywall screws are not structure",
         "Cut away from your body",
-        "Pilot holes when needed"
+        "Pilot near the end so the board does not split"
       ]
     },
     {
       "title": "FRAMING BASICS",
       "bullets": [
-        "Simple concepts for home use",
-        "Practice joints on scrap",
-        "Small build project in session",
-        "Ask before you scale up",
-        "Judgment grows with careful craft"
+        "This build is not a wall or a floor",
+        "Check square, plumb, and level",
+        "Do not cut studs, joists, or rafters",
+        "Ask before any job that carries a load",
+        "Careful beats fast"
       ]
     },
     {
       "title": "HANDS-ON TODAY",
       "bullets": [
-        "Supervised tool use at every station",
-        "Practice measuring, marking, cutting scrap",
-        "Complete a small build project",
-        "PPE check before you start",
-        "Celebrate careful craft"
+        "1. Floor clear; glasses on; gloves off if it spins",
+        "2. Inspect the tool; tag out defects",
+        "3. Clamp, measure, mark the waste side",
+        "4. One operator; coach in reach",
+        "5. Full stop, then unplug or pull the battery"
       ]
     },
     {
@@ -828,11 +827,11 @@ export const SLIDE_ENRICH = {
     {
       "title": "WHAT'S NEXT",
       "bullets": [
-        "Trades stream complete \u2014 Business & Digital next",
-        "Starting a Business in Your Community \u2014 2.5 Hours",
+        "Trades stream complete — Business & Digital next",
+        "Starting a Business in Your Community — 2.5 Hours",
+        "Sole prop, registration, banking, invoicing",
         "Book through MSGAM",
-        "14 workshops run on repeat for new cohorts",
-        "Scan QR / stay community warm"
+        "14 workshops run on repeat for new cohorts"
       ]
     }
   ],
@@ -840,21 +839,21 @@ export const SLIDE_ENRICH = {
     {
       "title": "WHY LOCAL BUSINESS",
       "bullets": [
-        "Start where you are \u2014 community first",
-        "Look legitimate and get paid",
-        "Simple systems beat fancy ones",
-        "Reserve-connected paths exist",
-        "Supports designed for Indigenous business"
+        "Start where you are — community first",
+        "A sole prop can be legitimate without a corporation",
+        "A clean invoice gets you paid",
+        "On reserve, ask the band — Section 87 is not a licence",
+        "Look up supports; do not assume you qualify"
       ]
     },
     {
       "title": "SOLE PROP BASICS",
       "bullets": [
-        "What a sole proprietorship is",
-        "How it starts \u2014 steps that matter",
-        "Your name vs a business name",
-        "Keep it simple at the beginning",
-        "You can grow from here"
+        "A sole prop is you — one owner, not a company",
+        "You are personally responsible for the business debts",
+        "Your exact legal name: NS does not require a business-name registration",
+        "A trading name must be registered — read the exceptions",
+        "Farming-only or fishing-only is a listed exception — confirm you fit"
       ]
     },
     {
@@ -870,51 +869,51 @@ export const SLIDE_ENRICH = {
     {
       "title": "REGISTRATION & BANKING",
       "bullets": [
-        "Steps to look legitimate",
-        "Banking so you can get paid",
-        "Separate personal from business",
-        "Paperwork without overwhelm",
-        "Ask for help \u2014 resources exist"
+        "Reserve the name with Registry of Joint Stock Companies first",
+        "An approved reservation lasts 90 days, then it dies",
+        "Register online or by the RJSC form; pay the fee printed on it",
+        "You get a Certificate of Registration and a Business Number",
+        "Separate bank account; renew yearly — fee is on the RJSC page"
       ]
     },
     {
       "title": "INVOICING",
       "bullets": [
-        "Simple ways to bill for goods & services",
-        "What belongs on every invoice",
-        "Walk through a sample together",
-        "Track who owes what",
-        "Get paid with clarity"
+        "Name, date, invoice number, customer, what you sold",
+        "Amount due and how to pay — e-transfer, cash, or card",
+        "Keep a copy; number the next invoice one higher",
+        "Do not add HST unless you are already GST/HST registered",
+        "CRA small-supplier line is $30,000 — read the page; we will not apply it"
       ]
     },
     {
       "title": "RESERVE-CONNECTED BIZ",
       "bullets": [
-        "Operating on or connected to reserve",
-        "Community-appropriate naming",
-        "Relationships before transactions",
-        "Serve neighbours with integrity",
-        "Build something that stays local"
+        "Band and land rules still apply — ask the band office",
+        "Section 87 is not a business licence",
+        "Ask before you lock a name the community must live with",
+        "Business tax on reserve is not a slogan — ask CRA or an advisor",
+        "Relationships before the sale"
       ]
     },
     {
       "title": "INDIGENOUS RESOURCES",
       "bullets": [
-        "Section 87 awareness \u2014 know the landscape",
-        "Supports that exist for you",
-        "Resource directory you take home",
-        "You are not starting alone",
-        "Community networks open doors"
+        "Section 87 awareness only — not legal or tax advice",
+        "Read CRA Section 87 page and the Indian Act text",
+        "This class does not decide who is exempt",
+        "CRA says: band office first if land status is unclear",
+        "Exempt income: CRA says file a return and Form T90 — see their page"
       ]
     },
     {
       "title": "HANDS-ON TODAY",
       "bullets": [
-        "Talk while you draft \u2014 hands stay busy",
-        "Business name brainstorm \u2014 community-fit options",
-        "Complete a one-page business plan",
-        "Walk through a sample invoice",
-        "Printouts + QR on your phone"
+        "Same six steps, in order — talk while you write",
+        "1 Names  2 Mark RJSC or not  3 One-page plan",
+        "4 Sample invoice — HST only if you already have a number",
+        "5 Bookmark the NS register page — pay nothing in class",
+        "6 One question for an advisor — no eligibility rulings"
       ]
     },
     {
@@ -930,7 +929,7 @@ export const SLIDE_ENRICH = {
     {
       "title": "WHAT'S NEXT",
       "bullets": [
-        "Digital Tools for Everyday Business \u2014 2.5 Hours",
+        "Digital Tools for Everyday Business — 2.5 Hours",
         "Bring your invoice draft to class",
         "Book through MSGAM",
         "14 workshops run on repeat for new cohorts",
@@ -946,17 +945,17 @@ export const SLIDE_ENRICH = {
         "Stay organized without a degree",
         "Phone-friendly workflows that stick",
         "No prior experience needed",
-        "Step by step \u2014 we go together"
+        "Step by step — we go together"
       ]
     },
     {
       "title": "SQUARE PAYMENTS",
       "bullets": [
-        "Accepting cards simply",
-        "Tracking sales as you go",
-        "Less cash-only friction",
-        "Know what sold today",
-        "Start where customers already are"
+        "Sign up at squareup.com/ca — account owner only",
+        "Sole prop: say so; Square must verify your identity",
+        "Link a Canadian bank before the first payout",
+        "The Point of Sale app can key a card with no reader",
+        "A reader is optional — price it on Square Shop, not from memory"
       ]
     },
     {
@@ -972,51 +971,51 @@ export const SLIDE_ENRICH = {
     {
       "title": "QUICKBOOKS BASICS",
       "bullets": [
-        "Income and expenses \u2014 staying organized",
-        "Know what came in and went out",
-        "Simple categories that make sense",
-        "Reports without fear",
-        "Habits beat perfect systems"
+        "Use QuickBooks Online Canada, not a US screen",
+        "Company name, then one customer, then one service",
+        "Create, then Invoice, then Save — do not send the practice invoice",
+        "Do not connect a bank during class",
+        "Plans cost money after any trial — read Intuit Canada that day"
       ]
     },
     {
       "title": "GOOGLE WORKSPACE",
       "bullets": [
-        "Drive, Docs, Sheets, Gmail for business",
-        "Files you can find later",
-        "Share without chaos",
-        "Templates you reuse",
-        "Work from phone or laptop"
+        "Start with a free Google Account if you need mail and files",
+        "Drive holds files; Docs for letters; Sheets for a simple log",
+        "A free Google Account is not Google Workspace",
+        "Workspace is the paid business suite — price it on workspace.google.com",
+        "Do not buy Workspace in class"
       ]
     },
     {
       "title": "INVOICING LIVE",
       "bullets": [
-        "Create a basic invoice in session",
-        "Log a sample sale and expense",
-        "Save templates where you'll find them",
-        "Practice once \u2014 use forever",
-        "Clarity gets you paid"
+        "One practice invoice, saved, not sent",
+        "One sample sale and one sample expense in a Sheet",
+        "Email yourself the backup",
+        "Copy Square live in-person rate — or leave it blank",
+        "Repeat the same steps at home within two days"
       ]
     },
     {
       "title": "TECH CONFIDENCE",
       "bullets": [
-        "Passwords and backups that protect you",
-        "Phone-friendly daily habits",
-        "No shame in asking again",
         "One tool at a time",
-        "Confidence compounds"
+        "2-Step Verification on accounts that are yours",
+        "Do not share passwords or use someone else login",
+        "Screens change — follow the screen, not a memorized button",
+        "Use venue wifi when you can"
       ]
     },
     {
       "title": "HANDS-ON TODAY",
       "bullets": [
-        "Talk while you set up \u2014 hands stay busy",
-        "Live setup on your device (or shared)",
-        "Create a basic invoice in session",
-        "Printouts + QR on your phone",
-        "Practice logging a sale and expense"
+        "Same seven steps, in order, on your own login",
+        "Square signup only if the identity is yours",
+        "Practice invoice: Save, do not send",
+        "Sheet: one sale, one expense, then email it to yourself",
+        "Rates and plan prices come from the vendor page, or stay blank"
       ]
     },
     {
@@ -1032,7 +1031,7 @@ export const SLIDE_ENRICH = {
     {
       "title": "WHAT'S NEXT",
       "bullets": [
-        "Social Media for Local Business \u2014 2.5 Hours",
+        "Social Media for Local Business — 2.5 Hours",
         "Facebook, Instagram, branding, 30-day plan",
         "Book through MSGAM",
         "14 workshops run on repeat for new cohorts",
@@ -1054,11 +1053,11 @@ export const SLIDE_ENRICH = {
     {
       "title": "PLATFORMS",
       "bullets": [
-        "Facebook & Instagram \u2014 fit your customers",
-        "Which platform fits your work",
-        "Start with one \u2014 do it well",
-        "Stories vs posts \u2014 simple choices",
-        "Meet people where they scroll"
+        "Pick one app your customers already open",
+        "Facebook Page or Instagram professional account — follow the prompts in the app",
+        "Do not start both on day one",
+        "Stop if the app pushes you to buy an ad",
+        "Button names change — follow the screen"
       ]
     },
     {
@@ -1074,51 +1073,51 @@ export const SLIDE_ENRICH = {
     {
       "title": "BRANDING BASICS",
       "bullets": [
-        "Name, look, voice, consistency",
-        "Be recognizable every time",
-        "True to who you are",
-        "Simple visuals that feel like you",
-        "Consistency builds trust"
+        "Photo, name, what you sell, where you are, how to reach you",
+        "Use the same name as the invoice from Workshop 09",
+        "True beats clever",
+        "No fake urgency and no bought likes",
+        "People not online still get a poster or a conversation"
       ]
     },
     {
       "title": "POSTING HABITS",
       "bullets": [
-        "What to share \u2014 and how often is enough",
-        "Photos, stories, calls to action",
-        "Enough is better than never",
-        "Batch when you can",
-        "Show real work, real people"
+        "A fair start is 8 to 12 true posts in 30 days",
+        "Daylight photo of real work",
+        "Two to four sentences and one plain ask",
+        "Batch drafts when you can",
+        "Enough beats never — and beats hype"
       ]
     },
     {
       "title": "COMMUNITY MARKETING",
       "bullets": [
-        "Respectful, local, and true",
-        "Community-appropriate tone",
-        "Invite without pressure",
-        "Celebrate neighbours & partners",
-        "Marketing that belongs here"
+        "Invite; do not pressure",
+        "No follow-for-follow, no growth hacks, no fake scarcity",
+        "Celebrate a neighbour; do not poach their customers",
+        "Comment like a person, not a blast",
+        "If it feels pushy, read it aloud and cut it"
       ]
     },
     {
       "title": "CONTENT PLAN",
       "bullets": [
-        "30-day content planning template",
-        "Themes that fit your season",
-        "Draft posts before you need them",
-        "Peer feedback on tone & clarity",
-        "A plan you can actually follow"
+        "Themes: work you did, how to order, a thank-you, a neighbour",
+        "Leave blanks rather than filler",
+        "Draft one post in class; post later only if you want",
+        "A partner checks it for truth and tone",
+        "Organic posting costs nothing; ads later, budget you set in the app"
       ]
     },
     {
       "title": "HANDS-ON TODAY",
       "bullets": [
-        "Talk while you post \u2014 hands stay busy",
-        "Profile setup or audit of existing page",
-        "Fill a 30-day content plan template",
-        "Create and draft a live post",
-        "Printouts + QR on your phone"
+        "Same seven steps, in order",
+        "One platform only",
+        "Fix one profile gap before you leave",
+        "One draft — do not publish if you are unsure",
+        "Do not boost or buy followers"
       ]
     },
     {
@@ -1134,7 +1133,7 @@ export const SLIDE_ENRICH = {
     {
       "title": "WHAT'S NEXT",
       "bullets": [
-        "Waste, Recycling & Composting \u2014 2.5 Hours",
+        "Waste, Recycling & Composting — 2.5 Hours",
         "Land & Stewardship stream opens",
         "Book through MSGAM",
         "14 workshops run on repeat for new cohorts",
@@ -1147,7 +1146,7 @@ export const SLIDE_ENRICH = {
       "title": "WHY THIS MATTERS",
       "bullets": [
         "Care for the land every day",
-        "Less landfill \u2014 more compost",
+        "Less landfill — more compost",
         "Clean recycling actually gets recycled",
         "Pest-free storage at home",
         "Habits that stay in the community"
@@ -1156,11 +1155,11 @@ export const SLIDE_ENRICH = {
     {
       "title": "COMPOSTING BASICS",
       "bullets": [
-        "What goes in \u2014 organics & scraps",
-        "What stays out \u2014 plastics & metals",
-        "Keep the pile balanced & healthy",
-        "Start small with provided scraps",
-        "Soil life from kitchen waste"
+        "Curbside green cart and a backyard bin are not the same list",
+        "CBRM green cart: food scraps, including meat and dairy — no plastic bags",
+        "Backyard bin: plant scraps and grounds, plus leaves or shredded paper",
+        "Keep meat and oil out of an open backyard pile",
+        "Sharps go in a pharmacy container — never a bin"
       ]
     },
     {
@@ -1176,51 +1175,51 @@ export const SLIDE_ENRICH = {
     {
       "title": "SORTING WASTE",
       "bullets": [
-        "Garbage vs recycling vs organics",
-        "When unsure \u2014 ask before you toss",
-        "Labels help the whole household",
-        "Sort a mixed pile together today",
-        "Clear sorting cuts landfill load"
+        "Write your community down before you sort",
+        "CBRM: bag 1 containers and plastics; bag 2 paper. Never mix",
+        "Inverness County flips those numbers — use their guide",
+        "Victoria, Richmond, and First Nations: their sheet, not a neighbour's",
+        "Unsure of an item? Look it up. Do not guess"
       ]
     },
     {
       "title": "RINSING RECYCLABLES",
       "bullets": [
-        "Clean recycling gets recycled",
-        "Rinse food residue off containers",
-        "Dry enough to store without smell",
-        "Small habit \u2014 big downstream effect",
-        "Demo with real materials today"
+        "Empty, then rinse until no food film",
+        "Lids off when your community guide says so",
+        "Paper and cardboard stay dry in their own bag",
+        "Dirty recycling gets rejected",
+        "CBRM: transparent blue bags only — a clear bag of recyclables can be left"
       ]
     },
     {
       "title": "BAGGING & STORING",
       "bullets": [
-        "Seal bags \u2014 keep pests out",
-        "Tidy storage protects the home",
-        "Separate streams stay separate",
-        "Your box and bins go home set up",
-        "Clean systems are easier to keep"
+        "CBRM: up to 5 clear garbage bags a week; one may be dark — confirm the page",
+        "Each bag 12 kg (25 lb) or less",
+        "Do not put garbage bags inside the green cart",
+        "Seal organics so animals cannot open them",
+        "Hazardous waste never goes in garbage, a blue bag, or the cart"
       ]
     },
     {
       "title": "GETTING IT THERE",
       "bullets": [
-        "Know drop-off vs pickup where you live",
-        "Nearest recycling centre routes",
-        "Plan trips with neighbours if needed",
-        "Community drop-off ideas",
-        "Show up consistently"
+        "CBRM guide: cbrm.ns.ca/sorting — hotline 902-567-1337",
+        "Inverness: invernesscounty.ca/sortitout — 1-866-258-0223 option 1",
+        "Refundables to an ENVIRO-DEPOT, not the curb",
+        "A provincial Divert NS sheet can be older than your town's rules — the town wins",
+        "First Nation pickup may differ — ask the band, do not assume"
       ]
     },
     {
       "title": "HANDS-ON TODAY",
       "bullets": [
-        "Talk while you sort \u2014 hands stay busy",
-        "Set up garbage box & recycling bins",
-        "Sort a mixed pile together",
-        "Rinse-and-bag; start small compost",
-        "Printouts + QR on your phone"
+        "Same nine steps, in order",
+        "Name your community before anyone sorts",
+        "CBRM bag numbers are not Inverness bag numbers",
+        "Rinse containers; keep paper dry",
+        "Green cart list is not the backyard-bin list"
       ]
     },
     {
@@ -1236,7 +1235,7 @@ export const SLIDE_ENRICH = {
     {
       "title": "WHAT'S NEXT",
       "bullets": [
-        "Beekeeping Basics \u2014 2.5 Hours",
+        "Beekeeping Basics — 2.5 Hours",
         "Keep sorting habits going at home",
         "Book through MSGAM",
         "14 workshops run on repeat for new cohorts",
@@ -1258,11 +1257,11 @@ export const SLIDE_ENRICH = {
     {
       "title": "HIVE SETUP",
       "bullets": [
-        "Equipment, location, first-year essentials",
-        "Where the hive belongs",
-        "Start with what you need \u2014 not everything",
-        "Site sketch before you buy",
-        "Set up for calm access"
+        "NS Bee Industry Act: register to keep bees — even one colony",
+        "Within 10 days of getting bees; certificate ends 31 December",
+        "Re-register by 1 November — beekeeping@novascotia.ca",
+        "NSBA: registration is free; association membership is a separate fee",
+        "Bees or used gear from outside NS need an import permit — do not order first"
       ]
     },
     {
@@ -1278,51 +1277,51 @@ export const SLIDE_ENRICH = {
     {
       "title": "BEE SAFETY",
       "bullets": [
-        "Suits, smoke, calm handling",
-        "When to step back",
-        "Protect yourself and the colony",
-        "Slow movements \u2014 soft voice",
-        "Safety is respect for the bees"
+        "No hive is opened here without a veil, suit, and gloves",
+        "Only a geared facilitator touches a live hive; everyone else stands back",
+        "Allergy, weather, or a hot colony: model or video",
+        "Smoker stays cold unless a mentor has shown you",
+        "A swarm: stay back, do not poke it, call a beekeeper"
       ]
     },
     {
       "title": "SEASONAL CARE",
       "bullets": [
-        "Spring buildup through winter prep",
-        "Know what each season asks",
-        "Leave enough for the bees",
-        "Watch before you intervene",
-        "A calendar you can follow"
+        "Spring build-up, summer space, fall stores, winter cluster",
+        "Cape Breton winter is long — plan to leave honey on the hive",
+        "Reportable pests: read the province package, do not improvise treatment",
+        "No permit to move bees from mainland NS to Cape Breton",
+        "Still ask about varroa; Cape Breton beekeepers prefer island stock"
       ]
     },
     {
       "title": "HONEY HARVEST",
       "bullets": [
-        "When, how much, leave enough for bees",
-        "Taste and talk local sources",
-        "Harvest is a relationship",
-        "Never take the winter stores",
-        "Share surplus with care"
+        "First year often means no harvest — the colony needs the stores",
+        "A mentor says when a box is actually surplus",
+        "Never take winter honey to fill jars",
+        "Class tasting is sealed honey only — not an open hive",
+        "Before you sell honey, check provincial food rules — not covered here"
       ]
     },
     {
       "title": "BEES & FOOD SYSTEMS",
       "bullets": [
-        "Pollination for gardens & crops",
-        "Community resilience",
-        "Backyard or shared hive sites",
-        "Food systems that include bees",
-        "Your garden thanks the hive"
+        "Bees pollinate gardens and crops — that is the community win",
+        "Site: morning sun, wind break, water, flight path off doors and play",
+        "Ask neighbours and the band or landlord before a hive goes in",
+        "Mentors: nsbeekeepers.ca/mentors",
+        "Do not buy bees until you are registered, mentored, and legal to receive them"
       ]
     },
     {
       "title": "HANDS-ON TODAY",
       "bullets": [
-        "Talk while you learn \u2014 hands stay busy",
-        "Hive demo (live / model / video if unsafe)",
-        "Honey tasting & local sources talk",
-        "Startup cost worksheet + site sketch",
-        "Printouts + QR on your phone"
+        "Same seven steps, in order",
+        "Gear named before any demo",
+        "Live bees only for a geared facilitator — or cancel",
+        "Registration facts written, not filed for someone else",
+        "No bees ordered today"
       ]
     },
     {
@@ -1338,7 +1337,7 @@ export const SLIDE_ENRICH = {
     {
       "title": "WHAT'S NEXT",
       "bullets": [
-        "Water, Energy & Land Stewardship \u2014 2.5 Hours",
+        "Water, Energy & Land Stewardship — 2.5 Hours",
         "Park hive budget with garden plans",
         "Book through MSGAM",
         "14 workshops run on repeat for new cohorts",
@@ -1350,21 +1349,21 @@ export const SLIDE_ENRICH = {
     {
       "title": "WHY STEWARDSHIP",
       "bullets": [
-        "Mi'kmaq land & water relationships",
+        "We meet on Mi'kmaq territory in Unama'ki — honour the land",
+        "This class does not teach Mi'kmaq knowledge or speak for the Nation",
         "Practical actions you can take now",
-        "Close loops on your own property",
-        "Reduce waste without hardship",
+        "Close loops on your own place",
         "Care that stays in the community"
       ]
     },
     {
       "title": "LAND & WATER",
       "bullets": [
-        "Mi'kmaq knowledge that guides stewardship",
-        "Water as relative \u2014 not just resource",
-        "Notice what your land already holds",
-        "Relationships before systems",
-        "Honour before you alter"
+        "Honour the territory; thank communities hosting through MSGAM",
+        "We do not teach Mi'kmaq knowledge and we do not speak for the Nation",
+        "Ask before you change a shared, rented, or sensitive place",
+        "Notice where water already runs",
+        "Notice where scraps already go"
       ]
     },
     {
@@ -1380,51 +1379,51 @@ export const SLIDE_ENRICH = {
     {
       "title": "RAINWATER",
       "bullets": [
-        "Simple systems for gardens & households",
-        "Collect what falls freely",
-        "Start small \u2014 barrels before big builds",
-        "Use for plants before waste",
-        "Water that stays on the land"
+        "Barrel water is for plants — not drinking or cooking",
+        "Screen the inlet and the overflow; keep a tight lid",
+        "Firm, level base so it cannot tip",
+        "Overflow away from the foundation, onto ground that can soak",
+        "Do not climb a roof — ground-level diverter, or someone equipped"
       ]
     },
     {
       "title": "COMPOSTING & SOIL",
       "bullets": [
-        "Closing loops on your own property",
-        "Kitchen scraps to living soil",
-        "What goes in \u2014 what stays out",
-        "Soil care is land care",
-        "Start with what's already at hand"
+        "Green-cart rules and an open backyard bin are not the same list",
+        "Backyard: greens, then browns; cover the scraps",
+        "No plastic, meat, or oil in a simple open bin",
+        "If it smells sour, add browns and air",
+        "Keep the pile from washing toward a ditch or a well"
       ]
     },
     {
       "title": "ENERGY AWARENESS",
       "bullets": [
-        "Heat, light, reducing waste without hardship",
-        "Notice where energy leaves the home",
-        "Small changes that add up",
-        "Comfort and care together",
-        "Awareness before expensive fixes"
+        "Tissue test at door and window edges; mark the draft",
+        "Seal the worst gap you can reach from the floor",
+        "When a bulb you use dies, price an LED in the store",
+        "Turn heat down only if everyone in the house stays warm",
+        "Bigger retrofits are a contractor job — this class stops at habits"
       ]
     },
     {
       "title": "PROPERTY ACTIONS",
       "bullets": [
-        "Practical steps you can take immediately",
-        "Assess your home or a sample site",
-        "Map water, energy, and land assets",
-        "Pick three actions for 30 days",
-        "Stewardship that fits your life"
+        "Map three zones: water, scraps, drafts",
+        "Three actions for 30 days, none that need a ladder",
+        "Price a barrel, bin, or bulb that day — no price on this page",
+        "One question for the landlord, band, or municipality before you install",
+        "Share a tool, not a lecture"
       ]
     },
     {
       "title": "HANDS-ON TODAY",
       "bullets": [
-        "Talk while you assess \u2014 hands stay busy",
-        "Property stewardship assessment",
-        "Composting & rainwater guide walkthrough",
-        "Pick three actions for the next 30 days",
-        "Printouts + QR on your phone"
+        "Same five steps, in order",
+        "Mark rain, scraps, and drafts on the sheet",
+        "Barrel spot on paper — plants only, screened, no roof climb",
+        "Compost spot and three ladder-free actions",
+        "Name who you must ask before you attach anything"
       ]
     },
     {
@@ -1440,7 +1439,7 @@ export const SLIDE_ENRICH = {
     {
       "title": "WHAT'S NEXT",
       "bullets": [
-        "Full 14-workshop series complete \u2014 thank you",
+        "Full 14-workshop series complete — thank you",
         "New cohorts loop to Workshop 01",
         "Book through MSGAM",
         "Skills stay in this community",
