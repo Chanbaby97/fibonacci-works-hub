@@ -9,10 +9,12 @@ html { -webkit-text-size-adjust: 100%; }
 body {
   font-family: "Iowan Old Style", Palatino, "Palatino Linotype", Georgia, serif;
   color: #241c16;
+  /* Soft night-violet frame — light shines through glass chrome inside the phone shell */
   background:
-    radial-gradient(90% 55% at 50% -10%, rgba(168, 140, 220, 0.42), transparent 58%),
-    radial-gradient(70% 45% at 100% 100%, rgba(196, 148, 86, 0.28), transparent 52%),
-    radial-gradient(50% 40% at 0% 80%, rgba(74, 124, 63, 0.18), transparent 50%),
+    radial-gradient(95% 58% at 50% -8%, rgba(188, 168, 236, 0.38), transparent 56%),
+    radial-gradient(70% 48% at 100% 100%, rgba(196, 148, 86, 0.22), transparent 52%),
+    radial-gradient(48% 40% at 0% 82%, rgba(74, 124, 63, 0.16), transparent 50%),
+    radial-gradient(40% 30% at 80% 20%, rgba(255, 255, 255, 0.08), transparent 55%),
     #14111c;
   overscroll-behavior-y: none;
 }

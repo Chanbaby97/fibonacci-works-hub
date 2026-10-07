@@ -597,6 +597,16 @@ const STYLE = `
     --fw-line: rgba(70, 48, 32, 0.1);
     --fw-color: #4a7c3f;
     --fw-accent: #c4a06a;
+    --fw-glass: rgba(255, 252, 248, 0.46);
+    --fw-glass-strong: rgba(255, 250, 243, 0.62);
+    --fw-glass-border: rgba(255, 255, 255, 0.58);
+    --fw-glass-edge: rgba(70, 48, 32, 0.08);
+    --fw-glass-blur: blur(22px) saturate(1.35);
+    --fw-glass-shadow:
+      0 12px 32px rgba(28, 16, 40, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.72),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.12);
+    --fw-specular: linear-gradient(155deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.12) 38%, transparent 58%);
   }
   .fw-app {
     max-width: 440px;
@@ -606,25 +616,49 @@ const STYLE = `
     position: relative;
     color: var(--fw-ink);
     background:
-      radial-gradient(120% 72% at 110% -12%, color-mix(in srgb, var(--fw-accent) 34%, transparent), transparent 48%),
-      radial-gradient(80% 48% at -10% 108%, rgba(92, 64, 148, 0.1), transparent 54%),
-      linear-gradient(180deg, #fbf7f0 0%, var(--fw-paper) 46%, #f1e8da 100%);
-    box-shadow: 0 0 0 1px rgba(255,255,255,0.06), 0 28px 80px rgba(16, 10, 28, 0.38);
+      radial-gradient(120% 72% at 110% -12%, color-mix(in srgb, var(--fw-accent) 28%, transparent), transparent 48%),
+      radial-gradient(80% 48% at -10% 108%, rgba(92, 64, 148, 0.08), transparent 54%),
+      linear-gradient(180deg, rgba(255, 252, 248, 0.72) 0%, rgba(246, 240, 230, 0.78) 46%, rgba(241, 232, 218, 0.82) 100%);
+    -webkit-backdrop-filter: blur(28px) saturate(1.25);
+    backdrop-filter: blur(28px) saturate(1.25);
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,0.22),
+      0 28px 80px rgba(16, 10, 28, 0.38),
+      inset 0 1px 0 rgba(255,255,255,0.55);
+    overflow: hidden;
   }
   .fw-app::before {
     content: "";
     pointer-events: none;
     position: absolute;
     inset: 0;
-    background-image: radial-gradient(rgba(80, 52, 28, 0.045) 0.7px, transparent 0.7px);
+    background-image: radial-gradient(rgba(80, 52, 28, 0.035) 0.7px, transparent 0.7px);
     background-size: 3px 3px;
     mix-blend-mode: multiply;
+    opacity: 0.42;
+    z-index: 0;
+  }
+  .fw-app::after {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    background: var(--fw-specular);
     opacity: 0.55;
     z-index: 0;
   }
   .fw-app > * { position: relative; z-index: 1; }
+  @media (min-width: 521px) {
+    .fw-app {
+      margin: 18px auto;
+      min-height: calc(100vh - 36px);
+      min-height: calc(100dvh - 36px);
+      border-radius: 28px;
+      border: 1px solid rgba(255,255,255,0.28);
+    }
+  }
   @media (max-width: 520px) {
-    .fw-app { max-width: 100%; box-shadow: none; }
+    .fw-app { max-width: 100%; box-shadow: none; border-radius: 0; }
   }
   @keyframes fw-rise {
     from { opacity: 0; transform: translateY(6px); }
@@ -635,12 +669,29 @@ const STYLE = `
     overflow: hidden;
     animation: fw-rise .38s ease;
   }
+  .fw-glass {
+    background: var(--fw-glass);
+    -webkit-backdrop-filter: var(--fw-glass-blur);
+    backdrop-filter: var(--fw-glass-blur);
+    border: 1px solid var(--fw-glass-border);
+    box-shadow: var(--fw-glass-shadow);
+  }
+  .fw-glass-chip {
+    background: rgba(255, 255, 255, 0.42);
+    -webkit-backdrop-filter: blur(14px) saturate(1.25);
+    backdrop-filter: blur(14px) saturate(1.25);
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.65), 0 6px 16px rgba(28,16,40,0.05);
+  }
   .fw-block {
-    background: rgba(255,250,243,0.88);
-    border: 1px solid rgba(70,48,32,0.08);
-    border-radius: 14px;
+    background: rgba(255, 252, 248, 0.48);
+    -webkit-backdrop-filter: blur(18px) saturate(1.3);
+    backdrop-filter: blur(18px) saturate(1.3);
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    border-radius: 16px;
     padding: 12px 12px;
     margin: 0 0 10px;
+    box-shadow: var(--fw-glass-shadow);
   }
   .fw-block-title {
     font-size: 11px;
@@ -682,14 +733,29 @@ const STYLE = `
     border-radius: 18px;
     padding: 14px 14px;
     margin: 0 0 14px;
-    box-shadow: 0 10px 24px rgba(48,32,24,0.05);
+    background: rgba(255, 252, 248, 0.48);
+    -webkit-backdrop-filter: blur(18px) saturate(1.3);
+    backdrop-filter: blur(18px) saturate(1.3);
+    box-shadow: var(--fw-glass-shadow);
   }
-  .fw-card { transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease; }
-  .fw-card:hover { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(48, 28, 64, 0.08); }
+  .fw-card {
+    transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease;
+    -webkit-backdrop-filter: blur(16px) saturate(1.25);
+    backdrop-filter: blur(16px) saturate(1.25);
+    box-shadow: var(--fw-glass-shadow);
+  }
+  .fw-card:hover { transform: translateY(-2px); box-shadow: 0 18px 36px rgba(48, 28, 64, 0.1), inset 0 1px 0 rgba(255,255,255,0.75); }
   .fw-tap:focus-visible, .fw-card:focus-visible { outline: 2px solid var(--fw-color); outline-offset: 3px; border-radius: 14px; }
   .fw-link:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; border-radius: 8px; }
+  .fw-cta {
+    position: relative;
+    box-shadow:
+      0 10px 24px rgba(28, 16, 40, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.42),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.06);
+  }
   .fw-cta:hover { filter: brightness(1.05); }
-  .fw-tint-card { background: linear-gradient(135deg, var(--fw-tint, #fff) 0%, var(--fw-card) 48%); }
+  .fw-tint-card { background: linear-gradient(135deg, var(--fw-tint, rgba(255,255,255,0.35)) 0%, rgba(255,250,243,0.55) 48%); }
   .fw-cta, .fw-tap, .fw-row { min-height: 44px; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
   .fw-figure { margin: 0 0 16px; }
   .fw-figure img {
@@ -704,24 +770,34 @@ const STYLE = `
     margin-top: 18px;
     border-radius: 20px;
     display: block;
+    border: 1px solid rgba(255,255,255,0.32);
+    box-shadow: 0 18px 40px rgba(12, 8, 24, 0.28), inset 0 1px 0 rgba(255,255,255,0.35);
+  }
+  .fw-pill {
+    background: rgba(255,255,255,0.14);
+    -webkit-backdrop-filter: blur(12px) saturate(1.2);
+    backdrop-filter: blur(12px) saturate(1.2);
     border: 1px solid rgba(255,255,255,0.28);
-    box-shadow: 0 18px 40px rgba(12, 8, 24, 0.28);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.35);
   }
   .fw-teach-bar {
     position: sticky; bottom: 0; z-index: 40;
     padding: 10px 12px calc(12px + var(--fw-safe-b));
-    background: rgba(255, 250, 243, 0.9);
-    backdrop-filter: blur(16px);
-    border-top: 1px solid var(--fw-line);
+    background: rgba(255, 250, 243, 0.55);
+    -webkit-backdrop-filter: blur(22px) saturate(1.35);
+    backdrop-filter: blur(22px) saturate(1.35);
+    border-top: 1px solid rgba(255,255,255,0.45);
     display: flex; align-items: center; gap: 8px;
-    box-shadow: 0 -16px 36px rgba(40, 24, 60, 0.06);
+    box-shadow: 0 -16px 36px rgba(40, 24, 60, 0.08), inset 0 1px 0 rgba(255,255,255,0.55);
   }
   .fw-menu-panel {
     position: absolute; top: calc(100% + 8px); right: 0; left: 0;
-    background: var(--fw-card);
-    border: 1px solid rgba(70, 48, 32, 0.08);
+    background: rgba(255, 250, 243, 0.72);
+    -webkit-backdrop-filter: blur(24px) saturate(1.35);
+    backdrop-filter: blur(24px) saturate(1.35);
+    border: 1px solid rgba(255, 255, 255, 0.55);
     border-radius: 18px;
-    box-shadow: 0 22px 50px rgba(24, 14, 36, 0.16);
+    box-shadow: 0 22px 50px rgba(24, 14, 36, 0.18), inset 0 1px 0 rgba(255,255,255,0.7);
     z-index: 50; max-height: 70vh; overflow: auto;
   }
 
@@ -729,7 +805,9 @@ const STYLE = `
     position: fixed;
     inset: 0;
     z-index: 80;
-    background: rgba(18, 12, 28, 0.58);
+    background: rgba(18, 12, 28, 0.42);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
     display: flex;
     align-items: flex-end;
     justify-content: center;
@@ -740,12 +818,14 @@ const STYLE = `
     max-height: min(84dvh, 680px);
     overflow: auto;
     background:
-      radial-gradient(120% 80% at 100% 0%, rgba(196, 160, 106, 0.18), transparent 46%),
-      linear-gradient(180deg, #fffaf3 0%, #f4ecdf 100%);
+      radial-gradient(120% 80% at 100% 0%, rgba(196, 160, 106, 0.16), transparent 46%),
+      linear-gradient(180deg, rgba(255, 252, 248, 0.72) 0%, rgba(244, 236, 223, 0.78) 100%);
+    -webkit-backdrop-filter: blur(28px) saturate(1.4);
+    backdrop-filter: blur(28px) saturate(1.4);
     color: #241c16;
     border-radius: 26px;
-    border: 1px solid rgba(255, 248, 236, 0.7);
-    box-shadow: 0 28px 70px rgba(12, 8, 22, 0.42);
+    border: 1px solid rgba(255, 255, 255, 0.58);
+    box-shadow: 0 28px 70px rgba(12, 8, 22, 0.38), inset 0 1px 0 rgba(255,255,255,0.75);
     padding: 8px 16px 16px;
   }
   .fw-sheet-handle {
@@ -754,14 +834,31 @@ const STYLE = `
     border-radius: 99px;
     background: rgba(70, 48, 32, 0.18);
     margin: 6px auto 12px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.35);
+  }
+  .fw-answer-line {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    background: rgba(255, 255, 255, 0.42);
+    -webkit-backdrop-filter: blur(12px) saturate(1.2);
+    backdrop-filter: blur(12px) saturate(1.2);
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    border-radius: 14px;
+    padding: 10px 12px;
+    font-size: 15.5px;
+    line-height: 1.45;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.65), 0 6px 16px rgba(28,16,40,0.04);
   }
 
   .fw-prep {
     border-radius: 18px;
-    border: 1.5px solid rgba(70,48,32,0.12);
+    border: 1.5px solid rgba(255,255,255,0.45);
     padding: 14px 14px;
     margin: 0 0 4px;
-    box-shadow: 0 10px 24px rgba(48,32,24,0.05);
+    -webkit-backdrop-filter: blur(20px) saturate(1.3);
+    backdrop-filter: blur(20px) saturate(1.3);
+    box-shadow: var(--fw-glass-shadow);
   }
   .fw-prep-grid {
     display: grid;
@@ -769,10 +866,13 @@ const STYLE = `
     gap: 8px;
   }
   .fw-prep-chip {
-    background: rgba(255,250,243,0.95);
-    border: 1px solid rgba(70,48,32,0.08);
+    background: rgba(255, 255, 255, 0.4);
+    -webkit-backdrop-filter: blur(12px) saturate(1.2);
+    backdrop-filter: blur(12px) saturate(1.2);
+    border: 1px solid rgba(255, 255, 255, 0.5);
     border-radius: 14px;
     padding: 10px 12px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.65);
   }
   .fw-prep-k {
     font-size: 10px;
@@ -793,11 +893,14 @@ const STYLE = `
   }
   .fw-prep-check {
     display: flex; gap: 12px; align-items: flex-start;
-    border: 1.5px solid rgba(70,48,32,0.1);
+    border: 1.5px solid rgba(255,255,255,0.45);
     border-radius: 14px;
     padding: 12px 12px;
     margin: 0 0 10px;
     cursor: pointer;
+    background: rgba(255,255,255,0.28);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
   }
   .fw-prep-check input {
     width: 22px; height: 22px; margin-top: 2px; flex-shrink: 0; accent-color: var(--fw-color);
@@ -808,14 +911,14 @@ const STYLE = `
     overflow: hidden;
     background: #fff;
     border: 1px solid rgba(70,48,32,0.1);
-    box-shadow: 0 8px 18px rgba(40,24,16,0.06);
+    box-shadow: 0 8px 18px rgba(40,24,16,0.06), inset 0 1px 0 rgba(255,255,255,0.8);
   }
   .fw-qr svg { width: 100%; height: 100%; display: block; }
   .fw-qr-fallback {
     border: 1.5px dashed rgba(70,48,32,0.25);
     border-radius: 12px;
     padding: 12px;
-    background: #fff;
+    background: rgba(255,255,255,0.85);
     max-width: 220px;
   }
   .fw-print-only { display: none; }
@@ -832,14 +935,18 @@ const STYLE = `
       display: block !important; position: absolute; left: 0; top: 0; width: 100%;
       background: #fff !important; color: #000 !important; padding: 18px !important;
       box-shadow: none !important; border: none !important;
+      -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
     }
     .fw-print-card {
       border: 1.5px solid #333 !important;
       page-break-inside: avoid;
       break-inside: avoid;
       margin-bottom: 14px !important;
+      background: #fff !important;
+      -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+      box-shadow: none !important;
     }
-    .fw-no-print, .fw-teach-bar, .fw-app-chrome, .fw-app::before { display: none !important; visibility: hidden !important; }
+    .fw-no-print, .fw-teach-bar, .fw-app-chrome, .fw-app::before, .fw-app::after { display: none !important; visibility: hidden !important; }
   }
 `;
 
@@ -874,6 +981,7 @@ const ctaBtn = (bg, color, border) => ({
   color,
   lineHeight: 1.2,
   textAlign: "center",
+  boxShadow: "0 10px 24px rgba(28, 16, 40, 0.12), inset 0 1px 0 rgba(255,255,255,0.42)",
 });
 
 const AppShell = ({ children, tone }) => (
@@ -1141,7 +1249,7 @@ function FacilitatorPrepCard({ w, onPrint }) {
   const color = w.color || "#4a7c3f";
 
   return (
-    <div className="fw-prep" style={{ borderColor: `${color}55`, background: `linear-gradient(145deg, ${color}16 0%, #fffaf3 52%)` }}>
+    <div className="fw-prep fw-glass" style={{ borderColor: `${color}44`, background: `linear-gradient(145deg, ${color}22 0%, rgba(255,250,243,0.42) 55%)` }}>
       <div style={{ fontSize: 11, letterSpacing: 2, color, fontFamily: "'Courier New', monospace", fontWeight: 700, marginBottom: 4 }}>FACILITATOR PREP</div>
       <div style={{ fontSize: 17, fontWeight: 600, color: "#241c16", marginBottom: 4 }}>Pro runbook · before anyone sits down</div>
       <p style={{ margin: "0 0 12px", fontSize: 13, lineHeight: 1.5, color: "#6d5e50" }}>
@@ -1159,7 +1267,7 @@ function FacilitatorPrepCard({ w, onPrint }) {
         </div>
       </div>
 
-      <div className="fw-block" style={{ borderColor: `${color}33`, marginTop: 10, background: "rgba(255,250,243,0.95)" }}>
+      <div className="fw-block" style={{ borderColor: `${color}33`, marginTop: 10, background: "rgba(255,252,248,0.38)" }}>
         <div className="fw-block-title" style={{ color }}>Section run order</div>
         <ol className="fw-prep-order">
           {prep.sectionOrder.map((label, i) => (
@@ -1168,7 +1276,7 @@ function FacilitatorPrepCard({ w, onPrint }) {
         </ol>
       </div>
 
-      <div className="fw-block" style={{ borderColor: `${color}33`, background: "rgba(255,250,243,0.95)" }}>
+      <div className="fw-block" style={{ borderColor: `${color}33`, background: "rgba(255,252,248,0.38)" }}>
         <div className="fw-block-title" style={{ color }}>Headcount · kit scale</div>
         <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
           <button type="button" className="fw-tap fw-cta" aria-label="Fewer people" onClick={() => setHeadcount((h) => Math.max(1, (Number(h) || 1) - 1))} style={{ ...ctaBtn("#fff", color, `1.5px solid ${color}`), width: 44, height: 44, padding: 0 }}>−</button>
@@ -1233,7 +1341,7 @@ function FacilitatorPrepCard({ w, onPrint }) {
         )}
       </div>
 
-      <div className="fw-block" style={{ borderColor: `${color}33`, background: "rgba(255,250,243,0.95)" }}>
+      <div className="fw-block" style={{ borderColor: `${color}33`, background: "rgba(255,252,248,0.38)" }}>
         <div className="fw-block-title" style={{ color }}>Room setup</div>
         <ul>
           <li><span aria-hidden="true" style={{ color, fontWeight: 700 }}>·</span><span>Facilitator: hub open + slides (Canva/PDF). Talk each section while hands stay busy.</span></li>
@@ -1247,7 +1355,7 @@ function FacilitatorPrepCard({ w, onPrint }) {
         )}
       </div>
 
-      <div className="fw-block fw-print-card" style={{ borderColor: `${color}44`, background: `${color}12` }}>
+      <div className="fw-block fw-print-card" style={{ borderColor: `${color}44`, background: `linear-gradient(135deg, ${color}18 0%, rgba(255,252,248,0.4) 70%)` }}>
         <div className="fw-block-title" style={{ color }}>QR · this workshop alone</div>
         <div style={{ display: "flex", gap: 14, alignItems: "flex-start", flexWrap: "wrap" }}>
           <WorkshopQr url={deepUrl} color={color} size={132} />
@@ -1263,7 +1371,7 @@ function FacilitatorPrepCard({ w, onPrint }) {
         </div>
       </div>
 
-      <label className="fw-prep-check" style={{ borderColor: practiced ? color : `${color}33`, background: practiced ? `${color}18` : "rgba(255,250,243,0.95)" }}>
+      <label className="fw-prep-check" style={{ borderColor: practiced ? color : `${color}33`, background: practiced ? `${color}1c` : "rgba(255,255,255,0.32)" }}>
         <input type="checkbox" checked={practiced} onChange={(e) => setPracticedPersist(e.target.checked)} />
         <span>
           <strong style={{ color }}>Practice at home first</strong>
@@ -1272,7 +1380,7 @@ function FacilitatorPrepCard({ w, onPrint }) {
       </label>
 
       {prep.sticky && (
-        <div className="fw-block" style={{ borderColor: `${color}44`, background: `linear-gradient(135deg, ${color}14 0%, #fffaf3 60%)`, marginBottom: 0 }}>
+        <div className="fw-block" style={{ borderColor: `${color}44`, background: `linear-gradient(135deg, ${color}1c 0%, rgba(255,250,243,0.4) 60%)`, marginBottom: 0 }}>
           <div className="fw-block-title" style={{ color }}>📌 Sticky takeaway</div>
           <p style={{ margin: 0, fontSize: 14.5, lineHeight: 1.5, color: "#3a3128" }}>{prep.sticky}</p>
         </div>
@@ -1349,7 +1457,7 @@ function ExampleCards({ color, pointExamples, pack, slot }) {
   return (
     <>
       {cards.map((c) => (
-        <div key={c.title} className="fw-block" style={{ borderColor: `${color}33`, background: "rgba(255,250,243,0.95)" }}>
+        <div key={c.title} className="fw-block" style={{ borderColor: `${color}33`, background: "rgba(255,252,248,0.38)" }}>
           <div className="fw-block-title" style={{ color }}>{c.icon} {c.title}</div>
           {c.pre ? (
             <pre className="fw-blueprint" style={{ margin: "0 0 10px", padding: "10px 12px", background: "rgba(36,28,22,0.04)", borderRadius: 10, fontSize: 11.5, lineHeight: 1.35, overflowX: "auto", color: "#3a3128", fontFamily: "'Courier New', monospace", whiteSpace: "pre" }}>{c.pre}</pre>
@@ -1466,7 +1574,7 @@ function AtHomePathCard({ w, onJump }) {
   const done = byKey.done?.items?.[0];
   const need = (byKey.need?.items || []).slice(0, 3);
   return (
-    <div className="fw-home-path" style={{ background: `linear-gradient(135deg, ${w.color}18 0%, #fffaf3 55%)`, border: `1.5px solid ${w.color}44` }}>
+    <div className="fw-home-path fw-glass" style={{ background: `linear-gradient(135deg, ${w.color}24 0%, rgba(255,250,243,0.4) 55%)`, border: `1px solid ${w.color}33` }}>
       <div style={{ fontSize: 11, letterSpacing: 2, color: w.color, fontFamily: "'Courier New', monospace", fontWeight: 700, marginBottom: 6 }}>AT-HOME PATH</div>
       <div style={{ fontSize: 16, fontWeight: 600, color: "#241c16", marginBottom: 6 }}>Redo this workshop at home</div>
       {done && <p style={{ margin: "0 0 8px", fontSize: 13.5, lineHeight: 1.5, color: "#5c5148" }}><strong style={{ color: w.color }}>Done looks like:</strong> {done}</p>}
@@ -1747,7 +1855,7 @@ function TeachMode({ w, onExit, onPrint }) {
 
       {/* Step body */}
       <div style={{ flex: 1, padding: "18px 14px 12px" }}>
-        <div key={step} className="fw-rise" style={{ background: `linear-gradient(180deg, ${w.color}16 0%, #fffaf3 36%)`, borderRadius: 22, border: `1px solid ${w.color}24`, padding: "22px 16px 20px", minHeight: 280, boxShadow: "0 16px 40px rgba(36, 22, 48, 0.06)" }}>
+        <div key={step} className="fw-rise fw-glass" style={{ background: `linear-gradient(180deg, ${w.color}22 0%, rgba(255,250,243,0.42) 42%)`, borderRadius: 22, border: `1px solid rgba(255,255,255,0.5)`, padding: "22px 16px 20px", minHeight: 280 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 14 }}>
             <span style={{ fontSize: 32 }}>{s.icon}</span>
             <div>
@@ -1831,9 +1939,9 @@ function Hub({ onOpen }) {
             Facilitator runbook + student path · 14 workshops · 4 streams · run slides again without re-researching · print outdoor cards when hands leave the room.
           </p>
           <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginBottom: "16px" }}>
-            <span style={{ background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.18)", borderRadius: "20px", padding: "6px 12px", fontSize: "11px", color: "#fff", letterSpacing: "1px", fontFamily: "'Courier New', monospace" }}>14 Workshops</span>
-            <span style={{ background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.18)", borderRadius: "20px", padding: "6px 12px", fontSize: "11px", color: "#fff", letterSpacing: "1px", fontFamily: "'Courier New', monospace" }}>4 Streams</span>
-            <span style={{ background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.18)", borderRadius: "20px", padding: "6px 12px", fontSize: "11px", color: "#fff", letterSpacing: "1px", fontFamily: "'Courier New', monospace" }}>{connected} guides</span>
+            <span className="fw-pill" style={{ borderRadius: "20px", padding: "6px 12px", fontSize: "11px", color: "#fff", letterSpacing: "1px", fontFamily: "'Courier New', monospace" }}>14 Workshops</span>
+            <span className="fw-pill" style={{ borderRadius: "20px", padding: "6px 12px", fontSize: "11px", color: "#fff", letterSpacing: "1px", fontFamily: "'Courier New', monospace" }}>4 Streams</span>
+            <span className="fw-pill" style={{ borderRadius: "20px", padding: "6px 12px", fontSize: "11px", color: "#fff", letterSpacing: "1px", fontFamily: "'Courier New', monospace" }}>{connected} guides</span>
             {completedCount > 0 && (
               <span style={{ background: "rgba(122,182,72,0.25)", border: "1px solid rgba(122,182,72,0.45)", borderRadius: "20px", padding: "6px 12px", fontSize: "11px", color: "#c8e6a0", letterSpacing: "1px", fontFamily: "'Courier New', monospace" }}>{completedCount}/14 opened</span>
             )}
@@ -1897,8 +2005,8 @@ function Hub({ onOpen }) {
                       onClick={() => onOpen(w.number)}
                       onKeyDown={keyActivate(() => onOpen(w.number))}
                       style={{
-                        background: `linear-gradient(115deg, ${bar}18 0%, #fffaf3 46%)`,
-                        border: `1px solid ${bar}22`,
+                        background: `linear-gradient(115deg, ${bar}2a 0%, rgba(255,250,243,0.4) 48%)`,
+                        border: `1px solid rgba(255,255,255,0.55)`,
                         borderRadius: "18px",
                         padding: "12px 12px",
                         cursor: "pointer",
@@ -1906,7 +2014,6 @@ function Hub({ onOpen }) {
                         alignItems: "center",
                         gap: "12px",
                         minHeight: 64,
-                        boxShadow: "0 8px 22px rgba(48, 32, 24, 0.04)",
                       }}
                     >
                       <span style={{ fontSize: "11px", letterSpacing: "1px", color: bar, fontFamily: "'Courier New', monospace", fontWeight: 700, width: 22 }}>{w.number}</span>
@@ -1977,7 +2084,7 @@ function KeyPointSheet({ w, kp, covered, onClose, onToggleCovered }) {
         {answer.lines.length ? (
           <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
             {answer.lines.map((line) => (
-              <li key={line} style={{ display: "flex", gap: 10, alignItems: "flex-start", background: "rgba(255,255,255,0.72)", border: "1px solid rgba(70,48,32,0.08)", borderRadius: 14, padding: "10px 12px", fontSize: 15.5, lineHeight: 1.45 }}>
+              <li key={line} className="fw-answer-line">
                 <span aria-hidden="true" style={{ color: w.color, fontWeight: 700, marginTop: 1 }}>·</span>
                 <span>{line}</span>
               </li>
@@ -2076,7 +2183,7 @@ function FullGuide({ w, onOpen, next, onHome, onTeach, onPrint }) {
           <div style={{ fontSize: "11px", letterSpacing: "2px", color: w.accent, marginBottom: "10px", fontFamily: "'Courier New', monospace" }}>{w.stream}</div>
           <div style={{ fontSize: "40px", marginBottom: "8px" }}>{w.emoji}</div>
           <h1 style={{ fontSize: "clamp(26px, 7vw, 34px)", color: "#fffaf3", margin: "0 0 12px", fontWeight: 400, letterSpacing: "0.2px", lineHeight: 1.15 }}>{w.title}</h1>
-          <div style={{ display: "inline-block", background: "rgba(255,255,255,0.15)", border: "1px solid rgba(255,255,255,0.2)", borderRadius: "20px", padding: "6px 14px", fontSize: "12px", color: "#fff", letterSpacing: "1px", fontFamily: "'Courier New', monospace" }}>⏱ {w.duration}</div>
+          <div className="fw-pill" style={{ display: "inline-block", borderRadius: "20px", padding: "6px 14px", fontSize: "12px", color: "#fff", letterSpacing: "1px", fontFamily: "'Courier New', monospace" }}>⏱ {w.duration}</div>
           <img className="fw-hero-still" src={`placeholders/ws${w.number}-welcome.svg`} alt={`WS${w.number} · ${w.title}`} />
         </div>
       </div>
@@ -2101,7 +2208,7 @@ function FullGuide({ w, onOpen, next, onHome, onTeach, onPrint }) {
 
       {stickyTakeaway(w) && (
         <div style={{ padding: "14px 16px 0" }}>
-          <div className="fw-block" style={{ borderColor: `${w.color}44`, background: `linear-gradient(135deg, ${w.color}14 0%, #fffaf3 60%)` }}>
+          <div className="fw-block" style={{ borderColor: `${w.color}44`, background: `linear-gradient(135deg, ${w.color}1c 0%, rgba(255,250,243,0.4) 60%)` }}>
             <div className="fw-block-title" style={{ color: w.color }}>📌 Sticky takeaway · write this down</div>
             <p style={{ margin: 0, fontSize: 14.5, lineHeight: 1.5, color: "#3a3128" }}>{stickyTakeaway(w)}</p>
           </div>
@@ -2127,7 +2234,7 @@ function FullGuide({ w, onOpen, next, onHome, onTeach, onPrint }) {
           {w.keypoints.map((kp) => (
             <div
               key={kp.label}
-              style={{ background: checked[kp.label] ? `${w.color}14` : "#fffaf3", border: `1px solid ${checked[kp.label] ? w.color : "rgba(70,48,32,0.08)"}`, borderRadius: "16px", padding: "10px 12px 10px 10px", display: "flex", alignItems: "flex-start", gap: "10px", minHeight: 52, boxShadow: "0 6px 16px rgba(48,32,24,0.03)" }}
+              style={{ background: checked[kp.label] ? `${w.color}1c` : "rgba(255,250,243,0.45)", border: `1px solid ${checked[kp.label] ? w.color : "rgba(255,255,255,0.55)"}`, borderRadius: "16px", padding: "10px 12px 10px 10px", display: "flex", alignItems: "flex-start", gap: "10px", minHeight: 52, backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.6), 0 6px 16px rgba(48,32,24,0.04)" }}
             >
               <button
                 type="button"
@@ -2180,7 +2287,7 @@ function FullGuide({ w, onOpen, next, onHome, onTeach, onPrint }) {
                 tabIndex={0}
                 onClick={() => openSection(s.id)}
                 onKeyDown={keyActivate(() => openSection(s.id))}
-                style={{ background: activeSection === s.id ? w.color : "#fffaf3", border: `1px solid ${activeSection === s.id ? w.color : "rgba(70,48,32,0.08)"}`, borderRadius: activeSection === s.id ? "16px 16px 0 0" : "16px", padding: "14px 14px", cursor: "pointer", display: "flex", alignItems: "center", gap: "12px", minHeight: 52, boxShadow: activeSection === s.id ? "none" : "0 6px 16px rgba(48,32,24,0.03)", transition: "background .22s ease, border-color .22s ease, border-radius .22s ease" }}
+                style={{ background: activeSection === s.id ? w.color : "rgba(255,250,243,0.45)", border: `1px solid ${activeSection === s.id ? w.color : "rgba(255,255,255,0.55)"}`, borderRadius: activeSection === s.id ? "16px 16px 0 0" : "16px", padding: "14px 14px", cursor: "pointer", display: "flex", alignItems: "center", gap: "12px", minHeight: 52, backdropFilter: activeSection === s.id ? "none" : "blur(12px)", WebkitBackdropFilter: activeSection === s.id ? "none" : "blur(12px)", boxShadow: activeSection === s.id ? "none" : "inset 0 1px 0 rgba(255,255,255,0.6), 0 6px 16px rgba(48,32,24,0.04)", transition: "background .22s ease, border-color .22s ease, border-radius .22s ease" }}
               >
                 <span style={{ fontSize: "20px" }}>{s.icon}</span>
                 <span style={{ flex: 1, fontSize: "14px", fontWeight: 600, color: activeSection === s.id ? "#fff" : "#1a1a1a" }}>{s.label}</span>
@@ -2190,7 +2297,7 @@ function FullGuide({ w, onOpen, next, onHome, onTeach, onPrint }) {
                 <span style={{ fontSize: "18px", color: activeSection === s.id ? "#fff" : "#ccc", transform: activeSection === s.id ? "rotate(180deg)" : "none", transition: "transform .22s ease" }}>▾</span>
               </div>
               {activeSection === s.id && (
-                <div className="fw-sec-panel" style={{ background: `linear-gradient(180deg, ${w.color}18, #fffaf3 42%)`, border: `1px solid ${w.color}`, borderTop: "none", borderRadius: "0 0 16px 16px", padding: "16px", color: "#3a3128" }}>
+                <div className="fw-sec-panel" style={{ background: `linear-gradient(180deg, ${w.color}22, rgba(255,250,243,0.45) 45%)`, border: `1px solid ${w.color}`, borderTop: "none", borderRadius: "0 0 16px 16px", padding: "16px", color: "#3a3128", backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)" }}>
                   <SectionPlaceholder w={w} section={s} />
                   <SectionRichBody
                     w={w}
@@ -2284,7 +2391,7 @@ function Detail({ number, onHome, onOpen }) {
 
   return (
     <AppShell tone={{ ["--fw-color"]: accent, ["--fw-accent"]: w.accent || accent }}>
-      <div className="fw-app-chrome" style={{ position: "sticky", top: 0, zIndex: 10, background: "rgba(251,247,240,0.9)", backdropFilter: "blur(16px)", borderBottom: "1px solid rgba(70,48,32,0.08)", borderTop: `3px solid ${accent}`, paddingTop: "env(safe-area-inset-top, 0px)" }}>
+      <div className="fw-app-chrome" style={{ position: "sticky", top: 0, zIndex: 10, background: "rgba(255,252,248,0.55)", backdropFilter: "blur(22px) saturate(1.35)", WebkitBackdropFilter: "blur(22px) saturate(1.35)", borderBottom: "1px solid rgba(255,255,255,0.45)", borderTop: `3px solid ${accent}`, boxShadow: "inset 0 1px 0 rgba(255,255,255,0.55)", paddingTop: "env(safe-area-inset-top, 0px)" }}>
         <div style={{ padding: "10px 12px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px" }}>
           <span
             className="fw-link fw-tap"
@@ -2342,18 +2449,18 @@ function Detail({ number, onHome, onOpen }) {
 
       <div style={{ padding: "8px 12px 12px", display: "flex", gap: "8px" }}>
         {prev ? (
-          <div className="fw-card fw-link fw-tap" role="button" tabIndex={0} onClick={() => onOpen(prev.number)} onKeyDown={keyActivate(() => onOpen(prev.number))} style={{ flex: 1, background: "#fffaf3", border: "1px solid rgba(70,48,32,0.08)", borderRadius: "16px", padding: "14px", cursor: "pointer", boxShadow: "0 8px 18px rgba(48,32,24,0.04)" }}>
+          <div className="fw-card fw-link fw-tap fw-glass" role="button" tabIndex={0} onClick={() => onOpen(prev.number)} onKeyDown={keyActivate(() => onOpen(prev.number))} style={{ flex: 1, background: "rgba(255,250,243,0.45)", borderRadius: "16px", padding: "14px", cursor: "pointer" }}>
             <div style={{ fontSize: "10px", letterSpacing: "1px", color: "#aaa", fontFamily: "'Courier New', monospace", marginBottom: "4px" }}>← PREV · {prev.number}</div>
             <div style={{ fontSize: "12px", fontWeight: 600, color: "#1a1a1a", lineHeight: 1.3 }}>{prev.title || `Workshop ${prev.number}`}</div>
           </div>
         ) : <div style={{ flex: 1 }} />}
         {next ? (
-          <div className="fw-card fw-link fw-tap" role="button" tabIndex={0} onClick={() => onOpen(next.number)} onKeyDown={keyActivate(() => onOpen(next.number))} style={{ flex: 1, background: "#fffaf3", border: `1.5px solid ${accent}`, borderRadius: "16px", padding: "14px", cursor: "pointer", textAlign: "right", boxShadow: "0 8px 18px rgba(48,32,24,0.04)" }}>
+          <div className="fw-card fw-link fw-tap fw-glass" role="button" tabIndex={0} onClick={() => onOpen(next.number)} onKeyDown={keyActivate(() => onOpen(next.number))} style={{ flex: 1, background: "rgba(255,250,243,0.45)", border: `1.5px solid ${accent}`, borderRadius: "16px", padding: "14px", cursor: "pointer", textAlign: "right" }}>
             <div style={{ fontSize: "10px", letterSpacing: "1px", color: accent, fontFamily: "'Courier New', monospace", marginBottom: "4px" }}>{next.number} · NEXT →</div>
             <div style={{ fontSize: "12px", fontWeight: 600, color: "#1a1a1a", lineHeight: 1.3 }}>{next.title || `Workshop ${next.number}`}</div>
           </div>
         ) : (
-          <div className="fw-card fw-link fw-tap" role="button" tabIndex={0} onClick={onHome} onKeyDown={keyActivate(onHome)} style={{ flex: 1, background: "#fffaf3", border: "1px solid rgba(70,48,32,0.08)", borderRadius: "16px", padding: "14px", cursor: "pointer", textAlign: "right" }}>
+          <div className="fw-card fw-link fw-tap fw-glass" role="button" tabIndex={0} onClick={onHome} onKeyDown={keyActivate(onHome)} style={{ flex: 1, background: "rgba(255,250,243,0.45)", borderRadius: "16px", padding: "14px", cursor: "pointer", textAlign: "right" }}>
             <div style={{ fontSize: "10px", letterSpacing: "1px", color: "#aaa", fontFamily: "'Courier New', monospace", marginBottom: "4px" }}>SERIES COMPLETE</div>
             <div style={{ fontSize: "12px", fontWeight: 600, color: "#1a1a1a", lineHeight: 1.3 }}>← All workshops</div>
           </div>
