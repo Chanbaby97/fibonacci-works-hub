@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
+import { renderSVG } from "uqr";
 import { SLIDE_ENRICH, learningPointAnswer } from "./slide-enrich.js";
 import { examplesForPoint, workshopExamplePack } from "./workshop-examples.js";
 
@@ -755,6 +756,68 @@ const STYLE = `
     margin: 6px auto 12px;
   }
 
+  .fw-prep {
+    border-radius: 18px;
+    border: 1.5px solid rgba(70,48,32,0.12);
+    padding: 14px 14px;
+    margin: 0 0 4px;
+    box-shadow: 0 10px 24px rgba(48,32,24,0.05);
+  }
+  .fw-prep-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .fw-prep-chip {
+    background: rgba(255,250,243,0.95);
+    border: 1px solid rgba(70,48,32,0.08);
+    border-radius: 14px;
+    padding: 10px 12px;
+  }
+  .fw-prep-k {
+    font-size: 10px;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: #9a8b78;
+    font-family: 'Courier New', monospace;
+    margin-bottom: 4px;
+  }
+  .fw-prep-v { font-size: 14px; font-weight: 600; color: #241c16; line-height: 1.35; }
+  .fw-prep-order {
+    margin: 0; padding: 0; list-style: none;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .fw-prep-order li {
+    display: flex; gap: 8px; align-items: flex-start;
+    font-size: 14px; line-height: 1.4; color: #3a3128;
+  }
+  .fw-prep-check {
+    display: flex; gap: 12px; align-items: flex-start;
+    border: 1.5px solid rgba(70,48,32,0.1);
+    border-radius: 14px;
+    padding: 12px 12px;
+    margin: 0 0 10px;
+    cursor: pointer;
+  }
+  .fw-prep-check input {
+    width: 22px; height: 22px; margin-top: 2px; flex-shrink: 0; accent-color: var(--fw-color);
+  }
+  .fw-qr {
+    flex-shrink: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid rgba(70,48,32,0.1);
+    box-shadow: 0 8px 18px rgba(40,24,16,0.06);
+  }
+  .fw-qr svg { width: 100%; height: 100%; display: block; }
+  .fw-qr-fallback {
+    border: 1.5px dashed rgba(70,48,32,0.25);
+    border-radius: 12px;
+    padding: 12px;
+    background: #fff;
+    max-width: 220px;
+  }
   .fw-print-only { display: none; }
   .fw-print-card { break-inside: avoid; page-break-inside: avoid; }
   @media (prefers-reduced-motion: reduce) {
@@ -882,6 +945,342 @@ function stickyTakeaway(w) {
   const items = blocks.find((b) => b.key === "takeaway")?.items || [];
   return items[0] || "";
 }
+
+/* ── Deep links + facilitator prep (existing materials only) ──
+   Canonical live QR target: GitHub Pages base + ?ws=NN
+   Also accept #wsNN / #ws=NN on any host for local preview.
+   ───────────────────────────────────────────────────────────── */
+const LIVE_HUB_BASE = "https://chanbaby97.github.io/fibonacci-works-hub/";
+const WS_NUMS = new Set(WORKSHOPS.map((w) => w.number));
+
+function normalizeWs(raw) {
+  if (raw == null) return null;
+  const digits = String(raw).replace(/\D/g, "");
+  if (!digits) return null;
+  const n = digits.padStart(2, "0").slice(-2);
+  return WS_NUMS.has(n) ? n : null;
+}
+
+function readDeepLinkWs() {
+  if (typeof window === "undefined") return null;
+  try {
+    const params = new URLSearchParams(window.location.search || "");
+    const fromQ = normalizeWs(params.get("ws") || params.get("workshop"));
+    if (fromQ) return fromQ;
+    const hash = (window.location.hash || "").replace(/^#/, "");
+    const hm = hash.match(/^ws=?(\d{1,2})$/i);
+    if (hm) return normalizeWs(hm[1]);
+  } catch { /* ignore */ }
+  return null;
+}
+
+function workshopDeepUrl(number) {
+  const n = normalizeWs(number) || "01";
+  return `${LIVE_HUB_BASE}?ws=${n}`;
+}
+
+function syncDeepLink(number) {
+  if (typeof window === "undefined" || !window.history?.replaceState) return;
+  try {
+    const url = new URL(window.location.href);
+    if (number) {
+      url.searchParams.set("ws", normalizeWs(number) || number);
+    } else {
+      url.searchParams.delete("ws");
+      url.searchParams.delete("workshop");
+    }
+    // Prefer query over hash for GitHub Pages reliability
+    if (url.hash && /^#ws=?/i.test(url.hash)) url.hash = "";
+    const next = url.pathname + url.search + url.hash;
+    const cur = window.location.pathname + window.location.search + window.location.hash;
+    if (next !== cur) window.history.replaceState(null, "", next);
+  } catch { /* ignore */ }
+}
+
+const SHARED_MAT_RE = /shared|demo|facilitator|sample|supervised|projector|smartboard|hand-washing|observation hive|model, or video|venue wifi/i;
+const LATER_COST_RE = /later|starter setup|hoop house|repair\/replace|registry|banking fees|card reader|tool starter set|boosts\/ads|full starter|first-year/i;
+const SESSION_COST_RE = /session materials|print packet|print checklist|small project materials|weatherproofing follow-up|bin\/box setup|starter jar kit|planning packet/i;
+
+function parseMoneyRange(line) {
+  const m = String(line || "").match(/\$(\d+)\s*[–-]\s*\$?(\d+)/);
+  if (!m) return null;
+  return { lo: Number(m[1]), hi: Number(m[2]) };
+}
+
+function extractFacilitatorPrep(w) {
+  const activity = (w.sections || []).find((s) => s.id === "activity");
+  const { blocks } = parseSectionContent(activity?.content || "");
+  const byKey = Object.fromEntries(blocks.map((b) => [b.key, b]));
+  const materials = byKey.materials?.items || [];
+  const kit = byKey.kit?.items || [];
+  const costLines = byKey.cost?.items || [];
+  const scalable = [];
+  const shared = [];
+  for (const item of materials) {
+    if (SHARED_MAT_RE.test(item)) shared.push(item);
+    else scalable.push(item);
+  }
+  // QR / print cards are always per-person for table use
+  const hasQr = materials.some((m) => /QR/i.test(m));
+  if (!hasQr) scalable.push("QR card for phone follow-along");
+
+  let sessionRange = null;
+  let sessionLabel = "";
+  let laterNotes = [];
+  for (const line of costLines) {
+    if (LATER_COST_RE.test(line) && !SESSION_COST_RE.test(line)) {
+      laterNotes.push(line);
+      continue;
+    }
+    const range = parseMoneyRange(line);
+    if (!range) continue;
+    if (!sessionRange && (SESSION_COST_RE.test(line) || /per person/i.test(line))) {
+      sessionRange = range;
+      sessionLabel = line;
+    }
+  }
+  // Fallbacks from known workshop patterns (still from existing cost lines only)
+  if (!sessionRange) {
+    for (const line of costLines) {
+      if (LATER_COST_RE.test(line)) continue;
+      const range = parseMoneyRange(line);
+      if (range) {
+        sessionRange = range;
+        sessionLabel = line;
+        break;
+      }
+    }
+  }
+  // WS13 etc: session may be "low / included" with no $ — keep note, don't invent
+  if (!sessionRange) {
+    const soft = costLines.find((l) => /included|low\s*\/\s*included|packet\/tasting/i.test(l));
+    if (soft) sessionLabel = soft;
+  }
+
+  const sectionOrder = (w.sections || []).map((s) => s.label);
+  const sticky = stickyTakeaway(w);
+  return {
+    materials,
+    scalable,
+    shared,
+    kit,
+    costLines,
+    sessionRange,
+    sessionLabel,
+    laterNotes,
+    sectionOrder,
+    sticky,
+  };
+}
+
+function WorkshopQr({ url, color, size = 148 }) {
+  const svg = useMemo(() => {
+    try {
+      return renderSVG(url, { border: 2, ecc: "M" });
+    } catch {
+      return null;
+    }
+  }, [url]);
+  if (!svg) {
+    return (
+      <div className="fw-qr-fallback" style={{ borderColor: `${color}55` }}>
+        <div style={{ fontSize: 11, letterSpacing: 1.2, color, fontFamily: "'Courier New', monospace", fontWeight: 700, marginBottom: 6 }}>PRINT-READY QR PLACEHOLDER</div>
+        <div style={{ fontSize: 13, lineHeight: 1.4, wordBreak: "break-all", color: "#241c16", fontWeight: 600 }}>{url}</div>
+      </div>
+    );
+  }
+  return (
+    <div
+      className="fw-qr"
+      style={{ width: size, height: size }}
+      title={url}
+      dangerouslySetInnerHTML={{ __html: svg }}
+    />
+  );
+}
+
+function FacilitatorPrepCard({ w, onPrint }) {
+  const prep = useMemo(() => extractFacilitatorPrep(w), [w]);
+  const [headcount, setHeadcount] = useState(10);
+  const [practiced, setPracticed] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const deepUrl = workshopDeepUrl(w.number);
+  const n = Math.max(1, Math.min(60, Number(headcount) || 1));
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    try {
+      const raw = window.localStorage.getItem(`fw-prep-practiced-${w.number}`);
+      setPracticed(raw === "1");
+    } catch { /* ignore */ }
+  }, [w.number]);
+
+  const setPracticedPersist = (v) => {
+    setPracticed(v);
+    try { window.localStorage.setItem(`fw-prep-practiced-${w.number}`, v ? "1" : "0"); } catch { /* ignore */ }
+  };
+
+  const copyUrl = async () => {
+    try {
+      if (navigator.clipboard?.writeText) await navigator.clipboard.writeText(deepUrl);
+      else {
+        const ta = document.createElement("textarea");
+        ta.value = deepUrl;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+      }
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1600);
+    } catch { setCopied(false); }
+  };
+
+  const totalLo = prep.sessionRange ? prep.sessionRange.lo * n : null;
+  const totalHi = prep.sessionRange ? prep.sessionRange.hi * n : null;
+  const color = w.color || "#4a7c3f";
+
+  return (
+    <div className="fw-prep" style={{ borderColor: `${color}55`, background: `linear-gradient(145deg, ${color}16 0%, #fffaf3 52%)` }}>
+      <div style={{ fontSize: 11, letterSpacing: 2, color, fontFamily: "'Courier New', monospace", fontWeight: 700, marginBottom: 4 }}>FACILITATOR PREP</div>
+      <div style={{ fontSize: 17, fontWeight: 600, color: "#241c16", marginBottom: 4 }}>Pro runbook · before anyone sits down</div>
+      <p style={{ margin: "0 0 12px", fontSize: 13, lineHeight: 1.5, color: "#6d5e50" }}>
+        You stay on hub + slides. Participants follow on phone (QR) or printouts — they need nothing else if cards are on the table.
+      </p>
+
+      <div className="fw-prep-grid">
+        <div className="fw-prep-chip" style={{ borderColor: `${color}33` }}>
+          <div className="fw-prep-k">Duration</div>
+          <div className="fw-prep-v">{w.duration}</div>
+        </div>
+        <div className="fw-prep-chip" style={{ borderColor: `${color}33` }}>
+          <div className="fw-prep-k">Talk each section</div>
+          <div className="fw-prep-v">~{w.duration?.includes("5") ? "40–50" : "20–25"} min · slides open</div>
+        </div>
+      </div>
+
+      <div className="fw-block" style={{ borderColor: `${color}33`, marginTop: 10, background: "rgba(255,250,243,0.95)" }}>
+        <div className="fw-block-title" style={{ color }}>Section run order</div>
+        <ol className="fw-prep-order">
+          {prep.sectionOrder.map((label, i) => (
+            <li key={label}><span className="fw-n" style={{ background: color }}>{i + 1}</span><span>{label}</span></li>
+          ))}
+        </ol>
+      </div>
+
+      <div className="fw-block" style={{ borderColor: `${color}33`, background: "rgba(255,250,243,0.95)" }}>
+        <div className="fw-block-title" style={{ color }}>Headcount · kit scale</div>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
+          <button type="button" className="fw-tap fw-cta" aria-label="Fewer people" onClick={() => setHeadcount((h) => Math.max(1, (Number(h) || 1) - 1))} style={{ ...ctaBtn("#fff", color, `1.5px solid ${color}`), width: 44, height: 44, padding: 0 }}>−</button>
+          <label style={{ flex: 1, display: "flex", flexDirection: "column", gap: 4 }}>
+            <span style={{ fontSize: 11, letterSpacing: 1.2, color: "#9a8b78", fontFamily: "'Courier New', monospace" }}>PEOPLE</span>
+            <input
+              type="number"
+              min={1}
+              max={60}
+              value={n}
+              onChange={(e) => setHeadcount(e.target.value)}
+              style={{ width: "100%", fontSize: 22, fontWeight: 700, padding: "8px 10px", borderRadius: 12, border: `1.5px solid ${color}55`, background: "#fff", color: "#241c16", fontFamily: "'Courier New', monospace" }}
+            />
+          </label>
+          <button type="button" className="fw-tap fw-cta" aria-label="More people" onClick={() => setHeadcount((h) => Math.min(60, (Number(h) || 1) + 1))} style={{ ...ctaBtn("#fff", color, `1.5px solid ${color}`), width: 44, height: 44, padding: 0 }}>+</button>
+        </div>
+        {prep.scalable.length > 0 && (
+          <>
+            <div style={{ fontSize: 12, letterSpacing: 1, color: "#9a8b78", fontFamily: "'Courier New', monospace", marginBottom: 6 }}>TAKE-HOME / PER-PERSON × {n}</div>
+            <ul>
+              {prep.scalable.map((item) => (
+                <li key={item}>
+                  <span aria-hidden="true" style={{ color, fontWeight: 700 }}>·</span>
+                  <span><strong style={{ fontFamily: "'Courier New', monospace", color }}>{n}×</strong> {item}</span>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+        {prep.shared.length > 0 && (
+          <>
+            <div style={{ fontSize: 12, letterSpacing: 1, color: "#9a8b78", fontFamily: "'Courier New', monospace", margin: "10px 0 6px" }}>ROOM / SHARED (not × headcount)</div>
+            <ul>
+              {prep.shared.map((item) => (
+                <li key={item}>
+                  <span aria-hidden="true" style={{ color, fontWeight: 700 }}>·</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+        {prep.sessionRange ? (
+          <p style={{ margin: "12px 0 0", fontSize: 14.5, lineHeight: 1.5, color: "#3a3128" }}>
+            <strong style={{ color }}>Rough session materials CAD for {n}:</strong>{" "}
+            ${totalLo}–${totalHi}{" "}
+            <span style={{ color: "#7a6b5c" }}>(${prep.sessionRange.lo}–${prep.sessionRange.hi} per person × {n})</span>
+            <br />
+            <span style={{ fontSize: 12, color: "#9a8b78", fontFamily: "'Courier New', monospace" }}>estimate — confirm locally</span>
+          </p>
+        ) : (
+          <p style={{ margin: "12px 0 0", fontSize: 13.5, lineHeight: 1.5, color: "#6d5e50" }}>
+            No clear per-person session $ to multiply in the existing cost notes
+            {prep.sessionLabel ? <> — {prep.sessionLabel}</> : null}.
+            Scale the printable / kit lines above; confirm locally.
+          </p>
+        )}
+        {prep.laterNotes.length > 0 && (
+          <p style={{ margin: "8px 0 0", fontSize: 12.5, lineHeight: 1.45, color: "#7a6b5c" }}>
+            Not multiplied for class: {prep.laterNotes[0]}
+          </p>
+        )}
+      </div>
+
+      <div className="fw-block" style={{ borderColor: `${color}33`, background: "rgba(255,250,243,0.95)" }}>
+        <div className="fw-block-title" style={{ color }}>Room setup</div>
+        <ul>
+          <li><span aria-hidden="true" style={{ color, fontWeight: 700 }}>·</span><span>Facilitator: hub open + slides (Canva/PDF). Talk each section while hands stay busy.</span></li>
+          <li><span aria-hidden="true" style={{ color, fontWeight: 700 }}>·</span><span>Table: print outdoor / take-home cards + one QR card pointing at this workshop’s deep link.</span></li>
+          <li><span aria-hidden="true" style={{ color, fontWeight: 700 }}>·</span><span>Shared tools stay with you; take-home kit leaves with each person (from Hands-On notes).</span></li>
+        </ul>
+        {prep.kit.length > 0 && (
+          <p style={{ margin: "8px 0 0", fontSize: 12.5, lineHeight: 1.45, color: "#7a6b5c" }}>
+            Leaves with them: {prep.kit.slice(0, 3).join(" · ")}{prep.kit.length > 3 ? " …" : ""}
+          </p>
+        )}
+      </div>
+
+      <div className="fw-block fw-print-card" style={{ borderColor: `${color}44`, background: `${color}12` }}>
+        <div className="fw-block-title" style={{ color }}>QR · this workshop alone</div>
+        <div style={{ display: "flex", gap: 14, alignItems: "flex-start", flexWrap: "wrap" }}>
+          <WorkshopQr url={deepUrl} color={color} size={132} />
+          <div style={{ flex: 1, minWidth: 160 }}>
+            <p style={{ margin: "0 0 8px", fontSize: 12.5, lineHeight: 1.45, color: "#5c5148", wordBreak: "break-all", fontFamily: "'Courier New', monospace" }}>{deepUrl}</p>
+            <button type="button" className="fw-tap fw-cta" onClick={copyUrl} style={{ ...ctaBtn(color, "#fffaf3"), width: "100%", marginBottom: 8, fontSize: 13 }}>
+              {copied ? "Copied ✓" : "Copy QR target URL"}
+            </button>
+            <button type="button" className="fw-tap fw-cta" onClick={onPrint} style={{ ...ctaBtn("#fff", color, `1.5px solid ${color}`), width: "100%", fontSize: 13 }}>
+              🖨 Print outdoor cards + QR sheet
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <label className="fw-prep-check" style={{ borderColor: practiced ? color : `${color}33`, background: practiced ? `${color}18` : "rgba(255,250,243,0.95)" }}>
+        <input type="checkbox" checked={practiced} onChange={(e) => setPracticedPersist(e.target.checked)} />
+        <span>
+          <strong style={{ color }}>Practice at home first</strong>
+          <span style={{ display: "block", fontSize: 13, lineHeight: 1.45, color: "#5c5148", marginTop: 2 }}>Solo redo the Take-Home path before teaching {n} people for {w.duration}.</span>
+        </span>
+      </label>
+
+      {prep.sticky && (
+        <div className="fw-block" style={{ borderColor: `${color}44`, background: `linear-gradient(135deg, ${color}14 0%, #fffaf3 60%)`, marginBottom: 0 }}>
+          <div className="fw-block-title" style={{ color }}>📌 Sticky takeaway</div>
+          <p style={{ margin: 0, fontSize: 14.5, lineHeight: 1.5, color: "#3a3128" }}>{prep.sticky}</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
 
 function BlockCard({ color, title, icon, items, numbered }) {
   if (!items?.length) return null;
@@ -1180,6 +1579,14 @@ function PrintSheetView({ w, onClose, onPrint }) {
         <h1 style={{ margin: "0 0 4px", fontSize: 22, fontWeight: 400 }}>{w.emoji} {w.title}</h1>
         <div style={{ fontSize: 12, color: "#666", marginBottom: 10, fontFamily: "'Courier New', monospace" }}>Workshop {w.number} · {w.duration} · {w.stream}</div>
         <p style={{ fontSize: 12, lineHeight: 1.5, color: "#7a6b5c", margin: "0 0 16px", fontFamily: "'Courier New', monospace" }}>Print this for the yard, shop, or kitchen table — not only the indoor screen.</p>
+        <div className="fw-print-card" style={{ border: `1.5px solid ${w.color}55`, borderRadius: 12, padding: "12px 14px", background: "#fff", marginBottom: 16, display: "flex", gap: 14, alignItems: "center", flexWrap: "wrap" }}>
+          <WorkshopQr url={workshopDeepUrl(w.number)} color={w.color} size={120} />
+          <div style={{ flex: 1, minWidth: 160 }}>
+            <div style={{ fontSize: 11, letterSpacing: 1.6, color: w.color, fontFamily: "'Courier New', monospace", fontWeight: 700, marginBottom: 4 }}>TABLE QR · THIS WORKSHOP</div>
+            <div style={{ fontSize: 12, lineHeight: 1.4, color: "#333", wordBreak: "break-all", fontFamily: "'Courier New', monospace" }}>{workshopDeepUrl(w.number)}</div>
+            <p style={{ margin: "8px 0 0", fontSize: 12, lineHeight: 1.4, color: "#7a6b5c" }}>Participants scan to open Workshop {w.number} alone. Facilitator stays on hub + slides.</p>
+          </div>
+        </div>
         {w.about && <p style={{ fontSize: 13, lineHeight: 1.6, color: "#444", borderLeft: `3px solid ${w.color}`, paddingLeft: 12, margin: "0 0 18px" }}>{w.about}</p>}
         {sections.map((sec) => (
           <div key={sec.heading} className={sec.pamphlet ? "fw-print-card" : undefined} style={{ marginBottom: 18, ...(sec.pamphlet ? { border: `1.5px solid ${w.color}55`, borderRadius: 12, padding: "12px 14px", background: "#fff" } : {}) }}>
@@ -1688,6 +2095,10 @@ function FullGuide({ w, onOpen, next, onHome, onTeach, onPrint }) {
         <DeckActions number={w.number} color={w.color} />
       </div>
 
+      <div style={{ padding: "14px 14px 0" }}>
+        <FacilitatorPrepCard w={w} onPrint={onPrint} />
+      </div>
+
       {stickyTakeaway(w) && (
         <div style={{ padding: "14px 16px 0" }}>
           <div className="fw-block" style={{ borderColor: `${w.color}44`, background: `linear-gradient(135deg, ${w.color}14 0%, #fffaf3 60%)` }}>
@@ -1968,20 +2379,43 @@ function Detail({ number, onHome, onOpen }) {
 
 /* ── ROOT ─────────────────────────────────────────────────── */
 export default function FibonacciWorksHub() {
-  const [selected, setSelected] = useState(null);
+  const [selected, setSelected] = useState(() => readDeepLinkWs());
   const [, setProgressTick] = useState(0);
 
-  const open = (number) => {
-    markOpened(number);
+  const open = useCallback((number) => {
+    const n = normalizeWs(number) || number;
+    markOpened(n);
     setProgressTick((t) => t + 1);
-    setSelected(number);
+    setSelected(n);
+    syncDeepLink(n);
     if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "auto" });
-  };
-  const home = () => {
+  }, []);
+  const home = useCallback(() => {
     setProgressTick((t) => t + 1);
     setSelected(null);
+    syncDeepLink(null);
     if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "auto" });
-  };
+  }, []);
+
+  useEffect(() => {
+    const apply = () => {
+      const n = readDeepLinkWs();
+      setSelected((cur) => (n === cur ? cur : n));
+      if (n) markOpened(n);
+    };
+    apply();
+    window.addEventListener("popstate", apply);
+    window.addEventListener("hashchange", apply);
+    return () => {
+      window.removeEventListener("popstate", apply);
+      window.removeEventListener("hashchange", apply);
+    };
+  }, []);
+
+  useEffect(() => {
+    // Keep URL aligned when state changes from Hub/Detail navigation
+    syncDeepLink(selected);
+  }, [selected]);
 
   return (
     <>
