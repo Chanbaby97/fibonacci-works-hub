@@ -614,37 +614,43 @@ const STYLE = `
   :root {
     --fw-safe-b: env(safe-area-inset-bottom, 0px);
     --fw-safe-t: env(safe-area-inset-top, 0px);
+    --fw-safe-l: env(safe-area-inset-left, 0px);
+    --fw-safe-r: env(safe-area-inset-right, 0px);
     --fw-ink: #241c16;
     --fw-ink-soft: #5c5148;
     --fw-muted: #9a8b78;
     --fw-paper: #f6f0e6;
     --fw-card: #fffaf3;
     --fw-line: rgba(70, 48, 32, 0.1);
+    --fw-hairline: rgba(60, 40, 28, 0.12);
     --fw-color: #4a7c3f;
     --fw-accent: #c4a06a;
-    --fw-glass: rgba(255, 252, 248, 0.52);
-    --fw-glass-strong: rgba(255, 250, 243, 0.68);
-    --fw-glass-border: rgba(255, 255, 255, 0.62);
-    --fw-glass-edge: rgba(70, 48, 32, 0.08);
-    --fw-glass-blur: blur(24px) saturate(1.4);
+    --fw-glass: rgba(255, 252, 248, 0.58);
+    --fw-glass-strong: rgba(255, 250, 243, 0.78);
+    --fw-glass-border: rgba(255, 255, 255, 0.68);
+    --fw-glass-edge: rgba(70, 48, 32, 0.07);
+    --fw-glass-blur: blur(28px) saturate(1.55);
     --fw-glass-shadow:
-      0 14px 36px rgba(28, 16, 40, 0.09),
-      inset 0 1px 0 rgba(255, 255, 255, 0.78),
-      inset 0 -1px 0 rgba(255, 255, 255, 0.14);
-    --fw-specular: linear-gradient(155deg, rgba(255,255,255,0.62) 0%, rgba(255,255,255,0.14) 38%, transparent 58%);
+      0 10px 28px rgba(28, 16, 40, 0.08),
+      inset 0 0.5px 0 rgba(255, 255, 255, 0.88),
+      inset 0 -0.5px 0 rgba(255, 255, 255, 0.18);
+    --fw-specular: linear-gradient(165deg, rgba(255,255,255,0.72) 0%, rgba(255,255,255,0.16) 36%, transparent 58%);
+    --fw-spring: cubic-bezier(0.22, 1.05, 0.36, 1);
+    --fw-spring-soft: cubic-bezier(0.25, 0.9, 0.35, 1);
     --fw-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", Inter, system-ui, sans-serif;
     --fw-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Inter, system-ui, sans-serif;
     --fw-mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
-    --fw-fs-hero: clamp(1.85rem, 7.2vw, 2.35rem);
-    --fw-fs-title: clamp(1.45rem, 5.5vw, 1.85rem);
-    --fw-fs-section: 1.0625rem;
+    --fw-fs-hero: clamp(1.95rem, 7.4vw, 2.45rem);
+    --fw-fs-title: clamp(1.5rem, 5.6vw, 1.95rem);
+    --fw-fs-section: 1.125rem;
     --fw-fs-body: 0.96875rem;
     --fw-fs-caption: 0.75rem;
     --fw-fs-label: 0.6875rem;
-    --fw-lh-tight: 1.18;
-    --fw-lh-body: 1.58;
-    --fw-track-display: -0.028em;
-    --fw-track-label: 0.14em;
+    --fw-lh-tight: 1.15;
+    --fw-lh-body: 1.55;
+    --fw-track-display: -0.032em;
+    --fw-track-label: 0.12em;
+    --fw-radius-group: 16px;
   }
   .fw-app {
     max-width: 440px;
@@ -661,25 +667,35 @@ const STYLE = `
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    padding-left: var(--fw-safe-l);
+    padding-right: var(--fw-safe-r);
     background:
-      radial-gradient(120% 72% at 110% -12%, color-mix(in srgb, var(--fw-accent) 28%, transparent), transparent 48%),
-      radial-gradient(80% 48% at -10% 108%, rgba(92, 64, 148, 0.08), transparent 54%),
-      linear-gradient(180deg, rgba(255, 252, 248, 0.76) 0%, rgba(246, 240, 230, 0.82) 46%, rgba(241, 232, 218, 0.86) 100%);
-    -webkit-backdrop-filter: blur(30px) saturate(1.3);
-    backdrop-filter: blur(30px) saturate(1.3);
+      radial-gradient(120% 72% at 110% -12%, color-mix(in srgb, var(--fw-accent) 26%, transparent), transparent 48%),
+      radial-gradient(80% 48% at -10% 108%, rgba(92, 64, 148, 0.07), transparent 54%),
+      linear-gradient(180deg, rgba(255, 252, 248, 0.78) 0%, rgba(246, 240, 230, 0.84) 46%, rgba(241, 232, 218, 0.88) 100%);
+    -webkit-backdrop-filter: blur(36px) saturate(1.4);
+    backdrop-filter: blur(36px) saturate(1.4);
     box-shadow:
-      0 0 0 1px rgba(255,255,255,0.26),
-      0 28px 80px rgba(16, 10, 28, 0.38),
-      inset 0 1px 0 rgba(255,255,255,0.62);
+      0 0 0 0.5px rgba(255,255,255,0.3),
+      0 28px 80px rgba(16, 10, 28, 0.36),
+      inset 0 1px 0 rgba(255,255,255,0.66);
     overflow: hidden;
   }
   .fw-display {
     font-family: var(--fw-display);
     font-optical-sizing: auto;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: var(--fw-track-display);
     line-height: var(--fw-lh-tight);
     font-feature-settings: "kern" 1, "liga" 1;
+    -webkit-font-smoothing: antialiased;
+  }
+  .fw-large-title {
+    font-family: var(--fw-display);
+    font-size: var(--fw-fs-hero);
+    font-weight: 700;
+    letter-spacing: -0.036em;
+    line-height: 1.08;
     -webkit-font-smoothing: antialiased;
   }
   .fw-label {
@@ -736,7 +752,7 @@ const STYLE = `
       margin: 18px auto;
       min-height: calc(100vh - 36px);
       min-height: calc(100dvh - 36px);
-      border-radius: 28px;
+      border-radius: 34px;
       border: 1px solid rgba(255,255,255,0.28);
     }
   }
@@ -744,19 +760,23 @@ const STYLE = `
     .fw-app { max-width: 100%; box-shadow: none; border-radius: 0; }
   }
   @keyframes fw-rise {
-    from { opacity: 0; transform: translateY(6px); }
+    from { opacity: 0; transform: translateY(10px) scale(0.985); }
     to { opacity: 1; transform: none; }
   }
-  .fw-rise { animation: fw-rise .38s ease; }
+  @keyframes fw-sheet-up {
+    from { opacity: 0; transform: translateY(28%); }
+    to { opacity: 1; transform: none; }
+  }
+  .fw-rise { animation: fw-rise .42s var(--fw-spring) both; }
   .fw-sec-panel {
     overflow: hidden;
-    animation: fw-rise .38s ease;
+    animation: fw-rise .38s var(--fw-spring-soft) both;
   }
   .fw-glass {
     background: var(--fw-glass);
     -webkit-backdrop-filter: var(--fw-glass-blur);
     backdrop-filter: var(--fw-glass-blur);
-    border: 1px solid var(--fw-glass-border);
+    border: 0.5px solid var(--fw-glass-border);
     box-shadow: var(--fw-glass-shadow);
   }
   .fw-glass .fw-display,
@@ -770,13 +790,44 @@ const STYLE = `
     border: 1px solid rgba(255, 255, 255, 0.55);
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.65), 0 6px 16px rgba(28,16,40,0.05);
   }
-  .fw-block {
+  .fw-group {
     background: rgba(255, 252, 248, 0.55);
-    -webkit-backdrop-filter: blur(20px) saturate(1.35);
-    backdrop-filter: blur(20px) saturate(1.35);
-    border: 1px solid rgba(255, 255, 255, 0.62);
-    border-radius: 16px;
-    padding: 13px 13px;
+    -webkit-backdrop-filter: blur(24px) saturate(1.45);
+    backdrop-filter: blur(24px) saturate(1.45);
+    border: 0.5px solid rgba(255, 255, 255, 0.62);
+    border-radius: var(--fw-radius-group);
+    overflow: hidden;
+    box-shadow: var(--fw-glass-shadow);
+  }
+  .fw-group > .fw-row + .fw-row,
+  .fw-group > [data-fw-row] + [data-fw-row] {
+    border-top: 0.5px solid var(--fw-hairline);
+  }
+  .fw-row-ios {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 56px;
+    padding: 11px 14px;
+    background: transparent;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: background .18s var(--fw-spring-soft);
+  }
+  .fw-row-ios:active { background: rgba(70, 48, 32, 0.06); }
+  .fw-row-ios .fw-chevron {
+    color: rgba(60, 40, 28, 0.28);
+    font-size: 18px;
+    font-weight: 500;
+    margin-left: 4px;
+  }
+  .fw-block {
+    background: rgba(255, 252, 248, 0.6);
+    -webkit-backdrop-filter: blur(22px) saturate(1.4);
+    backdrop-filter: blur(22px) saturate(1.4);
+    border: 0.5px solid rgba(255, 255, 255, 0.68);
+    border-radius: 14px;
+    padding: 14px 14px;
     margin: 0 0 10px;
     box-shadow: var(--fw-glass-shadow);
   }
@@ -830,24 +881,28 @@ const STYLE = `
     box-shadow: var(--fw-glass-shadow);
   }
   .fw-card {
-    transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease;
-    -webkit-backdrop-filter: blur(16px) saturate(1.25);
-    backdrop-filter: blur(16px) saturate(1.25);
+    transition: transform .32s var(--fw-spring), box-shadow .32s var(--fw-spring-soft), border-color .22s ease, background .18s ease;
+    -webkit-backdrop-filter: blur(18px) saturate(1.3);
+    backdrop-filter: blur(18px) saturate(1.3);
     box-shadow: var(--fw-glass-shadow);
   }
-  .fw-card:hover { transform: translateY(-2px); box-shadow: 0 18px 36px rgba(48, 28, 64, 0.1), inset 0 1px 0 rgba(255,255,255,0.75); }
+  .fw-card:hover { transform: translateY(-1px); box-shadow: 0 14px 32px rgba(48, 28, 64, 0.09), inset 0 0.5px 0 rgba(255,255,255,0.8); }
+  .fw-card:active { transform: scale(0.985); }
   .fw-tap:focus-visible, .fw-card:focus-visible { outline: 2px solid var(--fw-color); outline-offset: 3px; border-radius: 14px; }
   .fw-link:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; border-radius: 8px; }
   .fw-cta {
     position: relative;
     font-family: var(--fw-sans);
-    letter-spacing: -0.01em;
+    letter-spacing: -0.012em;
+    border-radius: 12px;
+    transition: transform .22s var(--fw-spring), filter .18s ease, box-shadow .22s ease;
     box-shadow:
-      0 10px 24px rgba(28, 16, 40, 0.12),
-      inset 0 1px 0 rgba(255, 255, 255, 0.42),
-      inset 0 -1px 0 rgba(0, 0, 0, 0.06);
+      0 6px 16px rgba(28, 16, 40, 0.1),
+      inset 0 0.5px 0 rgba(255, 255, 255, 0.48),
+      inset 0 -0.5px 0 rgba(0, 0, 0, 0.05);
   }
-  .fw-cta:hover { filter: brightness(1.05); }
+  .fw-cta:hover { filter: brightness(1.04); }
+  .fw-cta:active { transform: scale(0.97); }
   .fw-tint-card { background: linear-gradient(135deg, var(--fw-tint, rgba(255,255,255,0.35)) 0%, rgba(255,250,243,0.55) 48%); }
   .fw-cta, .fw-tap, .fw-row { min-height: 44px; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
   .fw-figure { margin: 0 0 16px; }
@@ -867,67 +922,164 @@ const STYLE = `
     box-shadow: 0 18px 40px rgba(12, 8, 24, 0.28), inset 0 1px 0 rgba(255,255,255,0.35);
   }
   .fw-pill {
-    background: rgba(255,255,255,0.14);
-    -webkit-backdrop-filter: blur(12px) saturate(1.2);
-    backdrop-filter: blur(12px) saturate(1.2);
-    border: 1px solid rgba(255,255,255,0.28);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.35);
+    background: rgba(255,255,255,0.16);
+    -webkit-backdrop-filter: blur(14px) saturate(1.25);
+    backdrop-filter: blur(14px) saturate(1.25);
+    border: 0.5px solid rgba(255,255,255,0.3);
+    box-shadow: inset 0 0.5px 0 rgba(255,255,255,0.4);
+  }
+  .fw-segment {
+    display: flex;
+    align-items: stretch;
+    gap: 2px;
+    padding: 3px;
+    border-radius: 11px;
+    background: rgba(70, 48, 32, 0.08);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border: 0.5px solid rgba(255,255,255,0.35);
+  }
+  .fw-segment button,
+  .fw-segment .fw-seg-item {
+    flex: 1;
+    min-height: 32px;
+    border: none;
+    border-radius: 9px;
+    padding: 7px 10px;
+    font-family: var(--fw-sans);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: -0.014em;
+    color: var(--fw-ink-soft);
+    background: transparent;
+    cursor: pointer;
+    transition: background .22s var(--fw-spring-soft), color .18s ease, box-shadow .22s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .fw-segment button[aria-selected="true"],
+  .fw-segment .fw-seg-item[aria-selected="true"],
+  .fw-segment button.fw-seg-on,
+  .fw-segment .fw-seg-on {
+    background: rgba(255, 252, 248, 0.92);
+    color: var(--fw-ink);
+    box-shadow: 0 1px 4px rgba(28, 16, 40, 0.1), 0 0.5px 0 rgba(255,255,255,0.9);
+  }
+  .fw-chip-rail {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 12px 0 6px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .fw-chip-rail::-webkit-scrollbar { display: none; }
+  .fw-chip {
+    flex-shrink: 0;
+    min-height: 34px;
+    padding: 7px 14px;
+    border-radius: 999px;
+    border: 0.5px solid rgba(70,48,32,0.12);
+    background: rgba(255,250,243,0.72);
+    -webkit-backdrop-filter: blur(12px) saturate(1.25);
+    backdrop-filter: blur(12px) saturate(1.25);
+    color: #5c5148;
+    font-size: 12.5px;
+    font-weight: 600;
+    font-family: var(--fw-sans);
+    letter-spacing: -0.012em;
+    cursor: pointer;
+    transition: transform .2s var(--fw-spring), background .18s ease, color .18s ease, border-color .18s ease, box-shadow .2s ease;
+  }
+  .fw-chip:active { transform: scale(0.96); }
+  .fw-chip[aria-selected="true"],
+  .fw-chip.fw-chip-on {
+    background: var(--fw-color);
+    color: #fffaf3;
+    border-color: transparent;
+    box-shadow: 0 4px 12px color-mix(in srgb, var(--fw-color) 35%, transparent);
   }
   .fw-teach-bar {
     position: sticky; bottom: 0; z-index: 40;
-    padding: 10px 12px calc(12px + var(--fw-safe-b));
-    background: rgba(255, 250, 243, 0.55);
-    -webkit-backdrop-filter: blur(22px) saturate(1.35);
-    backdrop-filter: blur(22px) saturate(1.35);
-    border-top: 1px solid rgba(255,255,255,0.45);
+    padding: 10px 14px calc(14px + var(--fw-safe-b));
+    background: rgba(255, 250, 243, 0.72);
+    -webkit-backdrop-filter: blur(28px) saturate(1.5);
+    backdrop-filter: blur(28px) saturate(1.5);
+    border-top: 0.5px solid rgba(255,255,255,0.55);
     display: flex; align-items: center; gap: 8px;
-    box-shadow: 0 -16px 36px rgba(40, 24, 60, 0.08), inset 0 1px 0 rgba(255,255,255,0.55);
+    box-shadow: 0 -12px 32px rgba(40, 24, 60, 0.07), inset 0 0.5px 0 rgba(255,255,255,0.65);
   }
   .fw-menu-panel {
     position: absolute; top: calc(100% + 8px); right: 0; left: 0;
-    background: rgba(255, 250, 243, 0.72);
-    -webkit-backdrop-filter: blur(24px) saturate(1.35);
-    backdrop-filter: blur(24px) saturate(1.35);
-    border: 1px solid rgba(255, 255, 255, 0.55);
-    border-radius: 18px;
-    box-shadow: 0 22px 50px rgba(24, 14, 36, 0.18), inset 0 1px 0 rgba(255,255,255,0.7);
+    background: rgba(255, 250, 243, 0.82);
+    -webkit-backdrop-filter: blur(30px) saturate(1.5);
+    backdrop-filter: blur(30px) saturate(1.5);
+    border: 0.5px solid rgba(255, 255, 255, 0.62);
+    border-radius: 16px;
+    box-shadow: 0 20px 48px rgba(24, 14, 36, 0.18), inset 0 0.5px 0 rgba(255,255,255,0.78);
     z-index: 50; max-height: 70vh; overflow: auto;
+    animation: fw-rise .28s var(--fw-spring) both;
   }
+  .fw-menu-panel button,
+  .fw-menu-panel a { min-height: 48px; }
+  .fw-nav-bar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    padding-top: var(--fw-safe-t);
+    background: rgba(255, 252, 248, 0.72);
+    -webkit-backdrop-filter: blur(28px) saturate(1.5);
+    backdrop-filter: blur(28px) saturate(1.5);
+    border-bottom: 0.5px solid rgba(255,255,255,0.5);
+    box-shadow: inset 0 0.5px 0 rgba(255,255,255,0.65);
+  }
+  .fw-section-label {
+    font-family: var(--fw-sans);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--fw-muted);
+    text-transform: none;
+    margin: 0 0 8px;
+    padding: 0 4px;
+  }
+  .fw-bottom-pad { padding-bottom: calc(28px + var(--fw-safe-b)); }
 
   .fw-sheet-scrim {
     position: fixed;
     inset: 0;
     z-index: 80;
-    background: rgba(18, 12, 28, 0.42);
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);
+    background: rgba(18, 12, 28, 0.38);
+    -webkit-backdrop-filter: blur(10px) saturate(1.2);
+    backdrop-filter: blur(10px) saturate(1.2);
     display: flex;
     align-items: flex-end;
     justify-content: center;
     padding: 10px 10px calc(10px + var(--fw-safe-b));
+    animation: fw-rise .28s ease both;
   }
   .fw-sheet {
     width: min(440px, 100%);
     max-height: min(84dvh, 680px);
     overflow: auto;
     background:
-      radial-gradient(120% 80% at 100% 0%, rgba(196, 160, 106, 0.16), transparent 46%),
-      linear-gradient(180deg, rgba(255, 252, 248, 0.72) 0%, rgba(244, 236, 223, 0.78) 100%);
-    -webkit-backdrop-filter: blur(28px) saturate(1.4);
-    backdrop-filter: blur(28px) saturate(1.4);
+      radial-gradient(120% 80% at 100% 0%, rgba(196, 160, 106, 0.14), transparent 46%),
+      linear-gradient(180deg, rgba(255, 252, 248, 0.86) 0%, rgba(244, 236, 223, 0.9) 100%);
+    -webkit-backdrop-filter: blur(40px) saturate(1.55);
+    backdrop-filter: blur(40px) saturate(1.55);
     color: #241c16;
-    border-radius: 26px;
-    border: 1px solid rgba(255, 255, 255, 0.58);
-    box-shadow: 0 28px 70px rgba(12, 8, 22, 0.38), inset 0 1px 0 rgba(255,255,255,0.75);
-    padding: 8px 16px 16px;
+    border-radius: 28px 28px 22px 22px;
+    border: 0.5px solid rgba(255, 255, 255, 0.7);
+    box-shadow: 0 24px 64px rgba(12, 8, 22, 0.34), inset 0 0.5px 0 rgba(255,255,255,0.85);
+    padding: 6px 16px calc(18px + var(--fw-safe-b));
+    animation: fw-sheet-up .4s var(--fw-spring) both;
   }
   .fw-sheet-handle {
-    width: 42px;
-    height: 4px;
+    width: 36px;
+    height: 5px;
     border-radius: 99px;
-    background: rgba(70, 48, 32, 0.18);
-    margin: 6px auto 12px;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.35);
+    background: rgba(70, 48, 32, 0.2);
+    margin: 8px auto 14px;
+    box-shadow: inset 0 0.5px 0 rgba(255,255,255,0.35);
   }
   .fw-answer-line {
     display: flex;
@@ -1019,9 +1171,9 @@ const STYLE = `
   .fw-print-only { display: none; }
   .fw-print-card { break-inside: avoid; page-break-inside: avoid; }
   @media (prefers-reduced-motion: reduce) {
-    * { transition: none !important; }
-    .fw-rise, .fw-sec-panel { animation: none; }
-    .fw-card:hover { transform: none; }
+    * { transition: none !important; animation: none !important; }
+    .fw-rise, .fw-sec-panel, .fw-sheet, .fw-sheet-scrim, .fw-menu-panel { animation: none !important; }
+    .fw-card:hover, .fw-card:active, .fw-cta:active, .fw-chip:active { transform: none !important; }
   }
   @media print {
     body * { visibility: hidden !important; }
@@ -1050,10 +1202,10 @@ const keyActivate = (fn) => (e) => {
 };
 
 const Footer = () => (
-  <div style={{ borderTop: "1px solid rgba(70,48,32,0.08)", padding: "28px 22px calc(28px + env(safe-area-inset-bottom, 0px))", textAlign: "center", background: "transparent" }}>
-    <div className="fw-caption" style={{ marginBottom: "8px", letterSpacing: "0.06em" }}>Workshop Series · Cape Breton · Unama'ki · MSGAM</div>
+  <div className="fw-bottom-pad" style={{ borderTop: "0.5px solid rgba(70,48,32,0.08)", paddingTop: 24, paddingLeft: 22, paddingRight: 22, textAlign: "center", background: "transparent" }}>
+    <div className="fw-caption" style={{ marginBottom: "8px", letterSpacing: "0.04em" }}>Workshop Series · Cape Breton · Unama'ki · MSGAM</div>
     <div style={{ fontSize: "12px", color: "#8a7b68", letterSpacing: "-0.01em", marginBottom: "6px", fontWeight: 500 }}>© 2026 Isaiah Chandler</div>
-    <div className="fw-display" style={{ fontSize: "15px", color: "#4a7c3f", letterSpacing: "-0.02em", marginBottom: "4px", fontWeight: 600 }}>The Fibonacci Works™</div>
+    <div className="fw-display" style={{ fontSize: "16px", color: "#4a7c3f", letterSpacing: "-0.028em", marginBottom: "4px", fontWeight: 700 }}>The Fibonacci Works™</div>
     <div className="fw-label" style={{ fontSize: "10px", color: "#b3a494", letterSpacing: "0.12em" }}>All rights reserved.</div>
   </div>
 );
@@ -1065,19 +1217,19 @@ const ctaBtn = (bg, color, border) => ({
   gap: "8px",
   padding: "12px 16px",
   minHeight: 44,
-  borderRadius: "14px",
-  fontSize: "14.5px",
+  borderRadius: "12px",
+  fontSize: "15px",
   fontWeight: 600,
-  letterSpacing: "-0.012em",
+  letterSpacing: "-0.016em",
   fontFamily: FW_SANS,
   cursor: "pointer",
   border: border || "none",
   background: bg,
   color,
-  lineHeight: 1.25,
+  lineHeight: 1.2,
   textAlign: "center",
   WebkitFontSmoothing: "antialiased",
-  boxShadow: "0 10px 24px rgba(28, 16, 40, 0.12), inset 0 1px 0 rgba(255,255,255,0.42)",
+  boxShadow: "0 6px 16px rgba(28, 16, 40, 0.1), inset 0 0.5px 0 rgba(255,255,255,0.5)",
 });
 
 const AppShell = ({ children, tone }) => (
@@ -1346,8 +1498,8 @@ function FacilitatorPrepCard({ w, onPrint }) {
 
   return (
     <div className="fw-prep fw-glass" style={{ borderColor: `${color}44`, background: `linear-gradient(145deg, ${color}22 0%, rgba(255,250,243,0.42) 55%)` }}>
-      <div className="fw-label" style={{ fontSize: 11, letterSpacing: "0.16em", color, fontWeight: 700, marginBottom: 6 }}>FACILITATOR PREP</div>
-      <div style={{ fontSize: 17, fontWeight: 600, color: "#241c16", marginBottom: 4 }}>Pro runbook · before anyone sits down</div>
+      <div className="fw-label" style={{ fontSize: 11, letterSpacing: "0.14em", color, fontWeight: 700, marginBottom: 6 }}>FACILITATOR PREP</div>
+      <div className="fw-display" style={{ fontSize: 20, fontWeight: 700, letterSpacing: "-0.028em", color: "#241c16", marginBottom: 4 }}>Pro runbook · before anyone sits down</div>
       <p style={{ margin: "0 0 12px", fontSize: 13, lineHeight: 1.5, color: "#6d5e50" }}>
         You stay on hub + slides. Participants follow on phone (QR) or printouts — they need nothing else if cards are on the table.
       </p>
@@ -1671,8 +1823,8 @@ function AtHomePathCard({ w, onJump }) {
   const need = (byKey.need?.items || []).slice(0, 3);
   return (
     <div className="fw-home-path fw-glass" style={{ background: `linear-gradient(135deg, ${w.color}24 0%, rgba(255,250,243,0.4) 55%)`, border: `1px solid ${w.color}33` }}>
-      <div className="fw-label" style={{ fontSize: 11, letterSpacing: "0.14em", color: w.color, fontWeight: 700, marginBottom: 6 }}>At-home path</div>
-      <div style={{ fontSize: 16, fontWeight: 600, color: "#241c16", marginBottom: 6 }}>Redo this workshop at home</div>
+      <div className="fw-label" style={{ fontSize: 11, letterSpacing: "0.12em", color: w.color, fontWeight: 700, marginBottom: 6 }}>At-home path</div>
+      <div className="fw-display" style={{ fontSize: 18, fontWeight: 700, letterSpacing: "-0.024em", color: "#241c16", marginBottom: 6 }}>Redo this workshop at home</div>
       {done && <p style={{ margin: "0 0 8px", fontSize: 13.5, lineHeight: 1.5, color: "#5c5148" }}><strong style={{ color: w.color }}>Done looks like:</strong> {done}</p>}
       {need.length > 0 && (
         <p style={{ margin: "0 0 8px", fontSize: 12.5, lineHeight: 1.45, color: "#7a6b5c" }}>
@@ -1774,13 +1926,15 @@ function PrintSheetView({ w, onClose, onPrint }) {
   const sections = buildPrintSections(w);
   return (
     <div style={{ minHeight: "100vh", background: "transparent" }}>
-      <div className="fw-app-chrome fw-no-print" style={{ position: "sticky", top: 0, zIndex: 20, background: "rgba(251,247,240,0.92)", backdropFilter: "blur(14px)", borderBottom: "1px solid rgba(70,48,32,0.08)", borderTop: `3px solid ${w.color}`, padding: "calc(10px + env(safe-area-inset-top, 0px)) 14px 10px", display: "flex", gap: 8, alignItems: "center" }}>
-        <button type="button" className="fw-tap fw-cta" onClick={onClose} style={{ ...ctaBtn("#fff", w.color, `1.5px solid ${w.color}`), flex: 1 }}>← Back</button>
-        <button type="button" className="fw-tap fw-cta" onClick={onPrint} style={{ ...ctaBtn(w.color, "#fff"), flex: 1 }}>🖨 Print pamphlet</button>
+      <div className="fw-app-chrome fw-nav-bar fw-no-print" style={{ borderTop: `3px solid ${w.color}`, zIndex: 20 }}>
+        <div style={{ padding: "10px 14px 12px", display: "flex", gap: 8, alignItems: "center" }}>
+          <button type="button" className="fw-tap fw-cta" onClick={onClose} style={{ ...ctaBtn("rgba(255,252,248,0.9)", w.color, `0.5px solid ${w.color}55`), flex: 1 }}>← Back</button>
+          <button type="button" className="fw-tap fw-cta" onClick={onPrint} style={{ ...ctaBtn(w.color, "#fff"), flex: 1 }}>🖨 Print pamphlet</button>
+        </div>
       </div>
-      <div className="fw-print-sheet" style={{ padding: "22px 18px 40px", background: "#fffaf3", margin: "14px", borderRadius: 18, border: "1px solid rgba(70,48,32,0.08)", boxShadow: "0 12px 32px rgba(40,24,16,0.05)" }}>
+      <div className="fw-print-sheet fw-bottom-pad" style={{ padding: "22px 18px 20px", background: "rgba(255,250,243,0.82)", margin: "14px", borderRadius: 18, border: "0.5px solid rgba(255,255,255,0.65)", boxShadow: "var(--fw-glass-shadow)", backdropFilter: "blur(20px) saturate(1.35)", WebkitBackdropFilter: "blur(20px) saturate(1.35)" }}>
         <div className="fw-label" style={{ fontSize: 11, letterSpacing: "0.12em", color: "#888", marginBottom: 6 }}>The Fibonacci Works™ · Outdoor / take-home pamphlet</div>
-        <h1 className="fw-display" style={{ margin: "0 0 4px", fontSize: 24, fontWeight: 600, letterSpacing: "-0.02em" }}>{w.emoji} {w.title}</h1>
+        <h1 className="fw-display" style={{ margin: "0 0 4px", fontSize: 26, fontWeight: 700, letterSpacing: "-0.028em" }}>{w.emoji} {w.title}</h1>
         <div className="fw-caption" style={{ marginBottom: 10, color: "#666" }}>Workshop {w.number} · {w.duration} · {w.stream}</div>
         <p className="fw-caption" style={{ lineHeight: 1.55, color: "#7a6b5c", margin: "0 0 16px" }}>Print this for the yard, shop, or kitchen table — not only the indoor screen.</p>
         <div className="fw-print-card" style={{ border: `1.5px solid ${w.color}55`, borderRadius: 12, padding: "12px 14px", background: "#fff", marginBottom: 16, display: "flex", gap: 14, alignItems: "center", flexWrap: "wrap" }}>
@@ -1905,7 +2059,7 @@ function TeachMode({ w, onExit, onPrint }) {
   return (
     <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", background: "transparent", ["--fw-accent"]: w.accent || w.color, ["--fw-color"]: w.color, ["--fw-tint"]: (w.accent || w.color) + "14" }}>
       {/* Top chrome */}
-      <div className="fw-app-chrome fw-no-print" style={{ position: "sticky", top: 0, zIndex: 30, background: `linear-gradient(165deg, #221830 0%, ${w.dark} 46%, ${w.color} 100%)`, padding: "calc(14px + env(safe-area-inset-top, 0px)) 16px 16px", color: "#fffaf3" }}>
+      <div className="fw-app-chrome fw-no-print" style={{ position: "sticky", top: 0, zIndex: 30, background: `linear-gradient(165deg, #221830 0%, ${w.dark} 46%, ${w.color} 100%)`, padding: "calc(16px + env(safe-area-inset-top, 0px)) 16px 16px", color: "#fffaf3" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, marginBottom: 10 }}>
           <div className="fw-label" style={{ fontSize: 11, letterSpacing: "0.14em", opacity: 0.9 }}>Run this workshop · WS {w.number}</div>
           <div style={{ position: "relative" }}>
@@ -1950,13 +2104,13 @@ function TeachMode({ w, onExit, onPrint }) {
       )}
 
       {/* Step body */}
-      <div style={{ flex: 1, padding: "18px 14px 12px" }}>
-        <div key={step} className="fw-rise fw-glass" style={{ background: `linear-gradient(180deg, ${w.color}22 0%, rgba(255,250,243,0.42) 42%)`, borderRadius: 22, border: `1px solid rgba(255,255,255,0.5)`, padding: "22px 16px 20px", minHeight: 280 }}>
+      <div style={{ flex: 1, padding: "16px 14px 8px" }}>
+        <div key={step} className="fw-rise fw-glass" style={{ background: `linear-gradient(180deg, ${w.color}24 0%, rgba(255,250,243,0.5) 42%)`, borderRadius: 20, border: `0.5px solid rgba(255,255,255,0.58)`, padding: "22px 16px 20px", minHeight: 280 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 14 }}>
-            <span style={{ fontSize: 32 }}>{s.icon}</span>
+            <span style={{ width: 48, height: 48, borderRadius: 14, display: "grid", placeItems: "center", background: `${w.color}1a`, fontSize: 26 }}>{s.icon}</span>
             <div>
-              <div className="fw-label" style={{ fontSize: 11, letterSpacing: "0.14em", color: "#a89884" }}>Step {step + 1} of {total}</div>
-              <h2 className="fw-display fw-type-glass" style={{ margin: "2px 0 0", fontSize: 23, fontWeight: 500, color: w.color, letterSpacing: "-0.02em" }}>{s.label}</h2>
+              <div className="fw-label" style={{ fontSize: 11, letterSpacing: "0.12em", color: "#a89884" }}>Step {step + 1} of {total}</div>
+              <h2 className="fw-display fw-type-glass" style={{ margin: "2px 0 0", fontSize: 24, fontWeight: 700, color: w.color, letterSpacing: "-0.028em" }}>{s.label}</h2>
             </div>
           </div>
           {step === 0 && stickyTakeaway(w) && (
@@ -1969,19 +2123,17 @@ function TeachMode({ w, onExit, onPrint }) {
           <SectionRichBody w={w} section={s} />
         </div>
 
-        {/* Quick jump chips */}
-        <div style={{ display: "flex", gap: 8, overflowX: "auto", padding: "14px 0 4px", WebkitOverflowScrolling: "touch" }}>
+        {/* Quick jump chips — iOS pill rail */}
+        <div className="fw-chip-rail" role="tablist" aria-label="Workshop sections">
           {sections.map((sec, i) => (
             <button
               key={sec.id}
               type="button"
-              className="fw-tap"
+              role="tab"
+              aria-selected={i === step}
+              className={`fw-tap fw-chip${i === step ? " fw-chip-on" : ""}`}
               onClick={() => setStep(i)}
-              style={{
-                flexShrink: 0, minHeight: 40, padding: "8px 14px", borderRadius: 999, border: `1.5px solid ${i === step ? w.color : "rgba(70,48,32,0.12)"}`,
-                background: i === step ? w.color : "#fffaf3", color: i === step ? "#fffaf3" : "#5c5148", fontSize: 12, fontWeight: 600, cursor: "pointer",
-                fontFamily: FW_SANS,
-              }}
+              style={i === step ? { ["--fw-color"]: w.color, background: w.color, color: "#fffaf3", borderColor: "transparent" } : undefined}
             >
               {sec.icon} {sec.label.split(" ")[0]}
             </button>
@@ -2021,25 +2173,25 @@ function Hub({ onOpen }) {
 
   return (
     <AppShell>
-      <div style={{ background: "linear-gradient(168deg, #221830 0%, #2a2840 22%, #3c4a34 70%, #6a6248 100%)", padding: "calc(36px + env(safe-area-inset-top, 0px)) 20px 32px", position: "relative", overflow: "hidden" }}>
+      <div style={{ background: "linear-gradient(168deg, #221830 0%, #2a2840 22%, #3c4a34 70%, #6a6248 100%)", padding: "calc(44px + env(safe-area-inset-top, 0px)) 20px 28px", position: "relative", overflow: "hidden" }}>
         <div aria-hidden="true" style={{ position: "absolute", top: -50, right: -30, width: 240, height: 240, borderRadius: "50%", background: "radial-gradient(circle, rgba(255,236,206,0.5), rgba(196,160,106,0) 68%)" }} />
         <div aria-hidden="true" style={{ position: "absolute", bottom: -50, left: -30, width: 200, height: 200, borderRadius: "50%", background: "radial-gradient(circle, rgba(122,182,72,0.28), transparent 70%)" }} />
         <div style={{ position: "relative" }}>
-          <div className="fw-label fw-type-hero" style={{ fontSize: "11px", letterSpacing: "0.18em", color: "rgba(255,255,255,0.62)", marginBottom: "8px" }}>
+          <div className="fw-label fw-type-hero" style={{ fontSize: "11px", letterSpacing: "0.16em", color: "rgba(255,255,255,0.62)", marginBottom: "10px" }}>
             The Fibonacci Works™
           </div>
-          <h1 className="fw-display fw-type-hero" style={{ fontSize: "clamp(30px, 8.2vw, 38px)", color: "#fffaf3", margin: "0 0 12px", fontWeight: 600, letterSpacing: "-0.024em", lineHeight: 1.1 }}>
+          <h1 className="fw-large-title fw-type-hero" style={{ color: "#fffaf3", margin: "0 0 12px" }}>
             Everyday Teach Hub
           </h1>
-          <p style={{ fontSize: "15.5px", lineHeight: 1.58, letterSpacing: "-0.01em", color: "rgba(255,250,243,0.82)", margin: "0 0 18px", fontWeight: 400 }}>
+          <p style={{ fontSize: "15.5px", lineHeight: 1.52, letterSpacing: "-0.012em", color: "rgba(255,250,243,0.84)", margin: "0 0 18px", fontWeight: 400 }}>
             Facilitator runbook + student path · 14 workshops · 4 streams · run slides again without re-researching · print outdoor cards when hands leave the room.
           </p>
-          <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginBottom: "16px" }}>
-            <span className="fw-pill fw-label" style={{ borderRadius: "20px", padding: "7px 13px", fontSize: "10.5px", color: "#fff", letterSpacing: "0.12em" }}>14 Workshops</span>
-            <span className="fw-pill fw-label" style={{ borderRadius: "20px", padding: "7px 13px", fontSize: "10.5px", color: "#fff", letterSpacing: "0.12em" }}>4 Streams</span>
-            <span className="fw-pill fw-label" style={{ borderRadius: "20px", padding: "7px 13px", fontSize: "10.5px", color: "#fff", letterSpacing: "0.12em" }}>{connected} guides</span>
+          <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginBottom: "18px" }}>
+            <span className="fw-pill fw-label" style={{ borderRadius: "999px", padding: "6px 12px", fontSize: "10.5px", color: "#fff", letterSpacing: "0.1em" }}>14 Workshops</span>
+            <span className="fw-pill fw-label" style={{ borderRadius: "999px", padding: "6px 12px", fontSize: "10.5px", color: "#fff", letterSpacing: "0.1em" }}>4 Streams</span>
+            <span className="fw-pill fw-label" style={{ borderRadius: "999px", padding: "6px 12px", fontSize: "10.5px", color: "#fff", letterSpacing: "0.1em" }}>{connected} guides</span>
             {completedCount > 0 && (
-              <span className="fw-label" style={{ background: "rgba(122,182,72,0.25)", border: "1px solid rgba(122,182,72,0.45)", borderRadius: "20px", padding: "7px 13px", fontSize: "10.5px", color: "#c8e6a0", letterSpacing: "0.12em" }}>{completedCount}/14 opened</span>
+              <span className="fw-label" style={{ background: "rgba(122,182,72,0.28)", border: "0.5px solid rgba(122,182,72,0.5)", borderRadius: "999px", padding: "6px 12px", fontSize: "10.5px", color: "#c8e6a0", letterSpacing: "0.1em" }}>{completedCount}/14 opened</span>
             )}
           </div>
 
@@ -2052,19 +2204,19 @@ function Hub({ onOpen }) {
             style={{
               ...ctaBtn("linear-gradient(180deg, #8fbf62, #5f9140)", "#fffaf3"),
               width: "100%",
-              padding: "16px 16px",
-              fontSize: "14px",
-              borderRadius: 18,
-              boxShadow: "0 14px 32px rgba(20,16,8,0.28)",
+              padding: "15px 16px",
+              fontSize: "15px",
+              borderRadius: 14,
+              boxShadow: "0 12px 28px rgba(20,16,8,0.28)",
               flexDirection: "column",
               alignItems: "flex-start",
-              gap: "4px",
+              gap: "3px",
             }}
           >
-            <span className="fw-label" style={{ fontSize: "10px", letterSpacing: "0.16em", opacity: 0.92, fontWeight: 600 }}>
+            <span className="fw-label" style={{ fontSize: "10px", letterSpacing: "0.14em", opacity: 0.92, fontWeight: 600 }}>
               {allDone ? "SERIES COMPLETE · REOPEN" : progress.lastOpened ? "CONTINUE" : "START HERE"}
             </span>
-            <span style={{ fontSize: "15.5px", fontWeight: 650, letterSpacing: "-0.016em" }}>
+            <span style={{ fontSize: "16px", fontWeight: 650, letterSpacing: "-0.02em" }}>
               {allDone
                 ? `WS ${continueTarget} — ${continueWorkshop?.title || ""}`
                 : `Continue · WS ${continueTarget} — ${continueWorkshop?.title || ""} →`}
@@ -2073,56 +2225,46 @@ function Hub({ onOpen }) {
         </div>
       </div>
 
-      <div style={{ padding: "4px 12px 20px" }}>
+      <div style={{ padding: "8px 16px 12px" }}>
         {STREAMS.map((stream) => {
           const items = WORKSHOPS.filter((w) => w.stream === stream.name);
           return (
             <div key={stream.name} style={{ marginTop: "22px" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "12px", padding: "0 4px" }}>
-                <div style={{ width: "5px", alignSelf: "stretch", minHeight: "32px", borderRadius: "99px", background: `linear-gradient(180deg, ${stream.accent}, ${stream.color})`, boxShadow: `0 0 12px ${stream.color}55` }} />
+              <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "10px", padding: "0 2px" }}>
+                <div style={{ width: "4px", alignSelf: "stretch", minHeight: "28px", borderRadius: "99px", background: `linear-gradient(180deg, ${stream.accent}, ${stream.color})`, boxShadow: `0 0 10px ${stream.color}44` }} />
                 <div style={{ flex: 1 }}>
-                  <div className="fw-label" style={{ fontSize: "10px", letterSpacing: "0.14em", color: "#a89884", marginBottom: "3px" }}>{stream.range}</div>
-                  <h2 className="fw-display fw-type-glass" style={{ margin: 0, fontSize: "18px", fontWeight: 500, letterSpacing: "-0.02em", color: "#241c16" }}>{stream.name}</h2>
+                  <div className="fw-label" style={{ fontSize: "10px", letterSpacing: "0.12em", color: "#a89884", marginBottom: "2px" }}>{stream.range}</div>
+                  <h2 className="fw-display fw-type-glass" style={{ margin: 0, fontSize: "20px", fontWeight: 700, letterSpacing: "-0.028em", color: "#241c16" }}>{stream.name}</h2>
                 </div>
               </div>
 
-              <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+              <div className="fw-group" style={{ background: `linear-gradient(115deg, ${stream.color}18 0%, rgba(255,250,243,0.5) 42%)` }}>
                 {items.map((w) => {
-                  const done = isComplete(w);
                   const opened = progress.completed.includes(w.number);
                   const meta = streamMeta(w.stream);
                   const bar = w.color || meta.color;
                   return (
                     <div
                       key={w.number}
-                      className="fw-card fw-row"
+                      className="fw-row fw-row-ios fw-tap"
+                      data-fw-row=""
                       role="button"
                       tabIndex={0}
                       onClick={() => onOpen(w.number)}
                       onKeyDown={keyActivate(() => onOpen(w.number))}
-                      style={{
-                        background: `linear-gradient(115deg, ${bar}2a 0%, rgba(255,250,243,0.4) 48%)`,
-                        border: `1px solid rgba(255,255,255,0.55)`,
-                        borderRadius: "18px",
-                        padding: "12px 12px",
-                        cursor: "pointer",
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "12px",
-                        minHeight: 64,
-                      }}
+                      style={{ minHeight: 60 }}
                     >
-                      <span className="fw-label" style={{ fontSize: "11px", letterSpacing: "0.08em", color: bar, fontWeight: 700, width: 26, fontVariantNumeric: "tabular-nums" }}>{w.number}</span>
-                      <span style={{ width: 42, height: 42, borderRadius: 14, display: "grid", placeItems: "center", background: `${bar}1c`, fontSize: "22px", lineHeight: 1, flexShrink: 0 }}>{w.emoji}</span>
+                      <span className="fw-label" style={{ fontSize: "11px", letterSpacing: "0.06em", color: bar, fontWeight: 700, width: 26, fontVariantNumeric: "tabular-nums" }}>{w.number}</span>
+                      <span style={{ width: 40, height: 40, borderRadius: 10, display: "grid", placeItems: "center", background: `${bar}1a`, fontSize: "20px", lineHeight: 1, flexShrink: 0 }}>{w.emoji}</span>
                       <div style={{ flex: 1, minWidth: 0 }}>
-                        <div style={{ fontSize: "15.5px", fontWeight: 600, lineHeight: 1.28, letterSpacing: "-0.016em", color: "#241c16" }}>
+                        <div style={{ fontSize: "16px", fontWeight: 600, lineHeight: 1.25, letterSpacing: "-0.02em", color: "#241c16" }}>
                           {w.title || `Workshop ${w.number}`}
                         </div>
-                        <div className="fw-caption" style={{ marginTop: 3, letterSpacing: "0.01em" }}>
+                        <div className="fw-caption" style={{ marginTop: 2 }}>
                           {w.duration || ""}{opened ? " · ✓ opened" : ""}
                         </div>
                       </div>
-                      <span style={{ fontSize: "18px", color: bar, fontWeight: 600 }}>›</span>
+                      <span className="fw-chevron" aria-hidden="true">›</span>
                     </div>
                   );
                 })}
@@ -2136,6 +2278,7 @@ function Hub({ onOpen }) {
     </AppShell>
   );
 }
+
 
 
 function KeyPointSheet({ w, kp, covered, onClose, onToggleCovered }) {
@@ -2175,7 +2318,7 @@ function KeyPointSheet({ w, kp, covered, onClose, onToggleCovered }) {
             ×
           </button>
         </div>
-        <h2 id="fw-kp-title" className="fw-display fw-type-glass" style={{ margin: "8px 0 8px", fontSize: 27, fontWeight: 500, letterSpacing: "-0.022em", lineHeight: 1.18 }}>{kp.label}</h2>
+        <h2 id="fw-kp-title" className="fw-display fw-type-glass" style={{ margin: "8px 0 8px", fontSize: 28, fontWeight: 700, letterSpacing: "-0.032em", lineHeight: 1.15 }}>{kp.label}</h2>
         <p style={{ margin: "0 0 14px", fontSize: 14.5, lineHeight: 1.55, letterSpacing: "-0.01em", color: "#7a6b5c" }}>{kp.detail}</p>
         {answer.lines.length ? (
           <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
@@ -2271,15 +2414,15 @@ function FullGuide({ w, onOpen, next, onHome, onTeach, onPrint }) {
 
   return (
     <>
-      <div className="fw-rise" style={{ background: `linear-gradient(${140 + Number(w.number) * 4}deg, #221830 0%, ${w.dark} 48%, ${w.color} 100%)`, padding: "calc(26px + env(safe-area-inset-top, 0px)) 18px 26px", position: "relative", overflow: "hidden" }}>
+      <div className="fw-rise" style={{ background: `linear-gradient(${140 + Number(w.number) * 4}deg, #221830 0%, ${w.dark} 48%, ${w.color} 100%)`, padding: "18px 18px 24px", position: "relative", overflow: "hidden" }}>
         <div aria-hidden="true" style={{ position: "absolute", top: -60, right: -40, width: 220, height: 220, borderRadius: "50%", background: `radial-gradient(circle, ${w.accent}88, transparent 68%)`, opacity: 0.55 }} />
         <div aria-hidden="true" style={{ position: "absolute", bottom: -40, left: -20, width: 160, height: 160, borderRadius: "50%", background: "radial-gradient(circle, rgba(200,182,255,0.28), transparent 70%)" }} />
         <div style={{ position: "relative" }}>
-          <div className="fw-label fw-type-hero" style={{ fontSize: "11px", letterSpacing: "0.16em", color: "rgba(255,255,255,0.65)", marginBottom: "8px" }}>The Fibonacci Works™ · Workshop {w.number}</div>
-          <div className="fw-label" style={{ fontSize: "11px", letterSpacing: "0.14em", color: w.accent, marginBottom: "12px" }}>{w.stream}</div>
-          <div style={{ fontSize: "40px", marginBottom: "8px" }}>{w.emoji}</div>
-          <h1 className="fw-display fw-type-hero" style={{ fontSize: "clamp(28px, 7.2vw, 36px)", color: "#fffaf3", margin: "0 0 14px", fontWeight: 600, letterSpacing: "-0.024em", lineHeight: 1.12 }}>{w.title}</h1>
-          <div className="fw-pill fw-label" style={{ display: "inline-block", borderRadius: "20px", padding: "7px 14px", fontSize: "11px", color: "#fff", letterSpacing: "0.1em" }}>⏱ {w.duration}</div>
+          <div className="fw-label fw-type-hero" style={{ fontSize: "11px", letterSpacing: "0.14em", color: "rgba(255,255,255,0.65)", marginBottom: "6px" }}>The Fibonacci Works™ · Workshop {w.number}</div>
+          <div className="fw-label" style={{ fontSize: "11px", letterSpacing: "0.12em", color: w.accent, marginBottom: "12px" }}>{w.stream}</div>
+          <div style={{ width: 52, height: 52, borderRadius: 14, display: "grid", placeItems: "center", background: "rgba(255,255,255,0.14)", fontSize: "28px", marginBottom: "10px", border: "0.5px solid rgba(255,255,255,0.22)" }}>{w.emoji}</div>
+          <h1 className="fw-large-title fw-type-hero" style={{ color: "#fffaf3", margin: "0 0 12px", fontSize: "clamp(28px, 7.4vw, 36px)" }}>{w.title}</h1>
+          <div className="fw-pill fw-label" style={{ display: "inline-block", borderRadius: "999px", padding: "6px 12px", fontSize: "11px", color: "#fff", letterSpacing: "0.08em" }}>⏱ {w.duration}</div>
           <img className="fw-hero-still" src={`placeholders/ws${w.number}-welcome.svg`} alt={`WS${w.number} · ${w.title}`} />
         </div>
       </div>
@@ -2322,15 +2465,16 @@ function FullGuide({ w, onOpen, next, onHome, onTeach, onPrint }) {
 
       <div style={{ padding: "20px 16px" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "4px" }}>
-          <h2 className="fw-label" style={{ fontSize: "11px", letterSpacing: "0.14em", color: "#8a7b68", margin: 0 }}>Key Learning Points</h2>
-          {allChecked && <span className="fw-label" style={{ fontSize: "10.5px", color: w.color, letterSpacing: "0.12em" }}>ALL COVERED ✓</span>}
+          <h2 className="fw-section-label" style={{ margin: 0, color: "#8a7b68" }}>Key Learning Points</h2>
+          {allChecked && <span className="fw-label" style={{ fontSize: "10.5px", color: w.color, letterSpacing: "0.1em" }}>ALL COVERED ✓</span>}
         </div>
-        <p className="fw-caption" style={{ margin: "0 0 12px" }}>Tap a point for the answer</p>
-        <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+        <p className="fw-caption" style={{ margin: "0 0 10px", paddingLeft: 4 }}>Tap a point for the answer</p>
+        <div className="fw-group" style={{ background: `linear-gradient(135deg, ${w.color}14 0%, rgba(255,250,243,0.55) 50%)` }}>
           {w.keypoints.map((kp) => (
             <div
               key={kp.label}
-              style={{ background: checked[kp.label] ? `${w.color}1c` : "rgba(255,250,243,0.45)", border: `1px solid ${checked[kp.label] ? w.color : "rgba(255,255,255,0.55)"}`, borderRadius: "16px", padding: "10px 12px 10px 10px", display: "flex", alignItems: "flex-start", gap: "10px", minHeight: 52, backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.6), 0 6px 16px rgba(48,32,24,0.04)" }}
+              data-fw-row=""
+              style={{ padding: "10px 12px 10px 10px", display: "flex", alignItems: "flex-start", gap: "10px", minHeight: 56, background: checked[kp.label] ? `${w.color}14` : "transparent" }}
             >
               <button
                 type="button"
@@ -2338,21 +2482,21 @@ function FullGuide({ w, onOpen, next, onHome, onTeach, onPrint }) {
                 aria-label={checked[kp.label] ? `Unmark ${kp.label}` : `Mark ${kp.label} covered`}
                 aria-pressed={!!checked[kp.label]}
                 onClick={() => toggle(kp.label)}
-                style={{ width: 44, height: 44, borderRadius: "50%", border: `2px solid ${checked[kp.label] ? w.color : "#ccc"}`, background: checked[kp.label] ? w.color : "transparent", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, padding: 0, cursor: "pointer" }}
+                style={{ width: 28, height: 28, marginTop: 6, borderRadius: "50%", border: `2px solid ${checked[kp.label] ? w.color : "rgba(70,48,32,0.22)"}`, background: checked[kp.label] ? w.color : "transparent", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, padding: 0, cursor: "pointer" }}
               >
-                {checked[kp.label] && <span style={{ color: "#fff", fontSize: "13px" }}>✓</span>}
+                {checked[kp.label] && <span style={{ color: "#fff", fontSize: "13px", fontWeight: 700 }}>✓</span>}
               </button>
               <button
                 type="button"
                 className="fw-tap"
                 onClick={() => setOpenPoint(kp.label)}
-                style={{ flex: 1, minWidth: 0, textAlign: "left", background: "none", border: "none", padding: "4px 0", cursor: "pointer", display: "flex", alignItems: "center", gap: 8, color: "inherit" }}
+                style={{ flex: 1, minWidth: 0, textAlign: "left", background: "none", border: "none", padding: "4px 0", cursor: "pointer", display: "flex", alignItems: "center", gap: 8, color: "inherit", minHeight: 44 }}
               >
                 <span style={{ flex: 1, minWidth: 0 }}>
-                  <span style={{ display: "block", fontSize: "14px", fontWeight: 600, color: checked[kp.label] ? w.color : "#1a1a1a", marginBottom: "2px" }}>{kp.label}</span>
-                  <span style={{ display: "block", fontSize: "12px", color: "#888", lineHeight: 1.4 }}>{kp.detail}</span>
+                  <span style={{ display: "block", fontSize: "15.5px", fontWeight: 600, letterSpacing: "-0.016em", color: checked[kp.label] ? w.color : "#1a1a1a", marginBottom: "2px" }}>{kp.label}</span>
+                  <span style={{ display: "block", fontSize: "13px", color: "#8a7b68", lineHeight: 1.4 }}>{kp.detail}</span>
                 </span>
-                <span style={{ flexShrink: 0, fontSize: "11px", letterSpacing: "0.4px", color: w.color, fontFamily: FW_SANS, fontWeight: 700 }}>Answer ›</span>
+                <span style={{ flexShrink: 0, fontSize: "13px", letterSpacing: "-0.01em", color: w.color, fontFamily: FW_SANS, fontWeight: 600 }}>Answer ›</span>
               </button>
             </div>
           ))}
@@ -2369,7 +2513,7 @@ function FullGuide({ w, onOpen, next, onHome, onTeach, onPrint }) {
       </div>
 
       <div style={{ padding: "0 16px 20px" }}>
-        <h2 className="fw-label" style={{ fontSize: "11px", letterSpacing: "0.14em", color: "#8a7b68", marginBottom: "12px" }}>Workshop Flow</h2>
+        <h2 className="fw-section-label" style={{ color: "#8a7b68", marginBottom: "10px" }}>Workshop Flow</h2>
         <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
           {w.sections.map((s) => (
             <div
@@ -2383,17 +2527,17 @@ function FullGuide({ w, onOpen, next, onHome, onTeach, onPrint }) {
                 tabIndex={0}
                 onClick={() => openSection(s.id)}
                 onKeyDown={keyActivate(() => openSection(s.id))}
-                style={{ background: activeSection === s.id ? w.color : "rgba(255,250,243,0.45)", border: `1px solid ${activeSection === s.id ? w.color : "rgba(255,255,255,0.55)"}`, borderRadius: activeSection === s.id ? "16px 16px 0 0" : "16px", padding: "14px 14px", cursor: "pointer", display: "flex", alignItems: "center", gap: "12px", minHeight: 52, backdropFilter: activeSection === s.id ? "none" : "blur(12px)", WebkitBackdropFilter: activeSection === s.id ? "none" : "blur(12px)", boxShadow: activeSection === s.id ? "none" : "inset 0 1px 0 rgba(255,255,255,0.6), 0 6px 16px rgba(48,32,24,0.04)", transition: "background .22s ease, border-color .22s ease, border-radius .22s ease" }}
+                style={{ background: activeSection === s.id ? w.color : "rgba(255,250,243,0.58)", border: `0.5px solid ${activeSection === s.id ? w.color : "rgba(255,255,255,0.62)"}`, borderRadius: activeSection === s.id ? "14px 14px 0 0" : "14px", padding: "13px 14px", cursor: "pointer", display: "flex", alignItems: "center", gap: "12px", minHeight: 52, backdropFilter: activeSection === s.id ? "none" : "blur(16px) saturate(1.3)", WebkitBackdropFilter: activeSection === s.id ? "none" : "blur(16px) saturate(1.3)", boxShadow: activeSection === s.id ? "none" : "var(--fw-glass-shadow)", transition: "background .28s var(--fw-spring-soft), border-color .22s ease, border-radius .22s ease" }}
               >
-                <span style={{ fontSize: "20px" }}>{s.icon}</span>
-                <span style={{ flex: 1, fontSize: "14px", fontWeight: 600, color: activeSection === s.id ? "#fff" : "#1a1a1a" }}>{s.label}</span>
+                <span style={{ width: 36, height: 36, borderRadius: 10, display: "grid", placeItems: "center", background: activeSection === s.id ? "rgba(255,255,255,0.18)" : `${w.color}14`, fontSize: "18px" }}>{s.icon}</span>
+                <span style={{ flex: 1, fontSize: "15.5px", fontWeight: 600, letterSpacing: "-0.016em", color: activeSection === s.id ? "#fff" : "#1a1a1a" }}>{s.label}</span>
                 {s.id === "takehome" && activeSection !== s.id && (
-                  <span className="fw-label" style={{ fontSize: 10, letterSpacing: "0.12em", color: w.color, fontWeight: 700 }}>AT HOME</span>
+                  <span className="fw-label" style={{ fontSize: 10, letterSpacing: "0.1em", color: w.color, fontWeight: 700 }}>AT HOME</span>
                 )}
-                <span style={{ fontSize: "18px", color: activeSection === s.id ? "#fff" : "#ccc", transform: activeSection === s.id ? "rotate(180deg)" : "none", transition: "transform .22s ease" }}>▾</span>
+                <span style={{ fontSize: "16px", color: activeSection === s.id ? "rgba(255,255,255,0.85)" : "rgba(60,40,28,0.28)", transform: activeSection === s.id ? "rotate(180deg)" : "none", transition: "transform .28s var(--fw-spring)" }}>▾</span>
               </div>
               {activeSection === s.id && (
-                <div className="fw-sec-panel" style={{ background: `linear-gradient(180deg, ${w.color}22, rgba(255,250,243,0.45) 45%)`, border: `1px solid ${w.color}`, borderTop: "none", borderRadius: "0 0 16px 16px", padding: "16px", color: "#3a3128", backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)" }}>
+                <div className="fw-sec-panel" style={{ background: `linear-gradient(180deg, ${w.color}20, rgba(255,250,243,0.55) 45%)`, border: `0.5px solid ${w.color}`, borderTop: "none", borderRadius: "0 0 14px 14px", padding: "16px", color: "#3a3128", backdropFilter: "blur(18px) saturate(1.35)", WebkitBackdropFilter: "blur(18px) saturate(1.35)" }}>
                   <SectionPlaceholder w={w} section={s} />
                   <SectionRichBody
                     w={w}
@@ -2419,12 +2563,12 @@ function StubGuide({ w, onOpen, next, onHome }) {
   const meta = streamMeta(w.stream);
   return (
     <>
-      <div style={{ background: `linear-gradient(165deg, #221830 0%, ${w.dark || meta.dark} 50%, ${w.color || meta.color} 100%)`, padding: "28px 18px 26px", position: "relative", overflow: "hidden" }}>
+      <div style={{ background: `linear-gradient(165deg, #221830 0%, ${w.dark || meta.dark} 50%, ${w.color || meta.color} 100%)`, padding: "18px 18px 26px", position: "relative", overflow: "hidden" }}>
         <div style={{ position: "relative" }}>
-          <div className="fw-label fw-type-hero" style={{ fontSize: "11px", letterSpacing: "0.16em", color: "rgba(255,255,255,0.65)", marginBottom: "8px" }}>The Fibonacci Works™ · Workshop {w.number}</div>
-          <div className="fw-label" style={{ fontSize: "11px", letterSpacing: "0.14em", color: w.accent || meta.accent, marginBottom: "12px" }}>{w.stream}</div>
-          <div style={{ fontSize: "40px", marginBottom: "8px" }}>{w.emoji}</div>
-          <h1 className="fw-display fw-type-hero" style={{ fontSize: "clamp(24px, 6.2vw, 32px)", color: "#fffaf3", margin: 0, fontWeight: 600, letterSpacing: "-0.022em", lineHeight: 1.14 }}>{w.title || `Workshop ${w.number}`}</h1>
+          <div className="fw-label fw-type-hero" style={{ fontSize: "11px", letterSpacing: "0.14em", color: "rgba(255,255,255,0.65)", marginBottom: "8px" }}>The Fibonacci Works™ · Workshop {w.number}</div>
+          <div className="fw-label" style={{ fontSize: "11px", letterSpacing: "0.12em", color: w.accent || meta.accent, marginBottom: "12px" }}>{w.stream}</div>
+          <div style={{ width: 52, height: 52, borderRadius: 14, display: "grid", placeItems: "center", background: "rgba(255,255,255,0.14)", fontSize: "28px", marginBottom: "10px" }}>{w.emoji}</div>
+          <h1 className="fw-large-title fw-type-hero" style={{ fontSize: "clamp(24px, 6.2vw, 32px)", color: "#fffaf3", margin: 0 }}>{w.title || `Workshop ${w.number}`}</h1>
         </div>
       </div>
       <div style={{ padding: "16px 14px 0" }}>
@@ -2487,42 +2631,43 @@ function Detail({ number, onHome, onOpen }) {
 
   return (
     <AppShell tone={{ ["--fw-color"]: accent, ["--fw-accent"]: w.accent || accent }}>
-      <div className="fw-app-chrome" style={{ position: "sticky", top: 0, zIndex: 10, background: "rgba(255,252,248,0.55)", backdropFilter: "blur(22px) saturate(1.35)", WebkitBackdropFilter: "blur(22px) saturate(1.35)", borderBottom: "1px solid rgba(255,255,255,0.45)", borderTop: `3px solid ${accent}`, boxShadow: "inset 0 1px 0 rgba(255,255,255,0.55)", paddingTop: "env(safe-area-inset-top, 0px)" }}>
-        <div style={{ padding: "10px 12px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px" }}>
+      <div className="fw-app-chrome fw-nav-bar" style={{ borderTop: `3px solid ${accent}` }}>
+        <div style={{ padding: "8px 12px 10px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px" }}>
           <span
             className="fw-link fw-tap"
             role="button"
             tabIndex={0}
             onClick={onHome}
             onKeyDown={keyActivate(onHome)}
-            style={{ fontSize: "13.5px", color: meta.color, fontWeight: 600, letterSpacing: "-0.01em", cursor: "pointer", fontFamily: FW_SANS, minHeight: 44, display: "inline-flex", alignItems: "center" }}
+            style={{ fontSize: "15px", color: meta.color, fontWeight: 600, letterSpacing: "-0.016em", cursor: "pointer", fontFamily: FW_SANS, minHeight: 44, display: "inline-flex", alignItems: "center", paddingRight: 4 }}
           >
             ← All
           </span>
-          <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", justifyContent: "flex-end", position: "relative" }}>
+          <div style={{ display: "flex", gap: "8px", alignItems: "center", flex: 1, justifyContent: "flex-end", position: "relative", minWidth: 0 }}>
             {isComplete(w) && (
-              <>
-                <button type="button" className="fw-tap fw-cta" onClick={() => setView("teach")} style={{ ...ctaBtn(accent, "#fff"), padding: "8px 12px", fontSize: 12 }}>Teach</button>
-                <button type="button" className="fw-tap fw-cta" onClick={() => setView("print")} style={{ ...ctaBtn("#fff", accent, `1.5px solid ${accent}`), padding: "8px 12px", fontSize: 12 }}>Print</button>
-              </>
+              <div className="fw-segment" role="tablist" aria-label="Workshop view" style={{ flex: "1 1 auto", maxWidth: 240 }}>
+                <button type="button" role="tab" aria-selected={view === "guide"} className={view === "guide" ? "fw-seg-on" : undefined} onClick={() => setView("guide")}>Guide</button>
+                <button type="button" role="tab" aria-selected={view === "teach"} className={view === "teach" ? "fw-seg-on" : undefined} onClick={() => setView("teach")}>Teach</button>
+                <button type="button" role="tab" aria-selected={view === "print"} className={view === "print" ? "fw-seg-on" : undefined} onClick={() => setView("print")}>Print</button>
+              </div>
             )}
-            <button type="button" className="fw-tap fw-cta" aria-expanded={navMenu} onClick={() => setNavMenu((o) => !o)} style={{ ...ctaBtn("#fff", "#555", "1.5px solid #ccc"), padding: "8px 12px", fontSize: 12 }}>
-              Menu ▾
+            <button type="button" className="fw-tap fw-cta" aria-expanded={navMenu} onClick={() => setNavMenu((o) => !o)} style={{ ...ctaBtn("rgba(255,252,248,0.85)", "#3a3128", "0.5px solid rgba(70,48,32,0.12)"), padding: "8px 12px", fontSize: 13, minHeight: 36, borderRadius: 10, flexShrink: 0 }}>
+              Menu
             </button>
             {navMenu && (
-              <div className="fw-menu-panel" style={{ left: "auto", right: 0, width: 220, top: "100%" }}>
-                <button type="button" className="fw-tap" onClick={() => { setNavMenu(false); setView("guide"); }} style={{ width: "100%", textAlign: "left", border: "none", background: "none", padding: "14px 16px", borderBottom: "1px solid #f2f2ee", cursor: "pointer", fontWeight: 600 }}>Guide</button>
+              <div className="fw-menu-panel" style={{ left: "auto", right: 0, width: 240, top: "100%" }}>
+                <button type="button" className="fw-tap" onClick={() => { setNavMenu(false); setView("guide"); }} style={{ width: "100%", textAlign: "left", border: "none", background: "none", padding: "14px 16px", borderBottom: "0.5px solid rgba(70,48,32,0.08)", cursor: "pointer", fontWeight: 600 }}>Guide</button>
                 {isComplete(w) && (
                   <>
-                    <button type="button" className="fw-tap" onClick={() => { setNavMenu(false); setView("teach"); }} style={{ width: "100%", textAlign: "left", border: "none", background: "none", padding: "14px 16px", borderBottom: "1px solid #f2f2ee", cursor: "pointer", fontWeight: 600 }}>Run this workshop</button>
-                    <button type="button" className="fw-tap" onClick={() => { setNavMenu(false); setView("print"); }} style={{ width: "100%", textAlign: "left", border: "none", background: "none", padding: "14px 16px", borderBottom: "1px solid #f2f2ee", cursor: "pointer", fontWeight: 600 }}>Print outdoor / take-home cards</button>
+                    <button type="button" className="fw-tap" onClick={() => { setNavMenu(false); setView("teach"); }} style={{ width: "100%", textAlign: "left", border: "none", background: "none", padding: "14px 16px", borderBottom: "0.5px solid rgba(70,48,32,0.08)", cursor: "pointer", fontWeight: 600 }}>Run this workshop</button>
+                    <button type="button" className="fw-tap" onClick={() => { setNavMenu(false); setView("print"); }} style={{ width: "100%", textAlign: "left", border: "none", background: "none", padding: "14px 16px", borderBottom: "0.5px solid rgba(70,48,32,0.08)", cursor: "pointer", fontWeight: 600 }}>Print outdoor / take-home cards</button>
                   </>
                 )}
                 {openHref && (
-                  <a className="fw-link" href={openHref} target="_blank" rel="noopener noreferrer" onClick={() => setNavMenu(false)} style={{ display: "block", padding: "14px 16px", borderBottom: "1px solid #f2f2ee", textDecoration: "none", color: "#1a1a1a", fontWeight: 600 }}>Open deck</a>
+                  <a className="fw-link" href={openHref} target="_blank" rel="noopener noreferrer" onClick={() => setNavMenu(false)} style={{ display: "block", padding: "14px 16px", borderBottom: "0.5px solid rgba(70,48,32,0.08)", textDecoration: "none", color: "#1a1a1a", fontWeight: 600 }}>Open deck</a>
                 )}
                 {prev && (
-                  <button type="button" className="fw-tap" onClick={() => { setNavMenu(false); onOpen(prev.number); }} style={{ width: "100%", textAlign: "left", border: "none", background: "none", padding: "14px 16px", borderBottom: "1px solid #f2f2ee", cursor: "pointer" }}>← Previous · {prev.number}</button>
+                  <button type="button" className="fw-tap" onClick={() => { setNavMenu(false); onOpen(prev.number); }} style={{ width: "100%", textAlign: "left", border: "none", background: "none", padding: "14px 16px", borderBottom: "0.5px solid rgba(70,48,32,0.08)", cursor: "pointer" }}>← Previous · {prev.number}</button>
                 )}
                 {next ? (
                   <button type="button" className="fw-tap" onClick={() => { setNavMenu(false); onOpen(next.number); }} style={{ width: "100%", textAlign: "left", border: "none", background: "none", padding: "14px 16px", cursor: "pointer" }}>Next · {next.number} →</button>
@@ -2543,27 +2688,27 @@ function Detail({ number, onHome, onOpen }) {
         <StubGuide key={w.number} w={w} onOpen={onOpen} next={next} onHome={onHome} />
       )}
 
-      <div style={{ padding: "8px 12px 12px", display: "flex", gap: "8px" }}>
+      <div style={{ padding: "8px 16px 12px", display: "flex", gap: "10px" }}>
         {prev ? (
-          <div className="fw-card fw-link fw-tap fw-glass" role="button" tabIndex={0} onClick={() => onOpen(prev.number)} onKeyDown={keyActivate(() => onOpen(prev.number))} style={{ flex: 1, background: "rgba(255,250,243,0.45)", borderRadius: "16px", padding: "14px", cursor: "pointer" }}>
-            <div className="fw-label" style={{ fontSize: "10px", letterSpacing: "0.12em", color: "#aaa", marginBottom: "4px" }}>← Prev · {prev.number}</div>
-            <div style={{ fontSize: "12px", fontWeight: 600, color: "#1a1a1a", lineHeight: 1.3 }}>{prev.title || `Workshop ${prev.number}`}</div>
+          <div className="fw-card fw-link fw-tap fw-glass" role="button" tabIndex={0} onClick={() => onOpen(prev.number)} onKeyDown={keyActivate(() => onOpen(prev.number))} style={{ flex: 1, background: "rgba(255,250,243,0.55)", borderRadius: "14px", padding: "14px", cursor: "pointer" }}>
+            <div className="fw-label" style={{ fontSize: "10px", letterSpacing: "0.1em", color: "#aaa", marginBottom: "4px" }}>← Prev · {prev.number}</div>
+            <div style={{ fontSize: "13px", fontWeight: 600, color: "#1a1a1a", lineHeight: 1.3, letterSpacing: "-0.016em" }}>{prev.title || `Workshop ${prev.number}`}</div>
           </div>
         ) : <div style={{ flex: 1 }} />}
         {next ? (
-          <div className="fw-card fw-link fw-tap fw-glass" role="button" tabIndex={0} onClick={() => onOpen(next.number)} onKeyDown={keyActivate(() => onOpen(next.number))} style={{ flex: 1, background: "rgba(255,250,243,0.45)", border: `1.5px solid ${accent}`, borderRadius: "16px", padding: "14px", cursor: "pointer", textAlign: "right" }}>
-            <div className="fw-label" style={{ fontSize: "10px", letterSpacing: "0.12em", color: accent, marginBottom: "4px" }}>{next.number} · Next →</div>
-            <div style={{ fontSize: "12px", fontWeight: 600, color: "#1a1a1a", lineHeight: 1.3 }}>{next.title || `Workshop ${next.number}`}</div>
+          <div className="fw-card fw-link fw-tap fw-glass" role="button" tabIndex={0} onClick={() => onOpen(next.number)} onKeyDown={keyActivate(() => onOpen(next.number))} style={{ flex: 1, background: "rgba(255,250,243,0.55)", border: `0.5px solid ${accent}`, borderRadius: "14px", padding: "14px", cursor: "pointer", textAlign: "right" }}>
+            <div className="fw-label" style={{ fontSize: "10px", letterSpacing: "0.1em", color: accent, marginBottom: "4px" }}>{next.number} · Next →</div>
+            <div style={{ fontSize: "13px", fontWeight: 600, color: "#1a1a1a", lineHeight: 1.3, letterSpacing: "-0.016em" }}>{next.title || `Workshop ${next.number}`}</div>
           </div>
         ) : (
-          <div className="fw-card fw-link fw-tap fw-glass" role="button" tabIndex={0} onClick={onHome} onKeyDown={keyActivate(onHome)} style={{ flex: 1, background: "rgba(255,250,243,0.45)", borderRadius: "16px", padding: "14px", cursor: "pointer", textAlign: "right" }}>
-            <div className="fw-label" style={{ fontSize: "10px", letterSpacing: "0.12em", color: "#aaa", marginBottom: "4px" }}>Series complete</div>
-            <div style={{ fontSize: "12px", fontWeight: 600, color: "#1a1a1a", lineHeight: 1.3 }}>← All workshops</div>
+          <div className="fw-card fw-link fw-tap fw-glass" role="button" tabIndex={0} onClick={onHome} onKeyDown={keyActivate(onHome)} style={{ flex: 1, background: "rgba(255,250,243,0.55)", borderRadius: "14px", padding: "14px", cursor: "pointer", textAlign: "right" }}>
+            <div className="fw-label" style={{ fontSize: "10px", letterSpacing: "0.1em", color: "#aaa", marginBottom: "4px" }}>Series complete</div>
+            <div style={{ fontSize: "13px", fontWeight: 600, color: "#1a1a1a", lineHeight: 1.3, letterSpacing: "-0.016em" }}>← All workshops</div>
           </div>
         )}
       </div>
 
-      <div style={{ padding: "0 12px 24px" }}>
+      <div style={{ padding: "0 16px 20px" }}>
         {next ? (
           <div className="fw-cta fw-tap" role="button" tabIndex={0} onClick={() => onOpen(next.number)} onKeyDown={keyActivate(() => onOpen(next.number))} style={{ ...ctaBtn(accent, "#fff"), width: "100%", padding: "14px 16px", fontSize: "14px" }}>
             Continue to Workshop {next.number} — {next.title || `Workshop ${next.number}`} →
