@@ -1501,7 +1501,7 @@ function FacilitatorPrepCard({ w, onPrint }) {
       <div className="fw-label" style={{ fontSize: 11, letterSpacing: "0.14em", color, fontWeight: 700, marginBottom: 6 }}>FACILITATOR PREP</div>
       <div className="fw-display" style={{ fontSize: 20, fontWeight: 700, letterSpacing: "-0.028em", color: "#241c16", marginBottom: 4 }}>Pro runbook · before anyone sits down</div>
       <p style={{ margin: "0 0 12px", fontSize: 13, lineHeight: 1.5, color: "#6d5e50" }}>
-        You stay on hub + slides. Participants follow on phone (QR) or printouts — they need nothing else if cards are on the table.
+        Hub + slides for the room. Participants follow on phone (QR) or printouts.
       </p>
 
       <div className="fw-prep-grid">
@@ -1594,7 +1594,7 @@ function FacilitatorPrepCard({ w, onPrint }) {
         <ul>
           <li><span aria-hidden="true" style={{ color, fontWeight: 700 }}>·</span><span>Facilitator: hub open + slides (Canva/PDF). Talk each section while hands stay busy.</span></li>
           <li><span aria-hidden="true" style={{ color, fontWeight: 700 }}>·</span><span>Table: print outdoor / take-home cards + one QR card pointing at this workshop’s deep link.</span></li>
-          <li><span aria-hidden="true" style={{ color, fontWeight: 700 }}>·</span><span>Shared tools stay with you; take-home kit leaves with each person (from Hands-On notes).</span></li>
+          <li><span aria-hidden="true" style={{ color, fontWeight: 700 }}>·</span><span>Shared tools stay with facilitator; take-home kit leaves with each person (from Hands-On notes).</span></li>
         </ul>
         {prep.kit.length > 0 && (
           <p style={{ margin: "8px 0 0", fontSize: 12.5, lineHeight: 1.45, color: "#7a6b5c" }}>
@@ -1622,8 +1622,7 @@ function FacilitatorPrepCard({ w, onPrint }) {
       <label className="fw-prep-check" style={{ borderColor: practiced ? color : `${color}33`, background: practiced ? `${color}1c` : "rgba(255,255,255,0.32)" }}>
         <input type="checkbox" checked={practiced} onChange={(e) => setPracticedPersist(e.target.checked)} />
         <span>
-          <strong style={{ color }}>Practice at home first</strong>
-          <span style={{ display: "block", fontSize: 13, lineHeight: 1.45, color: "#5c5148", marginTop: 2 }}>Solo redo the Take-Home path before teaching {n} people for {w.duration}.</span>
+          <strong style={{ color }}>Take-Home path practiced</strong>
         </span>
       </label>
 
@@ -1942,7 +1941,7 @@ function PrintSheetView({ w, onClose, onPrint }) {
           <div style={{ flex: 1, minWidth: 160 }}>
             <div className="fw-label" style={{ fontSize: 10.5, letterSpacing: "0.12em", color: w.color, fontWeight: 700, marginBottom: 4 }}>Table QR · this workshop</div>
             <div className="fw-mono" style={{ fontSize: 12, lineHeight: 1.4, color: "#333", wordBreak: "break-all" }}>{workshopDeepUrl(w.number)}</div>
-            <p style={{ margin: "8px 0 0", fontSize: 12, lineHeight: 1.4, color: "#7a6b5c" }}>Participants scan to open Workshop {w.number} alone. Facilitator stays on hub + slides.</p>
+            <p style={{ margin: "8px 0 0", fontSize: 12, lineHeight: 1.4, color: "#7a6b5c" }}>Scan to open Workshop {w.number} alone · hub + slides for the room.</p>
           </div>
         </div>
         {w.about && <p style={{ fontSize: 13, lineHeight: 1.6, color: "#444", borderLeft: `3px solid ${w.color}`, paddingLeft: 12, margin: "0 0 18px" }}>{w.about}</p>}
@@ -2184,7 +2183,7 @@ function Hub({ onOpen }) {
             Everyday Teach Hub
           </h1>
           <p style={{ fontSize: "15.5px", lineHeight: 1.52, letterSpacing: "-0.012em", color: "rgba(255,250,243,0.84)", margin: "0 0 18px", fontWeight: 400 }}>
-            Facilitator runbook + student path · 14 workshops · 4 streams · run slides again without re-researching · print outdoor cards when hands leave the room.
+            Facilitator runbook + student path · 14 workshops · 4 streams · print outdoor cards when hands leave the room.
           </p>
           <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginBottom: "18px" }}>
             <span className="fw-pill fw-label" style={{ borderRadius: "999px", padding: "6px 12px", fontSize: "10.5px", color: "#fff", letterSpacing: "0.1em" }}>14 Workshops</span>
