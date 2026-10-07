@@ -533,8 +533,8 @@ const isComplete = (w) => Boolean(w.about && w.sections?.length && w.keypoints?.
 const PROGRESS_KEY = "fw-hub-progress";
 
 /* ── Premium type tokens (iOS glass lettering) ─────────────── */
-const FW_SANS = '-apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", system-ui, sans-serif';
-const FW_DISPLAY = '-apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", system-ui, sans-serif';
+const FW_SANS = '-apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", Inter, system-ui, sans-serif';
+const FW_DISPLAY = '-apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Inter, system-ui, sans-serif';
 const FW_MONO = 'ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace';
 const fwLabel = {
   fontFamily: FW_SANS,
@@ -602,6 +602,15 @@ const resolveContinueTarget = (progress) => {
 };
 
 const STYLE = `
+  /* Self-hosted Inter — ensures sans on Linux/Windows verification (no Times/serif) */
+  @font-face {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url("./fonts/Inter-Variable.woff2?v=20261007") format("woff2-variations"),
+         url("./fonts/Inter-Variable.woff2?v=20261007") format("woff2");
+  }
   :root {
     --fw-safe-b: env(safe-area-inset-bottom, 0px);
     --fw-safe-t: env(safe-area-inset-top, 0px);
@@ -623,8 +632,8 @@ const STYLE = `
       inset 0 1px 0 rgba(255, 255, 255, 0.78),
       inset 0 -1px 0 rgba(255, 255, 255, 0.14);
     --fw-specular: linear-gradient(155deg, rgba(255,255,255,0.62) 0%, rgba(255,255,255,0.14) 38%, transparent 58%);
-    --fw-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", system-ui, sans-serif;
-    --fw-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", system-ui, sans-serif;
+    --fw-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", Inter, system-ui, sans-serif;
+    --fw-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Inter, system-ui, sans-serif;
     --fw-mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
     --fw-fs-hero: clamp(1.85rem, 7.2vw, 2.35rem);
     --fw-fs-title: clamp(1.45rem, 5.5vw, 1.85rem);

@@ -1,4 +1,15 @@
 *, *::before, *::after { box-sizing: border-box; }
+
+/* Self-hosted Inter (SF-like sans) — Linux/Windows never fall back to Times/serif */
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("./fonts/Inter-Variable.woff2?v=20261007") format("woff2-variations"),
+       url("./fonts/Inter-Variable.woff2?v=20261007") format("woff2");
+}
+
 html, body, #root {
   margin: 0;
   padding: 0;
@@ -7,11 +18,11 @@ html, body, #root {
 }
 html { -webkit-text-size-adjust: 100%; }
 body {
-  /* Pure iOS / Apple system stack — no web display serifs */
+  /* iPhone/Mac → SF; Linux/Windows → Inter; never a serif */
   font-family:
     -apple-system, BlinkMacSystemFont,
     "SF Pro Text", "SF Pro Display",
-    "Segoe UI", system-ui, sans-serif;
+    "Segoe UI", Inter, system-ui, sans-serif;
   font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
