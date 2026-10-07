@@ -462,14 +462,15 @@ function DeckActions({ number, color }) {
     gap: "6px",
     padding: "10px 18px",
     borderRadius: "12px",
-    fontSize: "13px",
+    fontSize: "13.5px",
     fontWeight: 600,
-    letterSpacing: "0.5px",
-    fontFamily: "'Courier New', monospace",
+    letterSpacing: "-0.01em",
+    fontFamily: FW_SANS,
     textDecoration: "none",
     cursor: "pointer",
     border: "none",
-    lineHeight: 1.2,
+    lineHeight: 1.25,
+    WebkitFontSmoothing: "antialiased",
   };
   const stop = (e) => { e.stopPropagation(); };
   return (
@@ -512,7 +513,7 @@ function DeckActions({ number, color }) {
           Canva
         </a>
       ) : !hasPdf ? (
-        <span style={{ fontSize: "11px", color: "#999", fontFamily: "'Courier New', monospace" }}>
+        <span className="fw-caption" style={{ color: "#999" }}>
           Opens Canva teach deck
         </span>
       ) : null}
@@ -530,6 +531,19 @@ const isComplete = (w) => Boolean(w.about && w.sections?.length && w.keypoints?.
      if all 14 completed → reopen lastOpened (or "14")
    ───────────────────────────────────────────────────────────── */
 const PROGRESS_KEY = "fw-hub-progress";
+
+/* ── Premium type tokens (iOS glass lettering) ─────────────── */
+const FW_SANS = '-apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", system-ui, sans-serif';
+const FW_DISPLAY = '-apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", system-ui, sans-serif';
+const FW_MONO = 'ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace';
+const fwLabel = {
+  fontFamily: FW_SANS,
+  fontWeight: 600,
+  letterSpacing: "0.14em",
+  textTransform: "uppercase",
+  WebkitFontSmoothing: "antialiased",
+};
+
 
 const defaultProgress = () => ({ lastOpened: null, completed: [] });
 
@@ -592,21 +606,36 @@ const STYLE = `
     --fw-safe-b: env(safe-area-inset-bottom, 0px);
     --fw-safe-t: env(safe-area-inset-top, 0px);
     --fw-ink: #241c16;
+    --fw-ink-soft: #5c5148;
+    --fw-muted: #9a8b78;
     --fw-paper: #f6f0e6;
     --fw-card: #fffaf3;
     --fw-line: rgba(70, 48, 32, 0.1);
     --fw-color: #4a7c3f;
     --fw-accent: #c4a06a;
-    --fw-glass: rgba(255, 252, 248, 0.46);
-    --fw-glass-strong: rgba(255, 250, 243, 0.62);
-    --fw-glass-border: rgba(255, 255, 255, 0.58);
+    --fw-glass: rgba(255, 252, 248, 0.52);
+    --fw-glass-strong: rgba(255, 250, 243, 0.68);
+    --fw-glass-border: rgba(255, 255, 255, 0.62);
     --fw-glass-edge: rgba(70, 48, 32, 0.08);
-    --fw-glass-blur: blur(22px) saturate(1.35);
+    --fw-glass-blur: blur(24px) saturate(1.4);
     --fw-glass-shadow:
-      0 12px 32px rgba(28, 16, 40, 0.08),
-      inset 0 1px 0 rgba(255, 255, 255, 0.72),
-      inset 0 -1px 0 rgba(255, 255, 255, 0.12);
-    --fw-specular: linear-gradient(155deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.12) 38%, transparent 58%);
+      0 14px 36px rgba(28, 16, 40, 0.09),
+      inset 0 1px 0 rgba(255, 255, 255, 0.78),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.14);
+    --fw-specular: linear-gradient(155deg, rgba(255,255,255,0.62) 0%, rgba(255,255,255,0.14) 38%, transparent 58%);
+    --fw-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", system-ui, sans-serif;
+    --fw-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", system-ui, sans-serif;
+    --fw-mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    --fw-fs-hero: clamp(1.85rem, 7.2vw, 2.35rem);
+    --fw-fs-title: clamp(1.45rem, 5.5vw, 1.85rem);
+    --fw-fs-section: 1.0625rem;
+    --fw-fs-body: 0.96875rem;
+    --fw-fs-caption: 0.75rem;
+    --fw-fs-label: 0.6875rem;
+    --fw-lh-tight: 1.18;
+    --fw-lh-body: 1.58;
+    --fw-track-display: -0.028em;
+    --fw-track-label: 0.14em;
   }
   .fw-app {
     max-width: 440px;
@@ -615,17 +644,62 @@ const STYLE = `
     min-height: 100dvh;
     position: relative;
     color: var(--fw-ink);
+    font-family: var(--fw-sans);
+    font-size: var(--fw-fs-body);
+    line-height: var(--fw-lh-body);
+    letter-spacing: -0.011em;
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
     background:
       radial-gradient(120% 72% at 110% -12%, color-mix(in srgb, var(--fw-accent) 28%, transparent), transparent 48%),
       radial-gradient(80% 48% at -10% 108%, rgba(92, 64, 148, 0.08), transparent 54%),
-      linear-gradient(180deg, rgba(255, 252, 248, 0.72) 0%, rgba(246, 240, 230, 0.78) 46%, rgba(241, 232, 218, 0.82) 100%);
-    -webkit-backdrop-filter: blur(28px) saturate(1.25);
-    backdrop-filter: blur(28px) saturate(1.25);
+      linear-gradient(180deg, rgba(255, 252, 248, 0.76) 0%, rgba(246, 240, 230, 0.82) 46%, rgba(241, 232, 218, 0.86) 100%);
+    -webkit-backdrop-filter: blur(30px) saturate(1.3);
+    backdrop-filter: blur(30px) saturate(1.3);
     box-shadow:
-      0 0 0 1px rgba(255,255,255,0.22),
+      0 0 0 1px rgba(255,255,255,0.26),
       0 28px 80px rgba(16, 10, 28, 0.38),
-      inset 0 1px 0 rgba(255,255,255,0.55);
+      inset 0 1px 0 rgba(255,255,255,0.62);
     overflow: hidden;
+  }
+  .fw-display {
+    font-family: var(--fw-display);
+    font-optical-sizing: auto;
+    font-weight: 600;
+    letter-spacing: var(--fw-track-display);
+    line-height: var(--fw-lh-tight);
+    font-feature-settings: "kern" 1, "liga" 1;
+    -webkit-font-smoothing: antialiased;
+  }
+  .fw-label {
+    font-family: var(--fw-sans);
+    font-size: var(--fw-fs-label);
+    font-weight: 600;
+    letter-spacing: var(--fw-track-label);
+    text-transform: uppercase;
+    line-height: 1.3;
+    -webkit-font-smoothing: antialiased;
+  }
+  .fw-caption {
+    font-family: var(--fw-sans);
+    font-size: var(--fw-fs-caption);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    line-height: 1.45;
+    color: var(--fw-muted);
+  }
+  .fw-mono {
+    font-family: var(--fw-mono);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+  }
+  .fw-type-glass {
+    text-shadow: 0 0.5px 0 rgba(255,255,255,0.35);
+  }
+  .fw-type-hero {
+    text-shadow: 0 1px 2px rgba(12, 8, 24, 0.28), 0 0 40px rgba(255, 236, 206, 0.12);
   }
   .fw-app::before {
     content: "";
@@ -676,6 +750,10 @@ const STYLE = `
     border: 1px solid var(--fw-glass-border);
     box-shadow: var(--fw-glass-shadow);
   }
+  .fw-glass .fw-display,
+  .fw-glass h1, .fw-glass h2, .fw-glass h3 {
+    text-shadow: 0 0.5px 0 rgba(255,255,255,0.4);
+  }
   .fw-glass-chip {
     background: rgba(255, 255, 255, 0.42);
     -webkit-backdrop-filter: blur(14px) saturate(1.25);
@@ -684,22 +762,23 @@ const STYLE = `
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.65), 0 6px 16px rgba(28,16,40,0.05);
   }
   .fw-block {
-    background: rgba(255, 252, 248, 0.48);
-    -webkit-backdrop-filter: blur(18px) saturate(1.3);
-    backdrop-filter: blur(18px) saturate(1.3);
-    border: 1px solid rgba(255, 255, 255, 0.55);
+    background: rgba(255, 252, 248, 0.55);
+    -webkit-backdrop-filter: blur(20px) saturate(1.35);
+    backdrop-filter: blur(20px) saturate(1.35);
+    border: 1px solid rgba(255, 255, 255, 0.62);
     border-radius: 16px;
-    padding: 12px 12px;
+    padding: 13px 13px;
     margin: 0 0 10px;
     box-shadow: var(--fw-glass-shadow);
   }
   .fw-block-title {
-    font-size: 11px;
-    letter-spacing: 1.6px;
+    font-family: var(--fw-sans);
+    font-size: var(--fw-fs-label);
+    letter-spacing: var(--fw-track-label);
     text-transform: uppercase;
-    font-family: 'Courier New', monospace;
-    font-weight: 700;
+    font-weight: 650;
     margin: 0 0 8px;
+    color: var(--fw-ink-soft);
   }
   .fw-block ul, .fw-block ol {
     margin: 0;
@@ -713,8 +792,9 @@ const STYLE = `
     display: flex;
     gap: 8px;
     align-items: flex-start;
-    font-size: 14.5px;
-    line-height: 1.45;
+    font-size: var(--fw-fs-body);
+    line-height: var(--fw-lh-body);
+    letter-spacing: -0.01em;
     color: #3a3128;
   }
   .fw-block .fw-n {
@@ -726,7 +806,9 @@ const STYLE = `
     place-items: center;
     font-size: 11px;
     font-weight: 700;
-    font-family: 'Courier New', monospace;
+    font-family: var(--fw-sans);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
     color: #fff;
   }
   .fw-home-path {
@@ -749,6 +831,8 @@ const STYLE = `
   .fw-link:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; border-radius: 8px; }
   .fw-cta {
     position: relative;
+    font-family: var(--fw-sans);
+    letter-spacing: -0.01em;
     box-shadow:
       0 10px 24px rgba(28, 16, 40, 0.12),
       inset 0 1px 0 rgba(255, 255, 255, 0.42),
@@ -840,24 +924,25 @@ const STYLE = `
     display: flex;
     gap: 10px;
     align-items: flex-start;
-    background: rgba(255, 255, 255, 0.42);
-    -webkit-backdrop-filter: blur(12px) saturate(1.2);
-    backdrop-filter: blur(12px) saturate(1.2);
-    border: 1px solid rgba(255, 255, 255, 0.55);
+    background: rgba(255, 255, 255, 0.48);
+    -webkit-backdrop-filter: blur(14px) saturate(1.25);
+    backdrop-filter: blur(14px) saturate(1.25);
+    border: 1px solid rgba(255, 255, 255, 0.62);
     border-radius: 14px;
-    padding: 10px 12px;
-    font-size: 15.5px;
-    line-height: 1.45;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.65), 0 6px 16px rgba(28,16,40,0.04);
+    padding: 11px 13px;
+    font-size: 1rem;
+    line-height: var(--fw-lh-body);
+    letter-spacing: -0.012em;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.72), 0 8px 20px rgba(28,16,40,0.05);
   }
 
   .fw-prep {
     border-radius: 18px;
-    border: 1.5px solid rgba(255,255,255,0.45);
-    padding: 14px 14px;
+    border: 1.5px solid rgba(255,255,255,0.52);
+    padding: 15px 15px;
     margin: 0 0 4px;
-    -webkit-backdrop-filter: blur(20px) saturate(1.3);
-    backdrop-filter: blur(20px) saturate(1.3);
+    -webkit-backdrop-filter: blur(22px) saturate(1.35);
+    backdrop-filter: blur(22px) saturate(1.35);
     box-shadow: var(--fw-glass-shadow);
   }
   .fw-prep-grid {
@@ -875,21 +960,22 @@ const STYLE = `
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.65);
   }
   .fw-prep-k {
+    font-family: var(--fw-sans);
     font-size: 10px;
-    letter-spacing: 1.4px;
+    letter-spacing: var(--fw-track-label);
     text-transform: uppercase;
+    font-weight: 600;
     color: #9a8b78;
-    font-family: 'Courier New', monospace;
-    margin-bottom: 4px;
+    margin-bottom: 5px;
   }
-  .fw-prep-v { font-size: 14px; font-weight: 600; color: #241c16; line-height: 1.35; }
+  .fw-prep-v { font-size: 0.9375rem; font-weight: 600; color: #241c16; line-height: 1.38; letter-spacing: -0.014em; }
   .fw-prep-order {
     margin: 0; padding: 0; list-style: none;
     display: flex; flex-direction: column; gap: 6px;
   }
   .fw-prep-order li {
     display: flex; gap: 8px; align-items: flex-start;
-    font-size: 14px; line-height: 1.4; color: #3a3128;
+    font-size: var(--fw-fs-body); line-height: 1.5; letter-spacing: -0.01em; color: #3a3128;
   }
   .fw-prep-check {
     display: flex; gap: 12px; align-items: flex-start;
@@ -956,10 +1042,10 @@ const keyActivate = (fn) => (e) => {
 
 const Footer = () => (
   <div style={{ borderTop: "1px solid rgba(70,48,32,0.08)", padding: "28px 22px calc(28px + env(safe-area-inset-bottom, 0px))", textAlign: "center", background: "transparent" }}>
-    <div style={{ fontSize: "11px", color: "#9a8b78", letterSpacing: "0.6px", marginBottom: "8px", lineHeight: 1.5 }}>Workshop Series · Cape Breton · Unama'ki · MSGAM</div>
-    <div style={{ fontSize: "12px", color: "#8a7b68", letterSpacing: "0.4px", marginBottom: "4px" }}>© 2026 Isaiah Chandler</div>
-    <div style={{ fontSize: "13px", color: "#4a7c3f", letterSpacing: "1.5px", marginBottom: "4px", fontWeight: 600 }}>The Fibonacci Works™</div>
-    <div style={{ fontSize: "10px", color: "#b3a494", letterSpacing: "0.8px" }}>All rights reserved.</div>
+    <div className="fw-caption" style={{ marginBottom: "8px", letterSpacing: "0.06em" }}>Workshop Series · Cape Breton · Unama'ki · MSGAM</div>
+    <div style={{ fontSize: "12px", color: "#8a7b68", letterSpacing: "-0.01em", marginBottom: "6px", fontWeight: 500 }}>© 2026 Isaiah Chandler</div>
+    <div className="fw-display" style={{ fontSize: "15px", color: "#4a7c3f", letterSpacing: "-0.02em", marginBottom: "4px", fontWeight: 600 }}>The Fibonacci Works™</div>
+    <div className="fw-label" style={{ fontSize: "10px", color: "#b3a494", letterSpacing: "0.12em" }}>All rights reserved.</div>
   </div>
 );
 
@@ -971,21 +1057,22 @@ const ctaBtn = (bg, color, border) => ({
   padding: "12px 16px",
   minHeight: 44,
   borderRadius: "14px",
-  fontSize: "14px",
+  fontSize: "14.5px",
   fontWeight: 600,
-  letterSpacing: "0.4px",
-  fontFamily: "'Courier New', monospace",
+  letterSpacing: "-0.012em",
+  fontFamily: FW_SANS,
   cursor: "pointer",
   border: border || "none",
   background: bg,
   color,
-  lineHeight: 1.2,
+  lineHeight: 1.25,
   textAlign: "center",
+  WebkitFontSmoothing: "antialiased",
   boxShadow: "0 10px 24px rgba(28, 16, 40, 0.12), inset 0 1px 0 rgba(255,255,255,0.42)",
 });
 
 const AppShell = ({ children, tone }) => (
-  <div className="fw-app" style={{ fontFamily: '"Iowan Old Style", Palatino, "Palatino Linotype", Georgia, serif', color: "#241c16", ...tone }}>
+  <div className="fw-app" style={{ fontFamily: FW_SANS, color: "#241c16", ...tone }}>
     {children}
   </div>
 );
@@ -1192,7 +1279,7 @@ function WorkshopQr({ url, color, size = 148 }) {
   if (!svg) {
     return (
       <div className="fw-qr-fallback" style={{ borderColor: `${color}55` }}>
-        <div style={{ fontSize: 11, letterSpacing: 1.2, color, fontFamily: "'Courier New', monospace", fontWeight: 700, marginBottom: 6 }}>PRINT-READY QR PLACEHOLDER</div>
+        <div className="fw-label" style={{ fontSize: 10.5, letterSpacing: "0.12em", color, fontWeight: 700, marginBottom: 6 }}>Print-ready QR placeholder</div>
         <div style={{ fontSize: 13, lineHeight: 1.4, wordBreak: "break-all", color: "#241c16", fontWeight: 600 }}>{url}</div>
       </div>
     );
@@ -1250,7 +1337,7 @@ function FacilitatorPrepCard({ w, onPrint }) {
 
   return (
     <div className="fw-prep fw-glass" style={{ borderColor: `${color}44`, background: `linear-gradient(145deg, ${color}22 0%, rgba(255,250,243,0.42) 55%)` }}>
-      <div style={{ fontSize: 11, letterSpacing: 2, color, fontFamily: "'Courier New', monospace", fontWeight: 700, marginBottom: 4 }}>FACILITATOR PREP</div>
+      <div className="fw-label" style={{ fontSize: 11, letterSpacing: "0.16em", color, fontWeight: 700, marginBottom: 6 }}>FACILITATOR PREP</div>
       <div style={{ fontSize: 17, fontWeight: 600, color: "#241c16", marginBottom: 4 }}>Pro runbook · before anyone sits down</div>
       <p style={{ margin: "0 0 12px", fontSize: 13, lineHeight: 1.5, color: "#6d5e50" }}>
         You stay on hub + slides. Participants follow on phone (QR) or printouts — they need nothing else if cards are on the table.
@@ -1281,26 +1368,26 @@ function FacilitatorPrepCard({ w, onPrint }) {
         <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
           <button type="button" className="fw-tap fw-cta" aria-label="Fewer people" onClick={() => setHeadcount((h) => Math.max(1, (Number(h) || 1) - 1))} style={{ ...ctaBtn("#fff", color, `1.5px solid ${color}`), width: 44, height: 44, padding: 0 }}>−</button>
           <label style={{ flex: 1, display: "flex", flexDirection: "column", gap: 4 }}>
-            <span style={{ fontSize: 11, letterSpacing: 1.2, color: "#9a8b78", fontFamily: "'Courier New', monospace" }}>PEOPLE</span>
+            <span className="fw-label" style={{ fontSize: 10.5, letterSpacing: "0.14em", color: "#9a8b78" }}>PEOPLE</span>
             <input
               type="number"
               min={1}
               max={60}
               value={n}
               onChange={(e) => setHeadcount(e.target.value)}
-              style={{ width: "100%", fontSize: 22, fontWeight: 700, padding: "8px 10px", borderRadius: 12, border: `1.5px solid ${color}55`, background: "#fff", color: "#241c16", fontFamily: "'Courier New', monospace" }}
+              style={{ width: "100%", fontSize: 22, fontWeight: 700, padding: "8px 10px", borderRadius: 12, border: `1.5px solid ${color}55`, background: "rgba(255,255,255,0.72)", color: "#241c16", fontFamily: FW_SANS, letterSpacing: "-0.02em", fontVariantNumeric: "tabular-nums" }}
             />
           </label>
           <button type="button" className="fw-tap fw-cta" aria-label="More people" onClick={() => setHeadcount((h) => Math.min(60, (Number(h) || 1) + 1))} style={{ ...ctaBtn("#fff", color, `1.5px solid ${color}`), width: 44, height: 44, padding: 0 }}>+</button>
         </div>
         {prep.scalable.length > 0 && (
           <>
-            <div style={{ fontSize: 12, letterSpacing: 1, color: "#9a8b78", fontFamily: "'Courier New', monospace", marginBottom: 6 }}>TAKE-HOME / PER-PERSON × {n}</div>
+            <div className="fw-label" style={{ fontSize: 10.5, letterSpacing: "0.12em", color: "#9a8b78", marginBottom: 6 }}>Take-home / per-person × {n}</div>
             <ul>
               {prep.scalable.map((item) => (
                 <li key={item}>
                   <span aria-hidden="true" style={{ color, fontWeight: 700 }}>·</span>
-                  <span><strong style={{ fontFamily: "'Courier New', monospace", color }}>{n}×</strong> {item}</span>
+                  <span><strong style={{ fontFamily: FW_SANS, color, fontVariantNumeric: "tabular-nums", letterSpacing: "-0.02em" }}>{n}×</strong> {item}</span>
                 </li>
               ))}
             </ul>
@@ -1308,7 +1395,7 @@ function FacilitatorPrepCard({ w, onPrint }) {
         )}
         {prep.shared.length > 0 && (
           <>
-            <div style={{ fontSize: 12, letterSpacing: 1, color: "#9a8b78", fontFamily: "'Courier New', monospace", margin: "10px 0 6px" }}>ROOM / SHARED (not × headcount)</div>
+            <div className="fw-label" style={{ fontSize: 10.5, letterSpacing: "0.12em", color: "#9a8b78", margin: "10px 0 6px" }}>Room / shared (not × headcount)</div>
             <ul>
               {prep.shared.map((item) => (
                 <li key={item}>
@@ -1325,7 +1412,7 @@ function FacilitatorPrepCard({ w, onPrint }) {
             ${totalLo}–${totalHi}{" "}
             <span style={{ color: "#7a6b5c" }}>(${prep.sessionRange.lo}–${prep.sessionRange.hi} per person × {n})</span>
             <br />
-            <span style={{ fontSize: 12, color: "#9a8b78", fontFamily: "'Courier New', monospace" }}>estimate — confirm locally</span>
+            <span className="fw-caption">estimate — confirm locally</span>
           </p>
         ) : (
           <p style={{ margin: "12px 0 0", fontSize: 13.5, lineHeight: 1.5, color: "#6d5e50" }}>
@@ -1360,7 +1447,7 @@ function FacilitatorPrepCard({ w, onPrint }) {
         <div style={{ display: "flex", gap: 14, alignItems: "flex-start", flexWrap: "wrap" }}>
           <WorkshopQr url={deepUrl} color={color} size={132} />
           <div style={{ flex: 1, minWidth: 160 }}>
-            <p style={{ margin: "0 0 8px", fontSize: 12.5, lineHeight: 1.45, color: "#5c5148", wordBreak: "break-all", fontFamily: "'Courier New', monospace" }}>{deepUrl}</p>
+            <p style={{ margin: "0 0 8px", fontSize: 12.5, lineHeight: 1.45, color: "#5c5148", wordBreak: "break-all", fontFamily: FW_MONO }}>{deepUrl}</p>
             <button type="button" className="fw-tap fw-cta" onClick={copyUrl} style={{ ...ctaBtn(color, "#fffaf3"), width: "100%", marginBottom: 8, fontSize: 13 }}>
               {copied ? "Copied ✓" : "Copy QR target URL"}
             </button>
@@ -1460,7 +1547,7 @@ function ExampleCards({ color, pointExamples, pack, slot }) {
         <div key={c.title} className="fw-block" style={{ borderColor: `${color}33`, background: "rgba(255,252,248,0.38)" }}>
           <div className="fw-block-title" style={{ color }}>{c.icon} {c.title}</div>
           {c.pre ? (
-            <pre className="fw-blueprint" style={{ margin: "0 0 10px", padding: "10px 12px", background: "rgba(36,28,22,0.04)", borderRadius: 10, fontSize: 11.5, lineHeight: 1.35, overflowX: "auto", color: "#3a3128", fontFamily: "'Courier New', monospace", whiteSpace: "pre" }}>{c.pre}</pre>
+            <pre className="fw-blueprint" style={{ margin: "0 0 10px", padding: "10px 12px", background: "rgba(36,28,22,0.04)", borderRadius: 10, fontSize: 11.5, lineHeight: 1.35, overflowX: "auto", color: "#3a3128", fontFamily: FW_MONO, whiteSpace: "pre" }}>{c.pre}</pre>
           ) : null}
           <ul>
             {c.items.map((item, i) => (
@@ -1575,7 +1662,7 @@ function AtHomePathCard({ w, onJump }) {
   const need = (byKey.need?.items || []).slice(0, 3);
   return (
     <div className="fw-home-path fw-glass" style={{ background: `linear-gradient(135deg, ${w.color}24 0%, rgba(255,250,243,0.4) 55%)`, border: `1px solid ${w.color}33` }}>
-      <div style={{ fontSize: 11, letterSpacing: 2, color: w.color, fontFamily: "'Courier New', monospace", fontWeight: 700, marginBottom: 6 }}>AT-HOME PATH</div>
+      <div className="fw-label" style={{ fontSize: 11, letterSpacing: "0.14em", color: w.color, fontWeight: 700, marginBottom: 6 }}>At-home path</div>
       <div style={{ fontSize: 16, fontWeight: 600, color: "#241c16", marginBottom: 6 }}>Redo this workshop at home</div>
       {done && <p style={{ margin: "0 0 8px", fontSize: 13.5, lineHeight: 1.5, color: "#5c5148" }}><strong style={{ color: w.color }}>Done looks like:</strong> {done}</p>}
       {need.length > 0 && (
@@ -1585,7 +1672,7 @@ function AtHomePathCard({ w, onJump }) {
       )}
       {steps[0] && (
         <p style={{ margin: "0 0 12px", fontSize: 13, lineHeight: 1.45, color: "#3a3128" }}>
-          <span style={{ fontFamily: "'Courier New', monospace", color: w.color, fontWeight: 700 }}>1.</span> {steps[0]}
+          <span style={{ fontFamily: FW_SANS, color: w.color, fontWeight: 700, fontVariantNumeric: "tabular-nums" }}>1.</span> {steps[0]}
         </p>
       )}
       <button
@@ -1683,22 +1770,22 @@ function PrintSheetView({ w, onClose, onPrint }) {
         <button type="button" className="fw-tap fw-cta" onClick={onPrint} style={{ ...ctaBtn(w.color, "#fff"), flex: 1 }}>🖨 Print pamphlet</button>
       </div>
       <div className="fw-print-sheet" style={{ padding: "22px 18px 40px", background: "#fffaf3", margin: "14px", borderRadius: 18, border: "1px solid rgba(70,48,32,0.08)", boxShadow: "0 12px 32px rgba(40,24,16,0.05)" }}>
-        <div style={{ fontSize: 11, letterSpacing: 2, color: "#888", fontFamily: "'Courier New', monospace", textTransform: "uppercase", marginBottom: 6 }}>The Fibonacci Works™ · Outdoor / take-home pamphlet</div>
-        <h1 style={{ margin: "0 0 4px", fontSize: 22, fontWeight: 400 }}>{w.emoji} {w.title}</h1>
-        <div style={{ fontSize: 12, color: "#666", marginBottom: 10, fontFamily: "'Courier New', monospace" }}>Workshop {w.number} · {w.duration} · {w.stream}</div>
-        <p style={{ fontSize: 12, lineHeight: 1.5, color: "#7a6b5c", margin: "0 0 16px", fontFamily: "'Courier New', monospace" }}>Print this for the yard, shop, or kitchen table — not only the indoor screen.</p>
+        <div className="fw-label" style={{ fontSize: 11, letterSpacing: "0.12em", color: "#888", marginBottom: 6 }}>The Fibonacci Works™ · Outdoor / take-home pamphlet</div>
+        <h1 className="fw-display" style={{ margin: "0 0 4px", fontSize: 24, fontWeight: 600, letterSpacing: "-0.02em" }}>{w.emoji} {w.title}</h1>
+        <div className="fw-caption" style={{ marginBottom: 10, color: "#666" }}>Workshop {w.number} · {w.duration} · {w.stream}</div>
+        <p className="fw-caption" style={{ lineHeight: 1.55, color: "#7a6b5c", margin: "0 0 16px" }}>Print this for the yard, shop, or kitchen table — not only the indoor screen.</p>
         <div className="fw-print-card" style={{ border: `1.5px solid ${w.color}55`, borderRadius: 12, padding: "12px 14px", background: "#fff", marginBottom: 16, display: "flex", gap: 14, alignItems: "center", flexWrap: "wrap" }}>
           <WorkshopQr url={workshopDeepUrl(w.number)} color={w.color} size={120} />
           <div style={{ flex: 1, minWidth: 160 }}>
-            <div style={{ fontSize: 11, letterSpacing: 1.6, color: w.color, fontFamily: "'Courier New', monospace", fontWeight: 700, marginBottom: 4 }}>TABLE QR · THIS WORKSHOP</div>
-            <div style={{ fontSize: 12, lineHeight: 1.4, color: "#333", wordBreak: "break-all", fontFamily: "'Courier New', monospace" }}>{workshopDeepUrl(w.number)}</div>
+            <div className="fw-label" style={{ fontSize: 10.5, letterSpacing: "0.12em", color: w.color, fontWeight: 700, marginBottom: 4 }}>Table QR · this workshop</div>
+            <div className="fw-mono" style={{ fontSize: 12, lineHeight: 1.4, color: "#333", wordBreak: "break-all" }}>{workshopDeepUrl(w.number)}</div>
             <p style={{ margin: "8px 0 0", fontSize: 12, lineHeight: 1.4, color: "#7a6b5c" }}>Participants scan to open Workshop {w.number} alone. Facilitator stays on hub + slides.</p>
           </div>
         </div>
         {w.about && <p style={{ fontSize: 13, lineHeight: 1.6, color: "#444", borderLeft: `3px solid ${w.color}`, paddingLeft: 12, margin: "0 0 18px" }}>{w.about}</p>}
         {sections.map((sec) => (
           <div key={sec.heading} className={sec.pamphlet ? "fw-print-card" : undefined} style={{ marginBottom: 18, ...(sec.pamphlet ? { border: `1.5px solid ${w.color}55`, borderRadius: 12, padding: "12px 14px", background: "#fff" } : {}) }}>
-            <h2 style={{ fontSize: 13, letterSpacing: 2, textTransform: "uppercase", color: w.color, fontFamily: "'Courier New', monospace", margin: "0 0 10px" }}>{sec.heading}</h2>
+            <h2 className="fw-label" style={{ fontSize: 12, letterSpacing: "0.12em", color: w.color, margin: "0 0 10px" }}>{sec.heading}</h2>
             <ul style={{ margin: 0, padding: "0 0 0 4px", listStyle: "none" }}>
               {sec.items.map((item, i) => (
                 <li key={i} style={{ display: "flex", gap: 10, alignItems: "flex-start", padding: "6px 0", borderBottom: "1px solid #f0efe9", fontSize: 13, lineHeight: 1.45, color: "#333" }}>
@@ -1728,7 +1815,7 @@ function TeachMenu({ w, open, onClose, step, onJump, onPrint, onExit, aboutOpen,
   const openHref = deck?.pdf || deck?.canvaUrl;
   return (
     <div className="fw-menu-panel fw-no-print" role="menu">
-      <div style={{ padding: "12px 16px", borderBottom: "1px solid rgba(70,48,32,0.08)", fontSize: 11, letterSpacing: 2, color: "#9a8b78", fontFamily: "'Courier New', monospace" }}>TEACH MENU</div>
+      <div className="fw-label" style={{ padding: "12px 16px", borderBottom: "1px solid rgba(70,48,32,0.08)", fontSize: 11, letterSpacing: "0.14em", color: "#9a8b78" }}>Teach menu</div>
 
       <button type="button" className="fw-tap" onClick={() => setAboutOpen(!aboutOpen)} style={{ width: "100%", textAlign: "left", background: "none", border: "none", padding: "14px 16px", borderBottom: "1px solid #f2f2ee", display: "flex", justifyContent: "space-between", cursor: "pointer", fontSize: 14, fontWeight: 600 }}>
         <span>About</span><span>{aboutOpen ? "▴" : "▾"}</span>
@@ -1764,7 +1851,7 @@ function TeachMenu({ w, open, onClose, step, onJump, onPrint, onExit, aboutOpen,
             >
               <span>{s.icon}</span>
               <span style={{ flex: 1 }}>{s.label}</span>
-              <span style={{ fontSize: 11, color: "#aaa", fontFamily: "'Courier New', monospace" }}>{i + 1}/{w.sections.length}</span>
+              <span className="fw-caption" style={{ fontVariantNumeric: "tabular-nums" }}>{i + 1}/{w.sections.length}</span>
             </button>
           ))}
         </div>
@@ -1811,7 +1898,7 @@ function TeachMode({ w, onExit, onPrint }) {
       {/* Top chrome */}
       <div className="fw-app-chrome fw-no-print" style={{ position: "sticky", top: 0, zIndex: 30, background: `linear-gradient(165deg, #221830 0%, ${w.dark} 46%, ${w.color} 100%)`, padding: "calc(14px + env(safe-area-inset-top, 0px)) 16px 16px", color: "#fffaf3" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, marginBottom: 10 }}>
-          <div style={{ fontSize: 11, letterSpacing: 2, opacity: 0.85, fontFamily: "'Courier New', monospace" }}>RUN THIS WORKSHOP · WS {w.number}</div>
+          <div className="fw-label" style={{ fontSize: 11, letterSpacing: "0.14em", opacity: 0.9 }}>Run this workshop · WS {w.number}</div>
           <div style={{ position: "relative" }}>
             <button
               type="button"
@@ -1859,8 +1946,8 @@ function TeachMode({ w, onExit, onPrint }) {
           <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 14 }}>
             <span style={{ fontSize: 32 }}>{s.icon}</span>
             <div>
-              <div style={{ fontSize: 11, letterSpacing: 2, color: "#a89884", fontFamily: "'Courier New', monospace" }}>STEP {step + 1} OF {total}</div>
-              <h2 style={{ margin: "2px 0 0", fontSize: 22, fontWeight: 500, color: w.color, letterSpacing: "0.2px" }}>{s.label}</h2>
+              <div className="fw-label" style={{ fontSize: 11, letterSpacing: "0.14em", color: "#a89884" }}>Step {step + 1} of {total}</div>
+              <h2 className="fw-display fw-type-glass" style={{ margin: "2px 0 0", fontSize: 23, fontWeight: 500, color: w.color, letterSpacing: "-0.02em" }}>{s.label}</h2>
             </div>
           </div>
           {step === 0 && stickyTakeaway(w) && (
@@ -1884,7 +1971,7 @@ function TeachMode({ w, onExit, onPrint }) {
               style={{
                 flexShrink: 0, minHeight: 40, padding: "8px 14px", borderRadius: 999, border: `1.5px solid ${i === step ? w.color : "rgba(70,48,32,0.12)"}`,
                 background: i === step ? w.color : "#fffaf3", color: i === step ? "#fffaf3" : "#5c5148", fontSize: 12, fontWeight: 600, cursor: "pointer",
-                fontFamily: "'Courier New', monospace",
+                fontFamily: FW_SANS,
               }}
             >
               {sec.icon} {sec.label.split(" ")[0]}
@@ -1898,7 +1985,7 @@ function TeachMode({ w, onExit, onPrint }) {
         <button type="button" className="fw-tap fw-cta" disabled={step === 0} onClick={goPrev} style={{ ...ctaBtn(step === 0 ? "#eee" : "#fff", step === 0 ? "#bbb" : w.color, `1.5px solid ${step === 0 ? "#ddd" : w.color}`), flex: "0 0 auto", minWidth: 72, opacity: step === 0 ? 0.6 : 1 }}>
           Prev
         </button>
-        <div style={{ flex: 1, textAlign: "center", fontFamily: "'Courier New', monospace", fontSize: 13, color: "#666", fontWeight: 600 }}>
+        <div style={{ flex: 1, textAlign: "center", fontFamily: FW_SANS, fontSize: 13.5, color: "#5c5148", fontWeight: 600, letterSpacing: "-0.012em" }}>
           {step + 1}/{total}
         </div>
         <button
@@ -1929,21 +2016,21 @@ function Hub({ onOpen }) {
         <div aria-hidden="true" style={{ position: "absolute", top: -50, right: -30, width: 240, height: 240, borderRadius: "50%", background: "radial-gradient(circle, rgba(255,236,206,0.5), rgba(196,160,106,0) 68%)" }} />
         <div aria-hidden="true" style={{ position: "absolute", bottom: -50, left: -30, width: 200, height: 200, borderRadius: "50%", background: "radial-gradient(circle, rgba(122,182,72,0.28), transparent 70%)" }} />
         <div style={{ position: "relative" }}>
-          <div style={{ fontSize: "11px", letterSpacing: "3px", color: "rgba(255,255,255,0.55)", marginBottom: "6px", textTransform: "uppercase", fontFamily: "'Courier New', monospace" }}>
+          <div className="fw-label fw-type-hero" style={{ fontSize: "11px", letterSpacing: "0.18em", color: "rgba(255,255,255,0.62)", marginBottom: "8px" }}>
             The Fibonacci Works™
           </div>
-          <h1 style={{ fontSize: "clamp(28px, 8vw, 36px)", color: "#fffaf3", margin: "0 0 10px", fontWeight: 400, letterSpacing: "0.2px", lineHeight: 1.12 }}>
+          <h1 className="fw-display fw-type-hero" style={{ fontSize: "clamp(30px, 8.2vw, 38px)", color: "#fffaf3", margin: "0 0 12px", fontWeight: 600, letterSpacing: "-0.024em", lineHeight: 1.1 }}>
             Everyday Teach Hub
           </h1>
-          <p style={{ fontSize: "15px", lineHeight: 1.55, color: "rgba(255,250,243,0.78)", margin: "0 0 16px" }}>
+          <p style={{ fontSize: "15.5px", lineHeight: 1.58, letterSpacing: "-0.01em", color: "rgba(255,250,243,0.82)", margin: "0 0 18px", fontWeight: 400 }}>
             Facilitator runbook + student path · 14 workshops · 4 streams · run slides again without re-researching · print outdoor cards when hands leave the room.
           </p>
           <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginBottom: "16px" }}>
-            <span className="fw-pill" style={{ borderRadius: "20px", padding: "6px 12px", fontSize: "11px", color: "#fff", letterSpacing: "1px", fontFamily: "'Courier New', monospace" }}>14 Workshops</span>
-            <span className="fw-pill" style={{ borderRadius: "20px", padding: "6px 12px", fontSize: "11px", color: "#fff", letterSpacing: "1px", fontFamily: "'Courier New', monospace" }}>4 Streams</span>
-            <span className="fw-pill" style={{ borderRadius: "20px", padding: "6px 12px", fontSize: "11px", color: "#fff", letterSpacing: "1px", fontFamily: "'Courier New', monospace" }}>{connected} guides</span>
+            <span className="fw-pill fw-label" style={{ borderRadius: "20px", padding: "7px 13px", fontSize: "10.5px", color: "#fff", letterSpacing: "0.12em" }}>14 Workshops</span>
+            <span className="fw-pill fw-label" style={{ borderRadius: "20px", padding: "7px 13px", fontSize: "10.5px", color: "#fff", letterSpacing: "0.12em" }}>4 Streams</span>
+            <span className="fw-pill fw-label" style={{ borderRadius: "20px", padding: "7px 13px", fontSize: "10.5px", color: "#fff", letterSpacing: "0.12em" }}>{connected} guides</span>
             {completedCount > 0 && (
-              <span style={{ background: "rgba(122,182,72,0.25)", border: "1px solid rgba(122,182,72,0.45)", borderRadius: "20px", padding: "6px 12px", fontSize: "11px", color: "#c8e6a0", letterSpacing: "1px", fontFamily: "'Courier New', monospace" }}>{completedCount}/14 opened</span>
+              <span className="fw-label" style={{ background: "rgba(122,182,72,0.25)", border: "1px solid rgba(122,182,72,0.45)", borderRadius: "20px", padding: "7px 13px", fontSize: "10.5px", color: "#c8e6a0", letterSpacing: "0.12em" }}>{completedCount}/14 opened</span>
             )}
           </div>
 
@@ -1965,10 +2052,10 @@ function Hub({ onOpen }) {
               gap: "4px",
             }}
           >
-            <span style={{ fontSize: "10px", letterSpacing: "2px", opacity: 0.9, fontWeight: 500 }}>
+            <span className="fw-label" style={{ fontSize: "10px", letterSpacing: "0.16em", opacity: 0.92, fontWeight: 600 }}>
               {allDone ? "SERIES COMPLETE · REOPEN" : progress.lastOpened ? "CONTINUE" : "START HERE"}
             </span>
-            <span style={{ fontSize: "15px", fontWeight: 700 }}>
+            <span style={{ fontSize: "15.5px", fontWeight: 650, letterSpacing: "-0.016em" }}>
               {allDone
                 ? `WS ${continueTarget} — ${continueWorkshop?.title || ""}`
                 : `Continue · WS ${continueTarget} — ${continueWorkshop?.title || ""} →`}
@@ -1985,8 +2072,8 @@ function Hub({ onOpen }) {
               <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "12px", padding: "0 4px" }}>
                 <div style={{ width: "5px", alignSelf: "stretch", minHeight: "32px", borderRadius: "99px", background: `linear-gradient(180deg, ${stream.accent}, ${stream.color})`, boxShadow: `0 0 12px ${stream.color}55` }} />
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: "10px", letterSpacing: "2px", color: "#aaa", fontFamily: "'Courier New', monospace", textTransform: "uppercase", marginBottom: "1px" }}>{stream.range}</div>
-                  <h2 style={{ margin: 0, fontSize: "17px", fontWeight: 500, letterSpacing: "0.15px", color: "#241c16" }}>{stream.name}</h2>
+                  <div className="fw-label" style={{ fontSize: "10px", letterSpacing: "0.14em", color: "#a89884", marginBottom: "3px" }}>{stream.range}</div>
+                  <h2 className="fw-display fw-type-glass" style={{ margin: 0, fontSize: "18px", fontWeight: 500, letterSpacing: "-0.02em", color: "#241c16" }}>{stream.name}</h2>
                 </div>
               </div>
 
@@ -2016,13 +2103,13 @@ function Hub({ onOpen }) {
                         minHeight: 64,
                       }}
                     >
-                      <span style={{ fontSize: "11px", letterSpacing: "1px", color: bar, fontFamily: "'Courier New', monospace", fontWeight: 700, width: 22 }}>{w.number}</span>
+                      <span className="fw-label" style={{ fontSize: "11px", letterSpacing: "0.08em", color: bar, fontWeight: 700, width: 26, fontVariantNumeric: "tabular-nums" }}>{w.number}</span>
                       <span style={{ width: 42, height: 42, borderRadius: 14, display: "grid", placeItems: "center", background: `${bar}1c`, fontSize: "22px", lineHeight: 1, flexShrink: 0 }}>{w.emoji}</span>
                       <div style={{ flex: 1, minWidth: 0 }}>
-                        <div style={{ fontSize: "15px", fontWeight: 600, lineHeight: 1.25, color: "#241c16" }}>
+                        <div style={{ fontSize: "15.5px", fontWeight: 600, lineHeight: 1.28, letterSpacing: "-0.016em", color: "#241c16" }}>
                           {w.title || `Workshop ${w.number}`}
                         </div>
-                        <div style={{ fontSize: "11px", color: "#999", marginTop: 2, fontFamily: "'Courier New', monospace" }}>
+                        <div className="fw-caption" style={{ marginTop: 3, letterSpacing: "0.01em" }}>
                           {w.duration || ""}{opened ? " · ✓ opened" : ""}
                         </div>
                       </div>
@@ -2066,7 +2153,7 @@ function KeyPointSheet({ w, kp, covered, onClose, onToggleCovered }) {
       >
         <div className="fw-sheet-handle" aria-hidden="true" />
         <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 12 }}>
-          <div style={{ fontSize: 11, letterSpacing: 2, color: w.color, fontFamily: "'Courier New', monospace", textTransform: "uppercase" }}>
+          <div className="fw-label" style={{ fontSize: 11, letterSpacing: "0.14em", color: w.color }}>
             Key learning · answer
           </div>
           <button
@@ -2079,8 +2166,8 @@ function KeyPointSheet({ w, kp, covered, onClose, onToggleCovered }) {
             ×
           </button>
         </div>
-        <h2 id="fw-kp-title" style={{ margin: "8px 0 6px", fontSize: 26, fontWeight: 500, letterSpacing: "0.2px", lineHeight: 1.2 }}>{kp.label}</h2>
-        <p style={{ margin: "0 0 14px", fontSize: 14, lineHeight: 1.5, color: "#7a6b5c" }}>{kp.detail}</p>
+        <h2 id="fw-kp-title" className="fw-display fw-type-glass" style={{ margin: "8px 0 8px", fontSize: 27, fontWeight: 500, letterSpacing: "-0.022em", lineHeight: 1.18 }}>{kp.label}</h2>
+        <p style={{ margin: "0 0 14px", fontSize: 14.5, lineHeight: 1.55, letterSpacing: "-0.01em", color: "#7a6b5c" }}>{kp.detail}</p>
         {answer.lines.length ? (
           <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
             {answer.lines.map((line) => (
@@ -2091,12 +2178,12 @@ function KeyPointSheet({ w, kp, covered, onClose, onToggleCovered }) {
             ))}
           </ul>
         ) : (
-          <p style={{ margin: 0, fontSize: 14, lineHeight: 1.55, color: "#6d5e50" }}>
+          <p style={{ margin: 0, fontSize: 15, lineHeight: 1.58, letterSpacing: "-0.011em", color: "#6d5e50" }}>
             A longer answer is not in the deck talking points or the hands-on notes for this point.
           </p>
         )}
         {answer.source && (
-          <div style={{ marginTop: 12, fontSize: 11, letterSpacing: 0.4, color: "#9a8b78", fontFamily: "'Courier New', monospace" }}>{answer.source}</div>
+          <div className="fw-caption" style={{ marginTop: 12, letterSpacing: "0.04em" }}>{answer.source}</div>
         )}
         <div style={{ marginTop: 14 }}>
           <ExampleCards color={w.color} pointExamples={examplesForPoint(w.number, kp.label)} slot="point" />
@@ -2151,7 +2238,7 @@ function FullGuide({ w, onOpen, next, onHome, onTeach, onPrint }) {
       }}
     >
       <span style={{ textAlign: "left" }}>
-        <span style={{ display: "block", fontSize: "10px", letterSpacing: "2px", opacity: 0.85, marginBottom: "4px", fontWeight: 500 }}>CONTINUE</span>
+        <span className="fw-label" style={{ display: "block", fontSize: "10px", letterSpacing: "0.16em", opacity: 0.9, marginBottom: "4px", fontWeight: 600 }}>CONTINUE</span>
         Continue to Workshop {next.number} — {next.title || `Workshop ${next.number}`} →
       </span>
     </div>
@@ -2179,11 +2266,11 @@ function FullGuide({ w, onOpen, next, onHome, onTeach, onPrint }) {
         <div aria-hidden="true" style={{ position: "absolute", top: -60, right: -40, width: 220, height: 220, borderRadius: "50%", background: `radial-gradient(circle, ${w.accent}88, transparent 68%)`, opacity: 0.55 }} />
         <div aria-hidden="true" style={{ position: "absolute", bottom: -40, left: -20, width: 160, height: 160, borderRadius: "50%", background: "radial-gradient(circle, rgba(200,182,255,0.28), transparent 70%)" }} />
         <div style={{ position: "relative" }}>
-          <div style={{ fontSize: "11px", letterSpacing: "3px", color: "rgba(255,255,255,0.6)", marginBottom: "6px", textTransform: "uppercase", fontFamily: "'Courier New', monospace" }}>The Fibonacci Works™ · Workshop {w.number}</div>
-          <div style={{ fontSize: "11px", letterSpacing: "2px", color: w.accent, marginBottom: "10px", fontFamily: "'Courier New', monospace" }}>{w.stream}</div>
+          <div className="fw-label fw-type-hero" style={{ fontSize: "11px", letterSpacing: "0.16em", color: "rgba(255,255,255,0.65)", marginBottom: "8px" }}>The Fibonacci Works™ · Workshop {w.number}</div>
+          <div className="fw-label" style={{ fontSize: "11px", letterSpacing: "0.14em", color: w.accent, marginBottom: "12px" }}>{w.stream}</div>
           <div style={{ fontSize: "40px", marginBottom: "8px" }}>{w.emoji}</div>
-          <h1 style={{ fontSize: "clamp(26px, 7vw, 34px)", color: "#fffaf3", margin: "0 0 12px", fontWeight: 400, letterSpacing: "0.2px", lineHeight: 1.15 }}>{w.title}</h1>
-          <div className="fw-pill" style={{ display: "inline-block", borderRadius: "20px", padding: "6px 14px", fontSize: "12px", color: "#fff", letterSpacing: "1px", fontFamily: "'Courier New', monospace" }}>⏱ {w.duration}</div>
+          <h1 className="fw-display fw-type-hero" style={{ fontSize: "clamp(28px, 7.2vw, 36px)", color: "#fffaf3", margin: "0 0 14px", fontWeight: 600, letterSpacing: "-0.024em", lineHeight: 1.12 }}>{w.title}</h1>
+          <div className="fw-pill fw-label" style={{ display: "inline-block", borderRadius: "20px", padding: "7px 14px", fontSize: "11px", color: "#fff", letterSpacing: "0.1em" }}>⏱ {w.duration}</div>
           <img className="fw-hero-still" src={`placeholders/ws${w.number}-welcome.svg`} alt={`WS${w.number} · ${w.title}`} />
         </div>
       </div>
@@ -2191,7 +2278,7 @@ function FullGuide({ w, onOpen, next, onHome, onTeach, onPrint }) {
       {/* Primary actions: Run workshop + Print outdoor cards */}
       <div style={{ padding: "16px 14px 0", display: "flex", flexDirection: "column", gap: 10 }}>
         <button type="button" className="fw-cta fw-tap" onClick={onTeach} style={{ ...ctaBtn(w.color, "#fff"), width: "100%", fontSize: 15, padding: "16px", flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-          <span style={{ fontSize: 10, letterSpacing: 2, opacity: 0.9, fontWeight: 500 }}>FACILITATOR RUNBOOK</span>
+          <span className="fw-label" style={{ fontSize: 10, letterSpacing: "0.16em", opacity: 0.92, fontWeight: 600 }}>FACILITATOR RUNBOOK</span>
           <span>▶ Run this workshop</span>
         </button>
         <div style={{ display: "flex", gap: 8 }}>
@@ -2210,14 +2297,14 @@ function FullGuide({ w, onOpen, next, onHome, onTeach, onPrint }) {
         <div style={{ padding: "14px 16px 0" }}>
           <div className="fw-block" style={{ borderColor: `${w.color}44`, background: `linear-gradient(135deg, ${w.color}1c 0%, rgba(255,250,243,0.4) 60%)` }}>
             <div className="fw-block-title" style={{ color: w.color }}>📌 Sticky takeaway · write this down</div>
-            <p style={{ margin: 0, fontSize: 14.5, lineHeight: 1.5, color: "#3a3128" }}>{stickyTakeaway(w)}</p>
+            <p style={{ margin: 0, fontSize: 15, lineHeight: 1.55, letterSpacing: "-0.011em", color: "#3a3128" }}>{stickyTakeaway(w)}</p>
           </div>
         </div>
       )}
 
       <div style={{ padding: "20px 16px 0" }}>
-        <p style={{ fontSize: "15.5px", lineHeight: 1.65, color: "#3d342c", margin: 0, borderLeft: `3px solid ${w.color}`, paddingLeft: "14px" }}>{w.about}</p>
-        <p style={{ fontSize: "12.5px", lineHeight: 1.5, color: "#9a8b78", margin: "10px 0 0", fontFamily: "'Courier New', monospace" }}>Flow: Welcome → Knowledge → Hands-On → Discussion → Take-Home → Next · {w.duration}</p>
+        <p style={{ fontSize: "15.5px", lineHeight: 1.62, letterSpacing: "-0.012em", color: "#3d342c", margin: 0, borderLeft: `3px solid ${w.color}`, paddingLeft: "14px" }}>{w.about}</p>
+        <p className="fw-caption" style={{ margin: "12px 0 0", letterSpacing: "0.02em", lineHeight: 1.5 }}>Flow: Welcome → Knowledge → Hands-On → Discussion → Take-Home → Next · {w.duration}</p>
       </div>
 
       <div style={{ padding: "16px 16px 0" }}>
@@ -2226,10 +2313,10 @@ function FullGuide({ w, onOpen, next, onHome, onTeach, onPrint }) {
 
       <div style={{ padding: "20px 16px" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "4px" }}>
-          <h2 style={{ fontSize: "12px", letterSpacing: "2px", color: "#888", margin: 0, fontFamily: "'Courier New', monospace", textTransform: "uppercase" }}>Key Learning Points</h2>
-          {allChecked && <span style={{ fontSize: "11px", color: w.color, letterSpacing: "1px", fontFamily: "'Courier New', monospace" }}>ALL COVERED ✓</span>}
+          <h2 className="fw-label" style={{ fontSize: "11px", letterSpacing: "0.14em", color: "#8a7b68", margin: 0 }}>Key Learning Points</h2>
+          {allChecked && <span className="fw-label" style={{ fontSize: "10.5px", color: w.color, letterSpacing: "0.12em" }}>ALL COVERED ✓</span>}
         </div>
-        <p style={{ margin: "0 0 12px", fontSize: "12px", color: "#9a8b78", fontFamily: "'Courier New', monospace", letterSpacing: "0.3px" }}>Tap a point for the answer</p>
+        <p className="fw-caption" style={{ margin: "0 0 12px" }}>Tap a point for the answer</p>
         <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
           {w.keypoints.map((kp) => (
             <div
@@ -2256,7 +2343,7 @@ function FullGuide({ w, onOpen, next, onHome, onTeach, onPrint }) {
                   <span style={{ display: "block", fontSize: "14px", fontWeight: 600, color: checked[kp.label] ? w.color : "#1a1a1a", marginBottom: "2px" }}>{kp.label}</span>
                   <span style={{ display: "block", fontSize: "12px", color: "#888", lineHeight: 1.4 }}>{kp.detail}</span>
                 </span>
-                <span style={{ flexShrink: 0, fontSize: "11px", letterSpacing: "0.4px", color: w.color, fontFamily: "'Courier New', monospace", fontWeight: 700 }}>Answer ›</span>
+                <span style={{ flexShrink: 0, fontSize: "11px", letterSpacing: "0.4px", color: w.color, fontFamily: FW_SANS, fontWeight: 700 }}>Answer ›</span>
               </button>
             </div>
           ))}
@@ -2273,7 +2360,7 @@ function FullGuide({ w, onOpen, next, onHome, onTeach, onPrint }) {
       </div>
 
       <div style={{ padding: "0 16px 20px" }}>
-        <h2 style={{ fontSize: "12px", letterSpacing: "2px", color: "#888", marginBottom: "12px", fontFamily: "'Courier New', monospace", textTransform: "uppercase" }}>Workshop Flow</h2>
+        <h2 className="fw-label" style={{ fontSize: "11px", letterSpacing: "0.14em", color: "#8a7b68", marginBottom: "12px" }}>Workshop Flow</h2>
         <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
           {w.sections.map((s) => (
             <div
@@ -2292,7 +2379,7 @@ function FullGuide({ w, onOpen, next, onHome, onTeach, onPrint }) {
                 <span style={{ fontSize: "20px" }}>{s.icon}</span>
                 <span style={{ flex: 1, fontSize: "14px", fontWeight: 600, color: activeSection === s.id ? "#fff" : "#1a1a1a" }}>{s.label}</span>
                 {s.id === "takehome" && activeSection !== s.id && (
-                  <span style={{ fontSize: 10, letterSpacing: 0.6, color: w.color, fontFamily: "'Courier New', monospace", fontWeight: 700 }}>AT HOME</span>
+                  <span className="fw-label" style={{ fontSize: 10, letterSpacing: "0.12em", color: w.color, fontWeight: 700 }}>AT HOME</span>
                 )}
                 <span style={{ fontSize: "18px", color: activeSection === s.id ? "#fff" : "#ccc", transform: activeSection === s.id ? "rotate(180deg)" : "none", transition: "transform .22s ease" }}>▾</span>
               </div>
@@ -2311,7 +2398,7 @@ function FullGuide({ w, onOpen, next, onHome, onTeach, onPrint }) {
         </div>
 
         <div style={{ marginTop: "18px", paddingTop: "16px", borderTop: "1px solid #e8e8e8" }}>
-          <div style={{ fontSize: "11px", letterSpacing: "2px", color: "#aaa", fontFamily: "'Courier New', monospace", marginBottom: "10px", textTransform: "uppercase" }}>What's Next</div>
+          <div className="fw-label" style={{ fontSize: "11px", letterSpacing: "0.14em", color: "#a89884", marginBottom: "10px" }}>What's Next</div>
           {renderContinue("0")}
         </div>
       </div>
@@ -2325,10 +2412,10 @@ function StubGuide({ w, onOpen, next, onHome }) {
     <>
       <div style={{ background: `linear-gradient(165deg, #221830 0%, ${w.dark || meta.dark} 50%, ${w.color || meta.color} 100%)`, padding: "28px 18px 26px", position: "relative", overflow: "hidden" }}>
         <div style={{ position: "relative" }}>
-          <div style={{ fontSize: "11px", letterSpacing: "3px", color: "rgba(255,255,255,0.6)", marginBottom: "6px", textTransform: "uppercase", fontFamily: "'Courier New', monospace" }}>The Fibonacci Works™ · Workshop {w.number}</div>
-          <div style={{ fontSize: "11px", letterSpacing: "2px", color: w.accent || meta.accent, marginBottom: "10px", fontFamily: "'Courier New', monospace" }}>{w.stream}</div>
+          <div className="fw-label fw-type-hero" style={{ fontSize: "11px", letterSpacing: "0.16em", color: "rgba(255,255,255,0.65)", marginBottom: "8px" }}>The Fibonacci Works™ · Workshop {w.number}</div>
+          <div className="fw-label" style={{ fontSize: "11px", letterSpacing: "0.14em", color: w.accent || meta.accent, marginBottom: "12px" }}>{w.stream}</div>
           <div style={{ fontSize: "40px", marginBottom: "8px" }}>{w.emoji}</div>
-          <h1 style={{ fontSize: "clamp(22px, 6vw, 30px)", color: "#fff", margin: 0, fontWeight: 400, letterSpacing: "0.5px", lineHeight: 1.2 }}>{w.title || `Workshop ${w.number}`}</h1>
+          <h1 className="fw-display fw-type-hero" style={{ fontSize: "clamp(24px, 6.2vw, 32px)", color: "#fffaf3", margin: 0, fontWeight: 600, letterSpacing: "-0.022em", lineHeight: 1.14 }}>{w.title || `Workshop ${w.number}`}</h1>
         </div>
       </div>
       <div style={{ padding: "16px 14px 0" }}>
@@ -2337,8 +2424,8 @@ function StubGuide({ w, onOpen, next, onHome }) {
       <div style={{ padding: "16px 14px 24px" }}>
         <div style={{ background: "#fff", border: "1px dashed #d8d8d0", borderRadius: "10px", padding: "24px 18px", textAlign: "center" }}>
           <div style={{ fontSize: "30px", marginBottom: "10px" }}>{w.emoji || "📘"}</div>
-          <h2 style={{ margin: "0 0 8px", fontSize: "17px", fontWeight: 400, color: "#1a1a1a" }}>Guide details coming soon</h2>
-          <p style={{ fontSize: "13px", lineHeight: 1.7, color: "#666", margin: "0 auto 14px" }}>
+          <h2 className="fw-display" style={{ margin: "0 0 8px", fontSize: "18px", fontWeight: 600, letterSpacing: "-0.018em", color: "#1a1a1a" }}>Guide details coming soon</h2>
+          <p style={{ fontSize: "13.5px", lineHeight: 1.62, letterSpacing: "-0.01em", color: "#666", margin: "0 auto 14px" }}>
             Workshop {w.number} · <strong style={{ fontWeight: 600 }}>{w.stream}</strong> — open the deck above to teach from slides.
           </p>
         </div>
@@ -2399,7 +2486,7 @@ function Detail({ number, onHome, onOpen }) {
             tabIndex={0}
             onClick={onHome}
             onKeyDown={keyActivate(onHome)}
-            style={{ fontSize: "13px", color: meta.color, fontWeight: 600, letterSpacing: "0.5px", cursor: "pointer", fontFamily: "'Courier New', monospace", minHeight: 44, display: "inline-flex", alignItems: "center" }}
+            style={{ fontSize: "13.5px", color: meta.color, fontWeight: 600, letterSpacing: "-0.01em", cursor: "pointer", fontFamily: FW_SANS, minHeight: 44, display: "inline-flex", alignItems: "center" }}
           >
             ← All
           </span>
@@ -2450,18 +2537,18 @@ function Detail({ number, onHome, onOpen }) {
       <div style={{ padding: "8px 12px 12px", display: "flex", gap: "8px" }}>
         {prev ? (
           <div className="fw-card fw-link fw-tap fw-glass" role="button" tabIndex={0} onClick={() => onOpen(prev.number)} onKeyDown={keyActivate(() => onOpen(prev.number))} style={{ flex: 1, background: "rgba(255,250,243,0.45)", borderRadius: "16px", padding: "14px", cursor: "pointer" }}>
-            <div style={{ fontSize: "10px", letterSpacing: "1px", color: "#aaa", fontFamily: "'Courier New', monospace", marginBottom: "4px" }}>← PREV · {prev.number}</div>
+            <div className="fw-label" style={{ fontSize: "10px", letterSpacing: "0.12em", color: "#aaa", marginBottom: "4px" }}>← Prev · {prev.number}</div>
             <div style={{ fontSize: "12px", fontWeight: 600, color: "#1a1a1a", lineHeight: 1.3 }}>{prev.title || `Workshop ${prev.number}`}</div>
           </div>
         ) : <div style={{ flex: 1 }} />}
         {next ? (
           <div className="fw-card fw-link fw-tap fw-glass" role="button" tabIndex={0} onClick={() => onOpen(next.number)} onKeyDown={keyActivate(() => onOpen(next.number))} style={{ flex: 1, background: "rgba(255,250,243,0.45)", border: `1.5px solid ${accent}`, borderRadius: "16px", padding: "14px", cursor: "pointer", textAlign: "right" }}>
-            <div style={{ fontSize: "10px", letterSpacing: "1px", color: accent, fontFamily: "'Courier New', monospace", marginBottom: "4px" }}>{next.number} · NEXT →</div>
+            <div className="fw-label" style={{ fontSize: "10px", letterSpacing: "0.12em", color: accent, marginBottom: "4px" }}>{next.number} · Next →</div>
             <div style={{ fontSize: "12px", fontWeight: 600, color: "#1a1a1a", lineHeight: 1.3 }}>{next.title || `Workshop ${next.number}`}</div>
           </div>
         ) : (
           <div className="fw-card fw-link fw-tap fw-glass" role="button" tabIndex={0} onClick={onHome} onKeyDown={keyActivate(onHome)} style={{ flex: 1, background: "rgba(255,250,243,0.45)", borderRadius: "16px", padding: "14px", cursor: "pointer", textAlign: "right" }}>
-            <div style={{ fontSize: "10px", letterSpacing: "1px", color: "#aaa", fontFamily: "'Courier New', monospace", marginBottom: "4px" }}>SERIES COMPLETE</div>
+            <div className="fw-label" style={{ fontSize: "10px", letterSpacing: "0.12em", color: "#aaa", marginBottom: "4px" }}>Series complete</div>
             <div style={{ fontSize: "12px", fontWeight: 600, color: "#1a1a1a", lineHeight: 1.3 }}>← All workshops</div>
           </div>
         )}

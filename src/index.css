@@ -7,9 +7,18 @@ html, body, #root {
 }
 html { -webkit-text-size-adjust: 100%; }
 body {
-  font-family: "Iowan Old Style", Palatino, "Palatino Linotype", Georgia, serif;
+  /* Pure iOS / Apple system stack — no web display serifs */
+  font-family:
+    -apple-system, BlinkMacSystemFont,
+    "SF Pro Text", "SF Pro Display",
+    "Segoe UI", system-ui, sans-serif;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  letter-spacing: -0.011em;
+  line-height: 1.5;
   color: #241c16;
-  /* Soft night-violet frame — light shines through glass chrome inside the phone shell */
   background:
     radial-gradient(95% 58% at 50% -8%, rgba(188, 168, 236, 0.38), transparent 56%),
     radial-gradient(70% 48% at 100% 100%, rgba(196, 148, 86, 0.22), transparent 52%),
@@ -18,10 +27,9 @@ body {
     #14111c;
   overscroll-behavior-y: none;
 }
-button { font-family: inherit; }
+button, input, select, textarea { font-family: inherit; }
 ::selection { background: rgba(196, 160, 106, 0.35); }
 
-/* Teach-hub print helpers live in workshop-hub STYLE; keep screen vibe warm ultraviolet-soft. */
 @media print {
   body {
     background: #fff !important;
