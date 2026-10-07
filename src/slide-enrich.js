@@ -11,6 +11,16 @@
       ]
     },
     {
+      "title": "WELCOME & LAND",
+      "bullets": [
+        "We gather on Mi'kmaq territory in Unama'ki",
+        "Honour the land we meet on today",
+        "Thank communities hosting via MSGAM",
+        "Skills stay in this community",
+        "Scan QR / use printouts to follow along"
+      ]
+    },
+    {
       "title": "SOIL HEALTH",
       "bullets": [
         "Moisten a pinch: gritty sand, sticky clay, crumbly loam",
@@ -20,21 +30,12 @@
         "Feed the soil you have — every season"
       ]
     },
-    {
-      "title": "WELCOME & LAND",
-      "bullets": [
-        "This session is on Mi'kmaq territory in Unama'ki",
-        "Honour the territory — short and honest",
-        "Thank communities hosting via MSGAM",
-        "Take these skills home and use them",
-        "Scan QR / use printouts to follow along"
-      ]
-    },
+
     {
       "title": "SEED SELECTION",
       "bullets": [
         "Choose varieties for short seasons",
-        "Cool crops fit: greens, roots, peas, brassicas, potatoes",
+        "Cool crops fit: greens, roots, peas, cabbage family, potatoes",
         "Read days-to-maturity — from seed or from transplant",
         "Start with reliable local staples",
         "Right seed beats fancy seed"
@@ -63,7 +64,7 @@
     {
       "title": "FROST AWARENESS",
       "bullets": [
-        "Do not teach one frost date for all of Unama'ki",
+        "There is no one frost date for all of Unama'ki",
         "Sydney-area published averages often sit in late May",
         "Highlands and inland spots run later — check local",
         "Forecast frost: cover rows or bring pots in; wind steals heat",
@@ -97,7 +98,7 @@
         "Your bed goes home planted",
         "Book through MSGAM",
         "14 workshops run on repeat for new cohorts",
-        "Scan QR / use printouts to follow along"
+        "Scan QR / stay community warm"
       ]
     }
   ],
