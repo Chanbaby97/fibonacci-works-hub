@@ -23,10 +23,10 @@
     {
       "title": "WELCOME & LAND",
       "bullets": [
-        "We gather on Mi'kmaq territory in Unama'ki",
-        "Honour the land we meet on today",
+        "This session is on Mi'kmaq territory in Unama'ki",
+        "Honour the territory — short and honest",
         "Thank communities hosting via MSGAM",
-        "Skills stay in this community",
+        "Take these skills home and use them",
         "Scan QR / use printouts to follow along"
       ]
     },
@@ -97,7 +97,7 @@
         "Your bed goes home planted",
         "Book through MSGAM",
         "14 workshops run on repeat for new cohorts",
-        "Scan QR / stay community warm"
+        "Scan QR / use printouts to follow along"
       ]
     }
   ],
@@ -125,10 +125,10 @@
     {
       "title": "WELCOME & LAND",
       "bullets": [
-        "We gather on Mi'kmaq territory in Unama'ki",
-        "Honour the land we meet on today",
+        "This session is on Mi'kmaq territory in Unama'ki",
+        "Honour the territory — short and honest",
         "Thank communities hosting via MSGAM",
-        "Skills stay in this community",
+        "Take these skills home and use them",
         "Scan QR / use printouts to follow along"
       ]
     },
@@ -139,7 +139,7 @@
         "Eyes on; sleeves and hair tied; steady feet",
         "One person, one tool, clear the swing path",
         "Ask, then power on; unplug to change a blade",
-        "Safety is community care"
+        "Safety keeps everyone in the session safe"
       ]
     },
     {
@@ -218,7 +218,7 @@
       "title": "WHY THIS MATTERS",
       "bullets": [
         "Gardens can feed a household — income is a choice",
-        "Surplus is a community asset",
+        "Surplus can feed households and neighbours",
         "Fair prices keep skills local",
         "Safe preservation extends the season",
         "Sovereignty — not charity"
@@ -237,10 +237,10 @@
     {
       "title": "WELCOME & LAND",
       "bullets": [
-        "We gather on Mi'kmaq territory in Unama'ki",
-        "Honour the land we meet on today",
+        "This session is on Mi'kmaq territory in Unama'ki",
+        "Honour the territory — short and honest",
         "Thank communities hosting via MSGAM",
-        "Skills stay in this community",
+        "Take these skills home and use them",
         "Scan QR / use printouts to follow along"
       ]
     },
@@ -339,10 +339,10 @@
     {
       "title": "WELCOME & LAND",
       "bullets": [
-        "We gather on Mi'kmaq territory in Unama'ki",
-        "Honour the land we meet on today",
+        "This session is on Mi'kmaq territory in Unama'ki",
+        "Honour the territory — short and honest",
         "Thank communities hosting via MSGAM",
-        "Skills stay in this community",
+        "Take these skills home and use them",
         "Scan QR / use printouts to follow along"
       ]
     },
@@ -441,10 +441,10 @@
     {
       "title": "WELCOME & LAND",
       "bullets": [
-        "We gather on Mi'kmaq territory in Unama'ki",
-        "Honour the land we meet on today",
+        "This session is on Mi'kmaq territory in Unama'ki",
+        "Honour the territory — short and honest",
         "Thank communities hosting via MSGAM",
-        "Skills stay in this community",
+        "Take these skills home and use them",
         "Scan QR / use printouts to follow along"
       ]
     },
@@ -543,8 +543,8 @@
     {
       "title": "WELCOME & LAND",
       "bullets": [
-        "We gather on Mi'kmaq territory in Unama'ki",
-        "Honour the land we meet on today",
+        "This session is on Mi'kmaq territory in Unama'ki",
+        "Honour the territory — short and honest",
         "Thank communities hosting via MSGAM",
         "Introductions and session intentions",
         "Kit preview — then checklist in hand"
@@ -645,8 +645,8 @@
     {
       "title": "WELCOME & LAND",
       "bullets": [
-        "We gather on Mi'kmaq territory in Unama'ki",
-        "Honour the land we meet on today",
+        "This session is on Mi'kmaq territory in Unama'ki",
+        "Honour the territory — short and honest",
         "Thank communities hosting via MSGAM",
         "Introductions and session intentions",
         "Kit preview — then hands on seals and tags"
@@ -747,8 +747,8 @@
     {
       "title": "WELCOME & LAND",
       "bullets": [
-        "We gather on Mi'kmaq territory in Unama'ki",
-        "Honour the land we meet on today",
+        "This session is on Mi'kmaq territory in Unama'ki",
+        "Honour the territory — short and honest",
         "Thank communities hosting via MSGAM",
         "Introductions and session intentions",
         "Kit preview — then PPE on, stations open"
@@ -839,7 +839,7 @@
     {
       "title": "WHY LOCAL BUSINESS",
       "bullets": [
-        "Start where you are — community first",
+        "Start where you are — local first",
         "A sole prop can be legitimate without a corporation",
         "A clean invoice gets you paid",
         "On reserve, ask the band — Section 87 is not a licence",
@@ -859,10 +859,10 @@
     {
       "title": "WELCOME & LAND",
       "bullets": [
-        "We gather on Mi'kmaq territory in Unama'ki",
-        "Honour the land we meet on today",
+        "This session is on Mi'kmaq territory in Unama'ki",
+        "Honour the territory — short and honest",
         "Thank communities hosting via MSGAM",
-        "Skills stay in this community",
+        "Take these skills home and use them",
         "Scan QR / use printouts to follow along"
       ]
     },
@@ -891,7 +891,7 @@
       "bullets": [
         "Band and land rules still apply — ask the band office",
         "Section 87 is not a business licence",
-        "Ask before you lock a name the community must live with",
+        "Ask before you lock a name others must live with",
         "Business tax on reserve is not a slogan — ask CRA or an advisor",
         "Relationships before the sale"
       ]
@@ -933,7 +933,7 @@
         "Bring your invoice draft to class",
         "Book through MSGAM",
         "14 workshops run on repeat for new cohorts",
-        "Scan QR / stay community warm"
+        "Scan QR / use printouts to follow along"
       ]
     }
   ],
@@ -961,8 +961,8 @@
     {
       "title": "WELCOME & LAND",
       "bullets": [
-        "We gather on Mi'kmaq territory in Unama'ki",
-        "Honour the land we meet on today",
+        "This session is on Mi'kmaq territory in Unama'ki",
+        "Honour the territory — short and honest",
         "Thank communities hosting via MSGAM",
         "Calm tech use on this land",
         "Scan QR / use printouts to follow along"
@@ -1035,7 +1035,7 @@
         "Facebook, Instagram, branding, 30-day plan",
         "Book through MSGAM",
         "14 workshops run on repeat for new cohorts",
-        "Scan QR / stay community warm"
+        "Scan QR / use printouts to follow along"
       ]
     }
   ],
@@ -1046,7 +1046,7 @@
         "Meet customers where they already are",
         "Local voice beats perfect polish",
         "Consistent posting builds trust",
-        "Respectful marketing that fits community",
+        "Respectful marketing that fits local relationships",
         "A plan beats guessing every day"
       ]
     },
@@ -1063,10 +1063,10 @@
     {
       "title": "WELCOME & LAND",
       "bullets": [
-        "We gather on Mi'kmaq territory in Unama'ki",
-        "Honour the land we meet on today",
+        "This session is on Mi'kmaq territory in Unama'ki",
+        "Honour the territory — short and honest",
         "Thank communities hosting via MSGAM",
-        "Skills stay in this community",
+        "Take these skills home and use them",
         "Scan QR / use printouts to follow along"
       ]
     },
@@ -1137,7 +1137,7 @@
         "Land & Stewardship stream opens",
         "Book through MSGAM",
         "14 workshops run on repeat for new cohorts",
-        "Scan QR / stay community warm"
+        "Scan QR / use printouts to follow along"
       ]
     }
   ],
@@ -1149,7 +1149,7 @@
         "Less landfill — more compost",
         "Clean recycling actually gets recycled",
         "Pest-free storage at home",
-        "Habits that stay in the community"
+        "Habits that stick at home"
       ]
     },
     {
@@ -1165,10 +1165,10 @@
     {
       "title": "WELCOME & LAND",
       "bullets": [
-        "We gather on Mi'kmaq territory in Unama'ki",
-        "Honour the land we meet on today",
+        "This session is on Mi'kmaq territory in Unama'ki",
+        "Honour the territory — short and honest",
         "Thank communities hosting via MSGAM",
-        "Skills stay in this community",
+        "Take these skills home and use them",
         "Scan QR / use printouts to follow along"
       ]
     },
@@ -1239,7 +1239,7 @@
         "Keep sorting habits going at home",
         "Book through MSGAM",
         "14 workshops run on repeat for new cohorts",
-        "Scan QR / stay community warm"
+        "Scan QR / use printouts to follow along"
       ]
     }
   ],
@@ -1249,7 +1249,7 @@
       "bullets": [
         "Pollination for gardens & food systems",
         "Honey with care for the hive",
-        "Community resilience through bees",
+        "Bees strengthen local food systems",
         "First-year essentials demystified",
         "Calm handling starts with respect"
       ]
@@ -1267,10 +1267,10 @@
     {
       "title": "WELCOME & LAND",
       "bullets": [
-        "We gather on Mi'kmaq territory in Unama'ki",
-        "Honour the land we meet on today",
+        "This session is on Mi'kmaq territory in Unama'ki",
+        "Honour the territory — short and honest",
         "Thank communities hosting via MSGAM",
-        "Skills stay in this community",
+        "Take these skills home and use them",
         "Scan QR / use printouts to follow along"
       ]
     },
@@ -1307,7 +1307,7 @@
     {
       "title": "BEES & FOOD SYSTEMS",
       "bullets": [
-        "Bees pollinate gardens and crops — that is the community win",
+        "Bees pollinate gardens and crops — that is the local win",
         "Site: morning sun, wind break, water, flight path off doors and play",
         "Ask neighbours and the band or landlord before a hive goes in",
         "Mentors: nsbeekeepers.ca/mentors",
@@ -1341,7 +1341,7 @@
         "Park hive budget with garden plans",
         "Book through MSGAM",
         "14 workshops run on repeat for new cohorts",
-        "Scan QR / stay community warm"
+        "Scan QR / use printouts to follow along"
       ]
     }
   ],
@@ -1349,11 +1349,11 @@
     {
       "title": "WHY STEWARDSHIP",
       "bullets": [
-        "We meet on Mi'kmaq territory in Unama'ki — honour the land",
+        "This session is on Mi'kmaq territory in Unama'ki — honour the territory",
         "This class does not teach Mi'kmaq knowledge or speak for the Nation",
         "Practical actions you can take now",
         "Close loops on your own place",
-        "Care that stays in the community"
+        "Care continues at home after class"
       ]
     },
     {
@@ -1369,10 +1369,10 @@
     {
       "title": "WELCOME & LAND",
       "bullets": [
-        "We gather on Mi'kmaq territory in Unama'ki",
-        "Honour the land we meet on today",
+        "This session is on Mi'kmaq territory in Unama'ki",
+        "Honour the territory — short and honest",
         "Thank communities hosting via MSGAM",
-        "Skills stay in this community",
+        "Take these skills home and use them",
         "Scan QR / use printouts to follow along"
       ]
     },
@@ -1442,8 +1442,8 @@
         "Full 14-workshop series complete — thank you",
         "New cohorts loop to Workshop 01",
         "Book through MSGAM",
-        "Skills stay in this community",
-        "Scan QR / stay community warm"
+        "Take these skills home and use them",
+        "Scan QR / use printouts to follow along"
       ]
     }
   ]

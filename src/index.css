@@ -18,3 +18,11 @@ body {
 }
 button { font-family: inherit; }
 ::selection { background: rgba(196, 160, 106, 0.35); }
+
+/* Teach-hub print helpers live in workshop-hub STYLE; keep screen vibe warm ultraviolet-soft. */
+@media print {
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+}
