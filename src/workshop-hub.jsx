@@ -1208,11 +1208,11 @@ const STYLE = `
 @media (min-width: 768px) {
 html { background: #14111c; }
 body { background-attachment: fixed; min-height: 100%; }
-.fw-app .fw-eyebrow { color: #6b5c4b !important; }
+.fw-app .fw-eyebrow { color: #4a3f33 !important; }
 .fw-app .fw-caption, .fw-app .fw-meta { color: #625444 !important; }
 .fw-app .fw-footer-meta { color: #5c4f40 !important; font-size: 13px; }
 .fw-app .fw-footer-copy { color: #4a3f33 !important; font-size: 14px !important; }
-.fw-app .fw-footer-rights { color: #6b5c4b !important; font-size: 11.5px !important; }
+.fw-app .fw-footer-rights { color: #4a3f33 !important; font-size: 11.5px !important; }
 .fw-app .fw-row-ios .fw-chevron { color: rgba(60, 40, 28, 0.5); }
 }
 
@@ -1531,9 +1531,17 @@ function withViewTransition(update) {
  • starts "Open floor while …"
  • starts "No silent slideshow"
  • starts "Hand out … and invite questions"
- • is the tone tip "Practical and plain — share what you know, no jargon."
+ • is the tone tip "Practical and plain — share what you know, no jargon." / "Keep each point plain and practical …"
+ • is an opening run-of-show cue: "Open with a warm land acknowledgement …", "Short land acknowledgement …",
+ "Do not speak for Mi'kmaq people.", "Brief introductions and a clear session overview."
+ • the Activity / Take-Home print-prep cue (PRINT_CUE) — card in Guide, note in Teach
  Structured blocks (materials, cost, redo, takeaway …) are never touched. */
-const COACHING_RE = /^(Facilitator (talks|keeps talking)\b|Talk (through the core points )?while\b|Open floor while\b|No silent slideshow\b|Hand out\b.*\binvite questions\b|Practical and plain\b)/i;
+const COACHING_RE = /^(Facilitator (talks|keeps talking)\b|Talk (through the core points )?while\b|Open floor while\b|No silent slideshow\b|Hand out\b.*\binvite questions\b|Practical and plain\b|Open with a warm land acknowledgement\b|Short land acknowledgement\b|Do not speak for Mi'kmaq people\b|Brief introductions and a clear session overview\b|Keep each point plain and practical\b)/i;
+/* Presenter print-prep cues shown as cards in Guide; in Teach they move into Facilitator notes. */
+const PRINT_CUE = {
+ activity: "When this block leaves the room (yard, shop, kitchen), use Print outdoor / take-home cards so the steps travel on paper — not only on the phone.",
+ takehome: "Print the take-home pamphlet before people leave — kit list + numbered redo steps for the yard or kitchen table.",
+};
 
 function splitSentences(text) {
  return String(text || "").split(/(?<=[.!?])\s+(?=[A-Z])/).map((x) => x.trim()).filter(Boolean);
@@ -1550,6 +1558,7 @@ function facilitatorNotes(section) {
  if (x.kind === "item") { if (isCoaching(x.text)) notes.push(x.text); return; }
  splitSentences(x.text).forEach((t) => { if (isCoaching(t)) notes.push(t); });
  });
+ if (PRINT_CUE[section?.id]) notes.push(PRINT_CUE[section.id]);
  return notes;
 }
 
@@ -1958,10 +1967,10 @@ function SectionRichBody({ w, section, footer, hideCoaching = false }) {
 
  {section.id === "takehome" && (
  <>
- <div className="fw-block fw-print-card" style={{ background: glassBg(`${color}12`), borderColor: `${color}44` }}>
+ {!hideCoaching && <div className="fw-block fw-print-card" style={{ background: glassBg(`${color}12`), borderColor: `${color}44` }}>
  <div className="fw-block-title" style={{ color }}>🖨 Print this card · take-home outdoor redo</div>
- <p style={{ margin: 0, fontSize: 13.5, lineHeight: 1.5, color: "#3a3128" }}>Print the take-home pamphlet before people leave — kit list + numbered redo steps for the yard or kitchen table.</p>
- </div>
+ <p style={{ margin: 0, fontSize: 13.5, lineHeight: 1.5, color: "#3a3128" }}>{PRINT_CUE.takehome}</p>
+ </div>}
  <BlockCard color={color} icon="🎁" title="Leaves with you" items={leaveItems} />
  <BlockCard color={color} icon="📦" title="What you need" items={byKey.need?.items || []} />
  <BlockCard color={color} icon="✅" title="Done looks like" items={byKey.done?.items || []} />
@@ -1972,10 +1981,10 @@ function SectionRichBody({ w, section, footer, hideCoaching = false }) {
 
  {section.id === "activity" && (
  <>
- <div className="fw-block fw-print-card" style={{ background: glassBg(`${color}12`), borderColor: `${color}44` }}>
+ {!hideCoaching && <div className="fw-block fw-print-card" style={{ background: glassBg(`${color}12`), borderColor: `${color}44` }}>
  <div className="fw-block-title" style={{ color }}>🖨 Print this card · outdoor / hands-on path</div>
- <p style={{ margin: 0, fontSize: 13.5, lineHeight: 1.5, color: "#3a3128" }}>When this block leaves the room (yard, shop, kitchen), use Print outdoor / take-home cards so the steps travel on paper — not only on the phone.</p>
- </div>
+ <p style={{ margin: 0, fontSize: 13.5, lineHeight: 1.5, color: "#3a3128" }}>{PRINT_CUE.activity}</p>
+ </div>}
  {byKey.redopath?.items?.length ? (
  <div className="fw-block" style={{ background: glassBg(`${color}12`), borderColor: `${color}33` }}>
  <div className="fw-block-title" style={{ color }}>Redo path</div>
