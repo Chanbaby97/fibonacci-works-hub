@@ -1,4 +1,5 @@
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useMemo, useCallback, useRef } from "react";
+import { flushSync } from "react-dom";
 import { renderSVG } from "uqr";
 import { SLIDE_ENRICH, learningPointAnswer } from "./slide-enrich.js";
 import { examplesForPoint, workshopExamplePack } from "./workshop-examples.js";
@@ -460,6 +461,7 @@ function DeckActions({ number, color }) {
  display: "inline-flex",
  alignItems: "center",
  gap: "6px",
+ minHeight: 44,
  padding: "10px 18px",
  borderRadius: "12px",
  fontSize: "13.5px",
@@ -626,6 +628,7 @@ const STYLE = `
  --fw-color: #4a7c3f;
  --fw-accent: #c4a06a;
  --fw-glass: rgba(255, 252, 248, 0.58);
+ --fw-glass-base: rgba(252, 243, 228, 0.8);
  --fw-glass-strong: rgba(255, 250, 243, 0.78);
  --fw-glass-border: rgba(255, 255, 255, 0.68);
  --fw-glass-edge: rgba(70, 48, 32, 0.07);
@@ -673,14 +676,14 @@ const STYLE = `
  radial-gradient(120% 72% at 110% -12%, color-mix(in srgb, var(--fw-accent) 26%, transparent), transparent 48%),
  radial-gradient(80% 48% at -10% 108%, rgba(92, 64, 148, 0.07), transparent 54%),
  linear-gradient(180deg, rgba(255, 252, 248, 0.78) 0%, rgba(246, 240, 230, 0.84) 46%, rgba(241, 232, 218, 0.88) 100%);
- -webkit-backdrop-filter: blur(36px) saturate(1.4);
- backdrop-filter: blur(36px) saturate(1.4);
+ /* premium-pass: static fill instead of a 36px backdrop blur (same look, no GPU blur) */
  box-shadow:
  0 0 0 0.5px rgba(255,255,255,0.3),
  0 28px 80px rgba(16, 10, 28, 0.36),
  inset 0 1px 0 rgba(255,255,255,0.66);
  overflow: hidden;
- }
+ overflow: clip; /* clip keeps rounded corners but does not break position:sticky */
+}
  .fw-display {
  font-family: var(--fw-display);
  font-optical-sizing: auto;
@@ -773,9 +776,7 @@ const STYLE = `
  animation: fw-rise .38s var(--fw-spring-soft) both;
  }
  .fw-glass {
- background: var(--fw-glass);
- -webkit-backdrop-filter: var(--fw-glass-blur);
- backdrop-filter: var(--fw-glass-blur);
+ background: linear-gradient(var(--fw-glass), var(--fw-glass)), var(--fw-glass-base);
  border: 0.5px solid var(--fw-glass-border);
  box-shadow: var(--fw-glass-shadow);
  }
@@ -784,16 +785,12 @@ const STYLE = `
  text-shadow: 0 0.5px 0 rgba(255,255,255,0.4);
  }
  .fw-glass-chip {
- background: rgba(255, 255, 255, 0.42);
- -webkit-backdrop-filter: blur(14px) saturate(1.25);
- backdrop-filter: blur(14px) saturate(1.25);
+ background: linear-gradient(rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0.42)), var(--fw-glass-base);
  border: 1px solid rgba(255, 255, 255, 0.55);
  box-shadow: inset 0 1px 0 rgba(255,255,255,0.65), 0 6px 16px rgba(28,16,40,0.05);
  }
  .fw-group {
- background: rgba(255, 252, 248, 0.55);
- -webkit-backdrop-filter: blur(24px) saturate(1.45);
- backdrop-filter: blur(24px) saturate(1.45);
+ background: linear-gradient(rgba(255, 252, 248, 0.55), rgba(255, 252, 248, 0.55)), var(--fw-glass-base);
  border: 0.5px solid rgba(255, 255, 255, 0.62);
  border-radius: var(--fw-radius-group);
  overflow: hidden;
@@ -822,9 +819,7 @@ const STYLE = `
  margin-left: 4px;
  }
  .fw-block {
- background: rgba(255, 252, 248, 0.6);
- -webkit-backdrop-filter: blur(22px) saturate(1.4);
- backdrop-filter: blur(22px) saturate(1.4);
+ background: linear-gradient(rgba(255, 252, 248, 0.6), rgba(255, 252, 248, 0.6)), var(--fw-glass-base);
  border: 0.5px solid rgba(255, 255, 255, 0.68);
  border-radius: 14px;
  padding: 14px 14px;
@@ -875,15 +870,11 @@ const STYLE = `
  border-radius: 18px;
  padding: 14px 14px;
  margin: 0 0 14px;
- background: rgba(255, 252, 248, 0.48);
- -webkit-backdrop-filter: blur(18px) saturate(1.3);
- backdrop-filter: blur(18px) saturate(1.3);
+ background: linear-gradient(rgba(255, 252, 248, 0.48), rgba(255, 252, 248, 0.48)), var(--fw-glass-base);
  box-shadow: var(--fw-glass-shadow);
  }
  .fw-card {
  transition: transform .32s var(--fw-spring), box-shadow .32s var(--fw-spring-soft), border-color .22s ease, background .18s ease;
- -webkit-backdrop-filter: blur(18px) saturate(1.3);
- backdrop-filter: blur(18px) saturate(1.3);
  box-shadow: var(--fw-glass-shadow);
  }
  .fw-card:hover { transform: translateY(-1px); box-shadow: 0 14px 32px rgba(48, 28, 64, 0.09), inset 0 0.5px 0 rgba(255,255,255,0.8); }
@@ -923,8 +914,6 @@ const STYLE = `
  }
  .fw-pill {
  background: rgba(255,255,255,0.16);
- -webkit-backdrop-filter: blur(14px) saturate(1.25);
- backdrop-filter: blur(14px) saturate(1.25);
  border: 0.5px solid rgba(255,255,255,0.3);
  box-shadow: inset 0 0.5px 0 rgba(255,255,255,0.4);
  }
@@ -932,17 +921,15 @@ const STYLE = `
  display: flex;
  align-items: stretch;
  gap: 2px;
- padding: 3px;
- border-radius: 11px;
+ padding: 2px;
+ border-radius: 12px;
  background: rgba(70, 48, 32, 0.08);
- -webkit-backdrop-filter: blur(12px);
- backdrop-filter: blur(12px);
  border: 0.5px solid rgba(255,255,255,0.35);
  }
  .fw-segment button,
  .fw-segment .fw-seg-item {
  flex: 1;
- min-height: 32px;
+ min-height: 44px;
  border: none;
  border-radius: 9px;
  padding: 7px 10px;
@@ -975,13 +962,11 @@ const STYLE = `
  .fw-chip-rail::-webkit-scrollbar { display: none; }
  .fw-chip {
  flex-shrink: 0;
- min-height: 34px;
+ min-height: 44px;
  padding: 7px 14px;
  border-radius: 999px;
  border: 0.5px solid rgba(70,48,32,0.12);
- background: rgba(255,250,243,0.72);
- -webkit-backdrop-filter: blur(12px) saturate(1.25);
- backdrop-filter: blur(12px) saturate(1.25);
+ background: linear-gradient(rgba(255,250,243,0.72), rgba(255,250,243,0.72)), var(--fw-glass-base);
  color: #5c5148;
  font-size: 12.5px;
  font-weight: 600;
@@ -1000,6 +985,7 @@ const STYLE = `
  }
  .fw-teach-bar {
  position: sticky; bottom: 0; z-index: 40;
+ position: -webkit-sticky; position: sticky;
  padding: 10px 14px calc(14px + var(--fw-safe-b));
  background: rgba(255, 250, 243, 0.72);
  -webkit-backdrop-filter: blur(28px) saturate(1.5);
@@ -1086,8 +1072,6 @@ const STYLE = `
  gap: 10px;
  align-items: flex-start;
  background: rgba(255, 255, 255, 0.48);
- -webkit-backdrop-filter: blur(14px) saturate(1.25);
- backdrop-filter: blur(14px) saturate(1.25);
  border: 1px solid rgba(255, 255, 255, 0.62);
  border-radius: 14px;
  padding: 11px 13px;
@@ -1102,8 +1086,6 @@ const STYLE = `
  border: 1.5px solid rgba(255,255,255,0.52);
  padding: 15px 15px;
  margin: 0 0 4px;
- -webkit-backdrop-filter: blur(22px) saturate(1.35);
- backdrop-filter: blur(22px) saturate(1.35);
  box-shadow: var(--fw-glass-shadow);
  }
  .fw-prep-grid {
@@ -1112,9 +1094,7 @@ const STYLE = `
  gap: 8px;
  }
  .fw-prep-chip {
- background: rgba(255, 255, 255, 0.4);
- -webkit-backdrop-filter: blur(12px) saturate(1.2);
- backdrop-filter: blur(12px) saturate(1.2);
+ background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), var(--fw-glass-base);
  border: 1px solid rgba(255, 255, 255, 0.5);
  border-radius: 14px;
  padding: 10px 12px;
@@ -1145,9 +1125,7 @@ const STYLE = `
  padding: 12px 12px;
  margin: 0 0 10px;
  cursor: pointer;
- background: rgba(255,255,255,0.28);
- -webkit-backdrop-filter: blur(10px);
- backdrop-filter: blur(10px);
+ background: linear-gradient(rgba(255,255,255,0.28), rgba(255,255,255,0.28)), var(--fw-glass-base);
  }
  .fw-prep-check input {
  width: 22px; height: 22px; margin-top: 2px; flex-shrink: 0; accent-color: var(--fw-color);
@@ -1169,11 +1147,37 @@ const STYLE = `
  max-width: 220px;
  }
  .fw-print-only { display: none; }
+ /* premium-pass: real <button> elements that look exactly like the old div/span buttons */
+ :where(.fw-btn-reset) {
+ -webkit-appearance: none; appearance: none;
+ margin: 0; border: 0; background: none;
+ font: inherit; color: inherit; letter-spacing: inherit; text-align: inherit; text-transform: inherit;
+ }
+ :where(.fw-btn-block) { width: 100%; }
+ /* Nested glass used to sample its glass parent, not the app — so no extra base layer inside a glass surface */
+ :is(.fw-glass, .fw-prep, .fw-block, .fw-home-path, .fw-sec-panel, .fw-group:not(.fw-hub-grid), .fw-sheet) * { --fw-glass-base: transparent; }
+ /* 28px-looking checkbox with a 44px hit area */
+ .fw-check-hit { width: 44px; height: 44px; margin: -2px -8px -8px -8px; padding: 0; display: grid; place-items: center; flex-shrink: 0; cursor: pointer; }
+ .fw-notes-toggle { min-height: 44px; width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 12px; border-radius: 12px; border: 0.5px dashed rgba(70,48,32,0.22); background: rgba(255,250,243,0.6); color: var(--fw-ink-soft); font-size: 13.5px; font-weight: 600; cursor: pointer; margin: 0 0 12px; }
+ .fw-notes-panel { margin: -4px 0 12px; padding: 10px 12px; border-radius: 12px; background: rgba(255,250,243,0.7); border-left: 3px solid var(--fw-color); font-size: 14px; line-height: 1.5; color: #5c5148; font-style: italic; }
+ .fw-notes-panel p { margin: 0 0 6px; }
+ .fw-notes-panel p:last-child { margin-bottom: 0; }
+ @keyframes fw-step-fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+ .fw-step-fade { animation: fw-step-fade .24s var(--fw-spring-soft) both; }
+ /* View transitions: chrome stays put, page content fades/slides */
+ .fw-app-chrome { view-transition-name: fw-chrome; }
+ @keyframes fw-vt-out { to { opacity: 0; } }
+ @keyframes fw-vt-in { from { opacity: 0; transform: translateY(8px); } }
+ ::view-transition-old(root) { animation: fw-vt-out .2s ease both; }
+ ::view-transition-new(root) { animation: fw-vt-in .26s var(--fw-spring-soft) both; }
+ ::view-transition-group(fw-chrome) { animation-duration: .24s; }
  .fw-print-card { break-inside: avoid; page-break-inside: avoid; }
  @media (prefers-reduced-motion: reduce) {
  * { transition: none !important; animation: none !important; }
  .fw-rise, .fw-sec-panel, .fw-sheet, .fw-sheet-scrim, .fw-menu-panel { animation: none !important; }
  .fw-card:hover, .fw-card:active, .fw-cta:active, .fw-chip:active { transform: none !important; }
+ .fw-step-fade { animation: none !important; }
+ ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
  }
  @media print {
  body * { visibility: hidden !important; }
@@ -1253,9 +1257,7 @@ border: 0.5px solid rgba(255, 255, 255, 0.66) !important;
 border-radius: 16px;
 min-height: 84px !important;
 padding: 14px 18px;
-background: linear-gradient(135deg, rgba(255, 252, 248, 0.72) 0%, rgba(255, 250, 243, 0.52) 100%);
--webkit-backdrop-filter: blur(20px) saturate(1.35);
-backdrop-filter: blur(20px) saturate(1.35);
+background: linear-gradient(135deg, rgba(255, 252, 248, 0.72) 0%, rgba(255, 250, 243, 0.52) 100%), var(--fw-glass-base);
 box-shadow: var(--fw-glass-shadow);
 }
 .fw-app .fw-hub-grid > [data-fw-row] > div > div:first-child { font-size: 19px !important; }
@@ -1283,7 +1285,7 @@ align-items: start;
 .fw-app--guide .fw-prep-v { font-size: 19px; }
 .fw-app--guide [data-fw-row] span span:first-child { font-size: 19px !important; }
 .fw-app--guide [data-fw-row] span span.fw-meta { font-size: 16px !important; }
-.fw-app--guide [role="button"][aria-expanded] > span { font-size: 18.5px !important; }
+.fw-app--guide .fw-acc-head > span { font-size: 18.5px !important; }
 .fw-app--guide .fw-cta { font-size: 17px !important; }
 .fw-app--guide .fw-nav-bar > div { padding: 10px 32px 12px !important; }
 .fw-app--guide .fw-segment { max-width: 340px !important; }
@@ -1308,7 +1310,7 @@ align-content: start;
 .fw-app--teach .fw-teach-card .fw-eyebrow { font-size: 13px !important; }
 .fw-app--teach .fw-teach-card h2 { font-size: 36px !important; }
 .fw-app--teach p, .fw-app--teach li { font-size: 20px !important; line-height: 1.6 !important; }
-.fw-app--teach .fw-chip { font-size: 15px; min-height: 40px; padding: 8px 16px; }
+.fw-app--teach .fw-chip { font-size: 15px; min-height: 44px; padding: 8px 16px; }
 .fw-app--teach .fw-teach-bar { padding: 12px 40px calc(16px + var(--fw-safe-b)); }
 .fw-app--teach .fw-teach-bar > * { font-size: 17px !important; }
 .fw-app--teach .fw-teach-bar > div { font-size: 16px !important; }
@@ -1319,6 +1321,11 @@ align-content: start;
 .fw-app .fw-hub-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 `;
+
+/* premium-pass: glass surfaces no longer use backdrop-filter. The old blur re-sampled the
+ app's own cream fill, so each surface read brighter than its rgba fill; --fw-glass-base
+ recreates that layer statically (same colour, no GPU blur). */
+const glassBg = (bg) => `${/gradient\(/.test(bg) ? bg : `linear-gradient(${bg}, ${bg})`}, var(--fw-glass-base)`;
 
 const keyActivate = (fn) => (e) => {
  if (e.key === "Enter" || e.key === " ") { e.preventDefault(); fn(); }
@@ -1458,22 +1465,92 @@ function workshopDeepUrl(number) {
  return `${LIVE_HUB_BASE}?ws=${n}`;
 }
 
-function syncDeepLink(number) {
- if (typeof window === "undefined" || !window.history?.replaceState) return;
+/* premium-pass: in-app history. URL = ?ws=NN[&view=teach&step=N | &view=print]
+ Opening a workshop and switching Guide/Teach/Print use pushState so Back / iOS swipe
+ step back through the app; Teach step changes use replaceState. */
+const VIEWS = new Set(["guide", "teach", "print"]);
+
+function readRoute() {
+ const ws = readDeepLinkWs();
+ if (!ws) return { ws: null, view: "guide", step: 0 };
+ let view = "guide";
+ let step = 0;
  try {
+ const params = new URLSearchParams(window.location.search || "");
+ const v = (params.get("view") || "").toLowerCase();
+ if (VIEWS.has(v)) view = v;
+ const st = parseInt(params.get("step") || "", 10);
+ if (view === "teach" && Number.isFinite(st) && st >= 1) step = st - 1;
+ } catch { /* ignore */ }
+ return { ws, view, step };
+}
+
+function routeUrl(route) {
  const url = new URL(window.location.href);
- if (number) {
- url.searchParams.set("ws", normalizeWs(number) || number);
- } else {
- url.searchParams.delete("ws");
- url.searchParams.delete("workshop");
+ ["ws", "workshop", "view", "step"].forEach((k) => url.searchParams.delete(k));
+ if (route.ws) {
+ url.searchParams.set("ws", route.ws);
+ if (route.view && route.view !== "guide") url.searchParams.set("view", route.view);
+ if (route.view === "teach") url.searchParams.set("step", String((route.step || 0) + 1));
  }
  // Prefer query over hash for GitHub Pages reliability
  if (url.hash && /^#ws=?/i.test(url.hash)) url.hash = "";
- const next = url.pathname + url.search + url.hash;
+ return url.pathname + url.search + url.hash;
+}
+
+function writeRoute(route, mode) {
+ if (typeof window === "undefined" || !window.history?.replaceState) return;
+ try {
+ const next = routeUrl(route);
  const cur = window.location.pathname + window.location.search + window.location.hash;
- if (next !== cur) window.history.replaceState(null, "", next);
+ if (mode === "push" && next !== cur) window.history.pushState({ fw: 1 }, "", next);
+ else if (next !== cur || mode === "replace") window.history.replaceState({ fw: 1 }, "", next);
  } catch { /* ignore */ }
+}
+
+function prefersReducedMotion() {
+ try { return window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch { return false; }
+}
+
+/* Wrap a React state update in a View Transition when supported (and motion allowed). */
+function withViewTransition(update) {
+ if (typeof document !== "undefined" && typeof document.startViewTransition === "function" && !prefersReducedMotion()) {
+ try {
+ document.startViewTransition(() => { flushSync(update); });
+ return;
+ } catch { /* fall through */ }
+ }
+ update();
+}
+
+/* ── Facilitator coaching lines (Teach view only) ──
+ Rule: a sentence (or bullet) in a section's lead copy is facilitator coaching when it is a
+ delivery cue — how to run the room, not what to teach:
+ • starts "Facilitator talks …" / "Facilitator keeps talking …"
+ • starts "Talk while …" / "Talk through the core points while …"
+ • starts "Open floor while …"
+ • starts "No silent slideshow"
+ • starts "Hand out … and invite questions"
+ • is the tone tip "Practical and plain — share what you know, no jargon."
+ Structured blocks (materials, cost, redo, takeaway …) are never touched. */
+const COACHING_RE = /^(Facilitator (talks|keeps talking)\b|Talk (through the core points )?while\b|Open floor while\b|No silent slideshow\b|Hand out\b.*\binvite questions\b|Practical and plain\b)/i;
+
+function splitSentences(text) {
+ return String(text || "").split(/(?<=[.!?])\s+(?=[A-Z])/).map((x) => x.trim()).filter(Boolean);
+}
+
+function isCoaching(sentence) {
+ return COACHING_RE.test(String(sentence || "").replace(/^[•✓✔\-–—\s]+/, ""));
+}
+
+function facilitatorNotes(section) {
+ const { leadItems } = parseSectionContent(section?.content || "");
+ const notes = [];
+ leadItems.forEach((x) => {
+ if (x.kind === "item") { if (isCoaching(x.text)) notes.push(x.text); return; }
+ splitSentences(x.text).forEach((t) => { if (isCoaching(t)) notes.push(t); });
+ });
+ return notes;
 }
 
 const SHARED_MAT_RE = /shared|demo|facilitator|sample|supervised|projector|smartboard|hand-washing|observation hive|model, or video|venue wifi/i;
@@ -1620,7 +1697,7 @@ function FacilitatorPrepCard({ w, onPrint }) {
  const color = w.color || "#4a7c3f";
 
  return (
- <div className="fw-prep fw-glass" style={{ borderColor: `${color}44`, background: `linear-gradient(145deg, ${color}22 0%, rgba(255,250,243,0.42) 55%)` }}>
+ <div className="fw-prep fw-glass" style={{ borderColor: `${color}44`, background: glassBg(`linear-gradient(145deg, ${color}22 0%, rgba(255,250,243,0.42) 55%)`) }}>
  <div className="fw-label" style={{ fontSize: 11, letterSpacing: "0.14em", color, fontWeight: 700, marginBottom: 6 }}>FACILITATOR PREP</div>
  <div className="fw-display" style={{ fontSize: 20, fontWeight: 700, letterSpacing: "-0.028em", color: "#241c16", marginBottom: 4 }}>Pro runbook · before anyone sits down</div>
  <p style={{ margin: "0 0 12px", fontSize: 13, lineHeight: 1.5, color: "#6d5e50" }}>
@@ -1638,7 +1715,7 @@ function FacilitatorPrepCard({ w, onPrint }) {
  </div>
  </div>
 
- <div className="fw-block" style={{ borderColor: `${color}33`, marginTop: 10, background: "rgba(255,252,248,0.38)" }}>
+ <div className="fw-block" style={{ borderColor: `${color}33`, marginTop: 10, background: glassBg("rgba(255,252,248,0.38)") }}>
  <div className="fw-block-title" style={{ color }}>Section run order</div>
  <ol className="fw-prep-order">
  {prep.sectionOrder.map((label, i) => (
@@ -1647,7 +1724,7 @@ function FacilitatorPrepCard({ w, onPrint }) {
  </ol>
  </div>
 
- <div className="fw-block" style={{ borderColor: `${color}33`, background: "rgba(255,252,248,0.38)" }}>
+ <div className="fw-block" style={{ borderColor: `${color}33`, background: glassBg("rgba(255,252,248,0.38)") }}>
  <div className="fw-block-title" style={{ color }}>Headcount · kit scale</div>
  <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
  <button type="button" className="fw-tap fw-cta" aria-label="Fewer people" onClick={() => setHeadcount((h) => Math.max(1, (Number(h) || 1) - 1))} style={{ ...ctaBtn("#fff", color, `1.5px solid ${color}`), width: 44, height: 44, padding: 0 }}>−</button>
@@ -1712,7 +1789,7 @@ function FacilitatorPrepCard({ w, onPrint }) {
  )}
  </div>
 
- <div className="fw-block" style={{ borderColor: `${color}33`, background: "rgba(255,252,248,0.38)" }}>
+ <div className="fw-block" style={{ borderColor: `${color}33`, background: glassBg("rgba(255,252,248,0.38)") }}>
  <div className="fw-block-title" style={{ color }}>Room setup</div>
  <ul>
  <li><span aria-hidden="true" style={{ color, fontWeight: 700 }}>·</span><span>Facilitator: hub open + slides (Canva/PDF). Talk each section while hands stay busy.</span></li>
@@ -1726,7 +1803,7 @@ function FacilitatorPrepCard({ w, onPrint }) {
  )}
  </div>
 
- <div className="fw-block fw-print-card" style={{ borderColor: `${color}44`, background: `linear-gradient(135deg, ${color}18 0%, rgba(255,252,248,0.4) 70%)` }}>
+ <div className="fw-block fw-print-card" style={{ borderColor: `${color}44`, background: glassBg(`linear-gradient(135deg, ${color}18 0%, rgba(255,252,248,0.4) 70%)`) }}>
  <div className="fw-block-title" style={{ color }}>QR · this workshop alone</div>
  <div style={{ display: "flex", gap: 14, alignItems: "flex-start", flexWrap: "wrap" }}>
  <WorkshopQr url={deepUrl} color={color} size={132} />
@@ -1742,7 +1819,7 @@ function FacilitatorPrepCard({ w, onPrint }) {
  </div>
  </div>
 
- <label className="fw-prep-check" style={{ borderColor: practiced ? color : `${color}33`, background: practiced ? `${color}1c` : "rgba(255,255,255,0.32)" }}>
+ <label className="fw-prep-check" style={{ borderColor: practiced ? color : `${color}33`, background: glassBg(practiced ? `${color}1c` : "rgba(255,255,255,0.32)") }}>
  <input type="checkbox" checked={practiced} onChange={(e) => setPracticedPersist(e.target.checked)} />
  <span>
  <strong style={{ color }}>Practice at home first</strong>
@@ -1751,7 +1828,7 @@ function FacilitatorPrepCard({ w, onPrint }) {
  </label>
 
  {prep.sticky && (
- <div className="fw-block" style={{ borderColor: `${color}44`, background: `linear-gradient(135deg, ${color}1c 0%, rgba(255,250,243,0.4) 60%)`, marginBottom: 0 }}>
+ <div className="fw-block" style={{ borderColor: `${color}44`, background: glassBg(`linear-gradient(135deg, ${color}1c 0%, rgba(255,250,243,0.4) 60%)`), marginBottom: 0 }}>
  <div className="fw-block-title" style={{ color }}>📌 Sticky takeaway</div>
  <p style={{ margin: 0, fontSize: 14.5, lineHeight: 1.5, color: "#3a3128" }}>{prep.sticky}</p>
  </div>
@@ -1828,7 +1905,7 @@ function ExampleCards({ color, pointExamples, pack, slot }) {
  return (
  <>
  {cards.map((c) => (
- <div key={c.title} className="fw-block" style={{ borderColor: `${color}33`, background: "rgba(255,252,248,0.38)" }}>
+ <div key={c.title} className="fw-block" style={{ borderColor: `${color}33`, background: glassBg("rgba(255,252,248,0.38)") }}>
  <div className="fw-block-title" style={{ color }}>{c.icon} {c.title}</div>
  {c.pre ? (
  <pre className="fw-blueprint" style={{ margin: "0 0 10px", padding: "10px 12px", background: "rgba(36,28,22,0.04)", borderRadius: 10, fontSize: 11.5, lineHeight: 1.35, overflowX: "auto", color: "#3a3128", fontFamily: FW_MONO, whiteSpace: "pre" }}>{c.pre}</pre>
@@ -1847,13 +1924,16 @@ function ExampleCards({ color, pointExamples, pack, slot }) {
  );
 }
 
-function SectionRichBody({ w, section, footer }) {
+function SectionRichBody({ w, section, footer, hideCoaching = false }) {
  const color = w.color || "#4a7c3f";
  const { leadItems, blocks } = parseSectionContent(section?.content || "");
  const byKey = Object.fromEntries(blocks.map((b) => [b.key, b]));
  const hideLeadChecks = section.id === "takehome" || section.id === "activity";
- const paras = leadItems.filter((x) => x.kind === "p" && !/^Redo path:/i.test(x.text));
- const bullets = leadItems.filter((x) => x.kind === "item" && !(hideLeadChecks && /^✓/.test(x.raw || "")));
+ const paras = leadItems
+ .filter((x) => x.kind === "p" && !/^Redo path:/i.test(x.text))
+ .map((x) => (hideCoaching ? { ...x, text: splitSentences(x.text).filter((t) => !isCoaching(t)).join(" ") } : x))
+ .filter((x) => x.text);
+ const bullets = leadItems.filter((x) => x.kind === "item" && !(hideLeadChecks && /^✓/.test(x.raw || "")) && !(hideCoaching && isCoaching(x.text)));
  const leaveItems = section.id === "takehome"
  ? (section.content || "").split("\n").filter((l) => /^\s*✓/.test(l)).map(cleanItem)
  : [];
@@ -1878,7 +1958,7 @@ function SectionRichBody({ w, section, footer }) {
 
  {section.id === "takehome" && (
  <>
- <div className="fw-block fw-print-card" style={{ background: `${color}12`, borderColor: `${color}44` }}>
+ <div className="fw-block fw-print-card" style={{ background: glassBg(`${color}12`), borderColor: `${color}44` }}>
  <div className="fw-block-title" style={{ color }}>🖨 Print this card · take-home outdoor redo</div>
  <p style={{ margin: 0, fontSize: 13.5, lineHeight: 1.5, color: "#3a3128" }}>Print the take-home pamphlet before people leave — kit list + numbered redo steps for the yard or kitchen table.</p>
  </div>
@@ -1892,12 +1972,12 @@ function SectionRichBody({ w, section, footer }) {
 
  {section.id === "activity" && (
  <>
- <div className="fw-block fw-print-card" style={{ background: `${color}12`, borderColor: `${color}44` }}>
+ <div className="fw-block fw-print-card" style={{ background: glassBg(`${color}12`), borderColor: `${color}44` }}>
  <div className="fw-block-title" style={{ color }}>🖨 Print this card · outdoor / hands-on path</div>
  <p style={{ margin: 0, fontSize: 13.5, lineHeight: 1.5, color: "#3a3128" }}>When this block leaves the room (yard, shop, kitchen), use Print outdoor / take-home cards so the steps travel on paper — not only on the phone.</p>
  </div>
  {byKey.redopath?.items?.length ? (
- <div className="fw-block" style={{ background: `${color}12`, borderColor: `${color}33` }}>
+ <div className="fw-block" style={{ background: glassBg(`${color}12`), borderColor: `${color}33` }}>
  <div className="fw-block-title" style={{ color }}>Redo path</div>
  <p style={{ margin: 0, fontSize: 14.5, lineHeight: 1.5, color: "#3a3128" }}>{byKey.redopath.items.join(" ")}</p>
  </div>
@@ -1945,7 +2025,7 @@ function AtHomePathCard({ w, onJump }) {
  const done = byKey.done?.items?.[0];
  const need = (byKey.need?.items || []).slice(0, 3);
  return (
- <div className="fw-home-path fw-glass" style={{ background: `linear-gradient(135deg, ${w.color}24 0%, rgba(255,250,243,0.4) 55%)`, border: `1px solid ${w.color}33` }}>
+ <div className="fw-home-path fw-glass" style={{ background: glassBg(`linear-gradient(135deg, ${w.color}24 0%, rgba(255,250,243,0.4) 55%)`), border: `1px solid ${w.color}33` }}>
  <div className="fw-label" style={{ fontSize: 11, letterSpacing: "0.12em", color: w.color, fontWeight: 700, marginBottom: 6 }}>At-home path</div>
  <div className="fw-display" style={{ fontSize: 18, fontWeight: 700, letterSpacing: "-0.024em", color: "#241c16", marginBottom: 6 }}>Redo this workshop at home</div>
  {done && <p style={{ margin: "0 0 8px", fontSize: 13.5, lineHeight: 1.5, color: "#5c5148" }}><strong style={{ color: w.color }}>Done looks like:</strong> {done}</p>}
@@ -2162,15 +2242,18 @@ function TeachMenu({ w, open, onClose, step, onJump, onPrint, onExit, aboutOpen,
 }
 
 /* ── LIVE TEACH MODE ───────────────────────────────────────── */
-function TeachMode({ w, onExit, onPrint }) {
+function TeachMode({ w, onExit, onPrint, step: stepProp = 0, onStep }) {
  const sections = w.sections || [];
- const [step, setStep] = useState(0);
+ const step = Math.max(0, Math.min((sections.length || 1) - 1, stepProp || 0));
+ const setStep = (v) => { const n = typeof v === "function" ? v(step) : v; if (n !== step) onStep(n); };
+ const [notesOpen, setNotesOpen] = useState(false);
  const [menuOpen, setMenuOpen] = useState(false);
  const [aboutOpen, setAboutOpen] = useState(false);
  const [kpOpen, setKpOpen] = useState(false);
  const [flowOpen, setFlowOpen] = useState(true);
  const total = sections.length || 1;
  const s = sections[step] || { label: "Session", icon: "📋", content: w.about || "" };
+ const notes = facilitatorNotes(s);
 
  useEffect(() => {
  if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "auto" });
@@ -2229,7 +2312,7 @@ function TeachMode({ w, onExit, onPrint }) {
 
  {/* Step body */}
  <div className="fw-teach-body" style={{ flex: 1, padding: "16px 14px 8px" }}>
- <div key={step} className="fw-rise fw-glass fw-teach-card" style={{ background: `linear-gradient(180deg, ${w.color}24 0%, rgba(255,250,243,0.5) 42%)`, borderRadius: 20, border: `0.5px solid rgba(255,255,255,0.58)`, padding: "22px 16px 20px", minHeight: 280 }}>
+ <div key={step} className="fw-step-fade fw-glass fw-teach-card" style={{ background: glassBg(`linear-gradient(180deg, ${w.color}24 0%, rgba(255,250,243,0.5) 42%)`), borderRadius: 20, border: `0.5px solid rgba(255,255,255,0.58)`, padding: "22px 16px 20px", minHeight: 280 }}>
  <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 14 }}>
  <span style={{ width: 48, height: 48, borderRadius: 14, display: "grid", placeItems: "center", background: `${w.color}1a`, fontSize: 26 }}>{s.icon}</span>
  <div>
@@ -2238,13 +2321,32 @@ function TeachMode({ w, onExit, onPrint }) {
  </div>
  </div>
  {step === 0 && stickyTakeaway(w) && (
- <div className="fw-block" style={{ borderColor: `${w.color}44`, background: `${w.color}12`, marginBottom: 12 }}>
+ <div className="fw-block" style={{ borderColor: `${w.color}44`, background: glassBg(`${w.color}12`), marginBottom: 12 }}>
  <div className="fw-block-title" style={{ color: w.color }}>📌 Sticky takeaway · by the end</div>
  <p style={{ margin: 0, fontSize: 14, lineHeight: 1.5, color: "#3a3128" }}>{stickyTakeaway(w)}</p>
  </div>
  )}
+ {notes.length > 0 && (
+ <>
+ <button
+ type="button"
+ className="fw-tap fw-btn-reset fw-notes-toggle"
+ aria-expanded={notesOpen}
+ aria-controls={`fw-notes-${step}`}
+ onClick={() => setNotesOpen((o) => !o)}
+ >
+ <span>🗒 Facilitator notes ({notes.length})</span>
+ <span aria-hidden="true">{notesOpen ? "▴" : "▾"}</span>
+ </button>
+ {notesOpen && (
+ <div id={`fw-notes-${step}`} className="fw-notes-panel">
+ {notes.map((n) => <p key={n}>{n}</p>)}
+ </div>
+ )}
+ </>
+ )}
  <SectionPlaceholder w={w} section={s} />
- <SectionRichBody w={w} section={s} />
+ <SectionRichBody w={w} section={s} hideCoaching />
  </div>
 
  {/* Quick jump chips — iOS pill rail */}
@@ -2319,12 +2421,10 @@ function Hub({ onOpen }) {
  )}
  </div>
 
- <div
+ <button
+ type="button"
  className="fw-cta fw-tap"
- role="button"
- tabIndex={0}
  onClick={() => onOpen(continueTarget)}
- onKeyDown={keyActivate(() => onOpen(continueTarget))}
  style={{
  ...ctaBtn("linear-gradient(180deg, #8fbf62, #5f9140)", "#fffaf3"),
  width: "100%",
@@ -2345,7 +2445,7 @@ function Hub({ onOpen }) {
  ? `WS ${continueTarget} — ${continueWorkshop?.title || ""}`
  : `Continue · WS ${continueTarget} — ${continueWorkshop?.title || ""} →`}
  </span>
- </div>
+ </button>
  </div>
  </div>
 
@@ -2362,20 +2462,18 @@ function Hub({ onOpen }) {
  </div>
  </div>
 
- <div className="fw-group fw-hub-grid" style={{ background: `linear-gradient(115deg, ${stream.color}18 0%, rgba(255,250,243,0.5) 42%)` }}>
+ <div className="fw-group fw-hub-grid" style={{ background: glassBg(`linear-gradient(115deg, ${stream.color}18 0%, rgba(255,250,243,0.5) 42%)`) }}>
  {items.map((w) => {
  const opened = progress.completed.includes(w.number);
  const meta = streamMeta(w.stream);
  const bar = w.color || meta.color;
  return (
- <div
+ <button
+ type="button"
  key={w.number}
- className="fw-row fw-row-ios fw-tap"
+ className="fw-row fw-row-ios fw-tap fw-btn-reset fw-btn-block"
  data-fw-row=""
- role="button"
- tabIndex={0}
  onClick={() => onOpen(w.number)}
- onKeyDown={keyActivate(() => onOpen(w.number))}
  style={{ minHeight: 60 }}
  >
  <span className="fw-label" style={{ fontSize: "11px", letterSpacing: "0.06em", color: bar, fontWeight: 700, width: 26, fontVariantNumeric: "tabular-nums" }}>{w.number}</span>
@@ -2389,7 +2487,7 @@ function Hub({ onOpen }) {
  </div>
  </div>
  <span className="fw-chevron" aria-hidden="true">›</span>
- </div>
+ </button>
  );
  })}
  </div>
@@ -2479,6 +2577,8 @@ function KeyPointSheet({ w, kp, covered, onClose, onToggleCovered }) {
 
 /* ── DETAIL: full guide ───────────────────────────────────── */
 function FullGuide({ w, onOpen, next, onHome, onTeach, onPrint }) {
+ const guideDeck = DECKS[w.number];
+ const guideDeckHref = guideDeck?.pdf || guideDeck?.canvaUrl;
  const [activeSection, setActiveSection] = useState(null);
  const [checked, setChecked] = useState({});
  const [openPoint, setOpenPoint] = useState(null);
@@ -2499,12 +2599,10 @@ function FullGuide({ w, onOpen, next, onHome, onTeach, onPrint }) {
  };
 
  const renderContinue = (extraTop = "14px") => next ? (
- <div
+ <button
+ type="button"
  className="fw-cta fw-tap"
- role="button"
- tabIndex={0}
  onClick={() => onOpen(next.number)}
- onKeyDown={keyActivate(() => onOpen(next.number))}
  style={{
  ...ctaBtn(w.color, "#fff"),
  width: "100%",
@@ -2517,22 +2615,20 @@ function FullGuide({ w, onOpen, next, onHome, onTeach, onPrint }) {
  <span className="fw-label" style={{ display: "block", fontSize: "10px", letterSpacing: "0.16em", opacity: 0.9, marginBottom: "4px", fontWeight: 600 }}>CONTINUE</span>
  Continue to Workshop {next.number} — {next.title || `Workshop ${next.number}`} →
  </span>
- </div>
+ </button>
  ) : (
  <div style={{ marginTop: extraTop, display: "flex", flexDirection: "column", gap: "10px" }}>
  <div style={{ ...ctaBtn("#e8e8e0", "#666", "1px solid #d8d8d0"), width: "100%", cursor: "default", fontWeight: 500 }}>
  Series complete — you've reached Workshop 14
  </div>
- <div
+ <button
+ type="button"
  className="fw-cta fw-tap"
- role="button"
- tabIndex={0}
  onClick={onHome}
- onKeyDown={keyActivate(onHome)}
  style={{ ...ctaBtn(w.color, "#fff"), width: "100%" }}
  >
  ← All workshops
- </div>
+ </button>
  </div>
  );
 
@@ -2553,16 +2649,23 @@ function FullGuide({ w, onOpen, next, onHome, onTeach, onPrint }) {
 
  {/* Primary actions: Run workshop + Print outdoor cards */}
  <div style={{ padding: "16px 14px 0", display: "flex", flexDirection: "column", gap: 10 }}>
- <button type="button" className="fw-cta fw-tap" onClick={onTeach} style={{ ...ctaBtn(w.color, "#fff"), width: "100%", fontSize: 15, padding: "16px", flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
+ <div style={{ display: "flex", gap: 8, alignItems: "stretch" }}>
+ <button type="button" className="fw-cta fw-tap" onClick={onTeach} style={{ ...ctaBtn(w.color, "#fff"), flex: "1 1 60%", minWidth: 0, fontSize: 15, padding: "16px", flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
  <span className="fw-label" style={{ fontSize: 10, letterSpacing: "0.16em", opacity: 0.92, fontWeight: 600 }}>FACILITATOR RUNBOOK</span>
  <span>▶ Run this workshop</span>
  </button>
+ {guideDeckHref && (
+ <a className="fw-cta fw-tap fw-link" href={guideDeckHref} target="_blank" rel="noopener noreferrer" style={{ ...ctaBtn(w.color, "#fff"), flex: "1 1 40%", minWidth: 0, fontSize: 15, padding: "16px 14px", flexDirection: "column", alignItems: "flex-start", gap: 4, textDecoration: "none" }}>
+ <span className="fw-label" style={{ fontSize: 10, letterSpacing: "0.16em", opacity: 0.92, fontWeight: 600 }}>{guideDeck?.pdf ? "PDF DECK" : "CANVA SLIDES"}</span>
+ <span>↗ Open deck</span>
+ </a>
+ )}
+ </div>
  <div style={{ display: "flex", gap: 8 }}>
  <button type="button" className="fw-cta fw-tap" onClick={onPrint} style={{ ...ctaBtn("#fff", w.color, `1.5px solid ${w.color}`), flex: 1 }}>
  🖨 Print outdoor / take-home cards
  </button>
  </div>
- <DeckActions number={w.number} color={w.color} />
  </div>
 
  <div style={{ padding: "14px 14px 0" }}>
@@ -2571,7 +2674,7 @@ function FullGuide({ w, onOpen, next, onHome, onTeach, onPrint }) {
 
  {stickyTakeaway(w) && (
  <div style={{ padding: "14px 16px 0" }}>
- <div className="fw-block" style={{ borderColor: `${w.color}44`, background: `linear-gradient(135deg, ${w.color}1c 0%, rgba(255,250,243,0.4) 60%)` }}>
+ <div className="fw-block" style={{ borderColor: `${w.color}44`, background: glassBg(`linear-gradient(135deg, ${w.color}1c 0%, rgba(255,250,243,0.4) 60%)`) }}>
  <div className="fw-block-title" style={{ color: w.color }}>📌 Sticky takeaway · write this down</div>
  <p style={{ margin: 0, fontSize: 15, lineHeight: 1.55, letterSpacing: "-0.011em", color: "#3a3128" }}>{stickyTakeaway(w)}</p>
  </div>
@@ -2593,7 +2696,7 @@ function FullGuide({ w, onOpen, next, onHome, onTeach, onPrint }) {
  {allChecked && <span className="fw-label" style={{ fontSize: "10.5px", color: w.color, letterSpacing: "0.1em" }}>ALL COVERED ✓</span>}
  </div>
  <p className="fw-caption fw-meta" style={{ margin: "0 0 10px", paddingLeft: 4 }}>Tap a point for the answer</p>
- <div className="fw-group" style={{ background: `linear-gradient(135deg, ${w.color}14 0%, rgba(255,250,243,0.55) 50%)` }}>
+ <div className="fw-group" style={{ background: glassBg(`linear-gradient(135deg, ${w.color}14 0%, rgba(255,250,243,0.55) 50%)`) }}>
  {w.keypoints.map((kp) => (
  <div
  key={kp.label}
@@ -2602,13 +2705,14 @@ function FullGuide({ w, onOpen, next, onHome, onTeach, onPrint }) {
  >
  <button
  type="button"
- className="fw-tap"
+ className="fw-tap fw-btn-reset fw-check-hit"
  aria-label={checked[kp.label] ? `Unmark ${kp.label}` : `Mark ${kp.label} covered`}
  aria-pressed={!!checked[kp.label]}
  onClick={() => toggle(kp.label)}
- style={{ width: 28, height: 28, marginTop: 6, borderRadius: "50%", border: `2px solid ${checked[kp.label] ? w.color : "rgba(70,48,32,0.22)"}`, background: checked[kp.label] ? w.color : "transparent", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, padding: 0, cursor: "pointer" }}
  >
+ <span aria-hidden="true" style={{ width: 28, height: 28, boxSizing: "border-box", borderRadius: "50%", border: `2px solid ${checked[kp.label] ? w.color : "rgba(70,48,32,0.22)"}`, background: checked[kp.label] ? w.color : "transparent", display: "flex", alignItems: "center", justifyContent: "center" }}>
  {checked[kp.label] && <span style={{ color: "#fff", fontSize: "13px", fontWeight: 700 }}>✓</span>}
+ </span>
  </button>
  <button
  type="button"
@@ -2644,14 +2748,12 @@ function FullGuide({ w, onOpen, next, onHome, onTeach, onPrint }) {
  key={s.id}
  ref={(el) => { if (el) sectionRefs[s.id] = el; }}
  >
- <div
- className="fw-tap"
- role="button"
+ <button
+ type="button"
+ className="fw-tap fw-btn-reset fw-btn-block fw-acc-head"
  aria-expanded={activeSection === s.id}
- tabIndex={0}
  onClick={() => openSection(s.id)}
- onKeyDown={keyActivate(() => openSection(s.id))}
- style={{ background: activeSection === s.id ? w.color : "rgba(255,250,243,0.58)", border: `0.5px solid ${activeSection === s.id ? w.color : "rgba(255,255,255,0.62)"}`, borderRadius: activeSection === s.id ? "14px 14px 0 0" : "14px", padding: "13px 14px", cursor: "pointer", display: "flex", alignItems: "center", gap: "12px", minHeight: 52, backdropFilter: activeSection === s.id ? "none" : "blur(16px) saturate(1.3)", WebkitBackdropFilter: activeSection === s.id ? "none" : "blur(16px) saturate(1.3)", boxShadow: activeSection === s.id ? "none" : "var(--fw-glass-shadow)", transition: "background .28s var(--fw-spring-soft), border-color .22s ease, border-radius .22s ease" }}
+ style={{ background: activeSection === s.id ? w.color : glassBg("rgba(255,250,243,0.58)"), border: `0.5px solid ${activeSection === s.id ? w.color : "rgba(255,255,255,0.62)"}`, borderRadius: activeSection === s.id ? "14px 14px 0 0" : "14px", padding: "13px 14px", cursor: "pointer", display: "flex", alignItems: "center", gap: "12px", minHeight: 52, boxShadow: activeSection === s.id ? "none" : "var(--fw-glass-shadow)", transition: "background .28s var(--fw-spring-soft), border-color .22s ease, border-radius .22s ease" }}
  >
  <span style={{ width: 36, height: 36, borderRadius: 10, display: "grid", placeItems: "center", background: activeSection === s.id ? "rgba(255,255,255,0.18)" : `${w.color}14`, fontSize: "18px" }}>{s.icon}</span>
  <span style={{ flex: 1, fontSize: "15.5px", fontWeight: 600, letterSpacing: "-0.016em", color: activeSection === s.id ? "#fff" : "#1a1a1a" }}>{s.label}</span>
@@ -2659,9 +2761,9 @@ function FullGuide({ w, onOpen, next, onHome, onTeach, onPrint }) {
  <span className="fw-label" style={{ fontSize: 10, letterSpacing: "0.1em", color: w.color, fontWeight: 700 }}>AT HOME</span>
  )}
  <span style={{ fontSize: "16px", color: activeSection === s.id ? "rgba(255,255,255,0.85)" : "rgba(60,40,28,0.28)", transform: activeSection === s.id ? "rotate(180deg)" : "none", transition: "transform .28s var(--fw-spring)" }}>▾</span>
- </div>
+ </button>
  {activeSection === s.id && (
- <div className="fw-sec-panel" style={{ background: `linear-gradient(180deg, ${w.color}20, rgba(255,250,243,0.55) 45%)`, border: `0.5px solid ${w.color}`, borderTop: "none", borderRadius: "0 0 14px 14px", padding: "16px", color: "#3a3128", backdropFilter: "blur(18px) saturate(1.35)", WebkitBackdropFilter: "blur(18px) saturate(1.35)" }}>
+ <div className="fw-sec-panel" style={{ background: glassBg(`linear-gradient(180deg, ${w.color}20, rgba(255,250,243,0.55) 45%)`), border: `0.5px solid ${w.color}`, borderTop: "none", borderRadius: "0 0 14px 14px", padding: "16px", color: "#3a3128" }}>
  <SectionPlaceholder w={w} section={s} />
  <SectionRichBody
  w={w}
@@ -2707,13 +2809,13 @@ function StubGuide({ w, onOpen, next, onHome }) {
  </p>
  </div>
  {next ? (
- <div className="fw-cta fw-tap" role="button" tabIndex={0} onClick={() => onOpen(next.number)} onKeyDown={keyActivate(() => onOpen(next.number))} style={{ ...ctaBtn(w.color || meta.color, "#fff"), width: "100%", marginTop: "14px" }}>
+ <button type="button" className="fw-cta fw-tap" onClick={() => onOpen(next.number)} style={{ ...ctaBtn(w.color || meta.color, "#fff"), width: "100%", marginTop: "14px" }}>
  Continue to Workshop {next.number} →
- </div>
+ </button>
  ) : (
- <div className="fw-cta fw-tap" role="button" tabIndex={0} onClick={onHome} onKeyDown={keyActivate(onHome)} style={{ ...ctaBtn(w.color || meta.color, "#fff"), width: "100%", marginTop: "14px" }}>
+ <button type="button" className="fw-cta fw-tap" onClick={onHome} style={{ ...ctaBtn(w.color || meta.color, "#fff"), width: "100%", marginTop: "14px" }}>
  ← All workshops
- </div>
+ </button>
  )}
  </div>
  </>
@@ -2721,14 +2823,14 @@ function StubGuide({ w, onOpen, next, onHome }) {
 }
 
 /* ── DETAIL SHELL ─────────────────────────────────────────── */
-function Detail({ number, onHome, onOpen }) {
+function Detail({ number, onHome, onOpen, view, onView, step, onStep }) {
  const i = WORKSHOPS.findIndex((w) => w.number === number);
  const w = WORKSHOPS[i];
  const prev = WORKSHOPS[i - 1];
  const next = WORKSHOPS[i + 1];
  const meta = streamMeta(w.stream);
  const accent = w.color || meta.color;
- const [view, setView] = useState("guide"); // guide | teach | print
+ const setView = onView; // guide | teach | print — URL + history handled by the root
  const [navMenu, setNavMenu] = useState(false);
  const deck = DECKS[w.number];
  const openHref = deck?.pdf || deck?.canvaUrl;
@@ -2737,7 +2839,7 @@ function Detail({ number, onHome, onOpen }) {
  if (view === "teach" && isComplete(w)) {
  return (
  <AppShell variant="teach" tone={{ ["--fw-color"]: w.color, ["--fw-accent"]: w.accent || w.color }}>
- <TeachMode w={w} onExit={() => setView("guide")} onPrint={() => setView("print")} />
+ <TeachMode w={w} step={step} onStep={onStep} onExit={() => setView("guide")} onPrint={() => setView("print")} />
  </AppShell>
  );
  }
@@ -2758,16 +2860,14 @@ function Detail({ number, onHome, onOpen }) {
  <AppShell variant="guide" tone={{ ["--fw-color"]: accent, ["--fw-accent"]: w.accent || accent }}>
  <div className="fw-app-chrome fw-nav-bar" style={{ borderTop: `3px solid ${accent}` }}>
  <div style={{ padding: "8px 12px 10px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px" }}>
- <span
- className="fw-link fw-tap"
- role="button"
- tabIndex={0}
+ <button
+ type="button"
+ className="fw-link fw-tap fw-btn-reset"
  onClick={onHome}
- onKeyDown={keyActivate(onHome)}
- style={{ fontSize: "15px", color: meta.color, fontWeight: 600, letterSpacing: "-0.016em", cursor: "pointer", fontFamily: FW_SANS, minHeight: 44, display: "inline-flex", alignItems: "center", paddingRight: 4 }}
+ style={{ fontSize: "15px", color: meta.color, fontWeight: 600, letterSpacing: "-0.016em", cursor: "pointer", fontFamily: FW_SANS, minHeight: 44, minWidth: 44, display: "inline-flex", alignItems: "center", padding: 0, paddingRight: 4, flexShrink: 0 }}
  >
  ← All
- </span>
+ </button>
  <div style={{ display: "flex", gap: "8px", alignItems: "center", flex: 1, justifyContent: "flex-end", position: "relative", minWidth: 0 }}>
  {isComplete(w) && (
  <div className="fw-segment" role="tablist" aria-label="Workshop view" style={{ flex: "1 1 auto", maxWidth: 240 }}>
@@ -2776,7 +2876,7 @@ function Detail({ number, onHome, onOpen }) {
  <button type="button" role="tab" aria-selected={view === "print"} className={view === "print" ? "fw-seg-on" : undefined} onClick={() => setView("print")}>Print</button>
  </div>
  )}
- <button type="button" className="fw-tap fw-cta" aria-expanded={navMenu} onClick={() => setNavMenu((o) => !o)} style={{ ...ctaBtn("rgba(255,252,248,0.85)", "#3a3128", "0.5px solid rgba(70,48,32,0.12)"), padding: "8px 12px", fontSize: 13, minHeight: 36, borderRadius: 10, flexShrink: 0 }}>
+ <button type="button" className="fw-tap fw-cta" aria-expanded={navMenu} onClick={() => setNavMenu((o) => !o)} style={{ ...ctaBtn("rgba(255,252,248,0.85)", "#3a3128", "0.5px solid rgba(70,48,32,0.12)"), padding: "8px 12px", fontSize: 13, minHeight: 44, minWidth: 44, borderRadius: 10, flexShrink: 0 }}>
  Menu
  </button>
  {navMenu && (
@@ -2815,33 +2915,33 @@ function Detail({ number, onHome, onOpen }) {
 
  <div style={{ padding: "8px 16px 12px", display: "flex", gap: "10px" }}>
  {prev ? (
- <div className="fw-card fw-link fw-tap fw-glass" role="button" tabIndex={0} onClick={() => onOpen(prev.number)} onKeyDown={keyActivate(() => onOpen(prev.number))} style={{ flex: 1, background: "rgba(255,250,243,0.55)", borderRadius: "14px", padding: "14px", cursor: "pointer" }}>
+ <button type="button" className="fw-card fw-link fw-tap fw-glass fw-btn-reset" onClick={() => onOpen(prev.number)} style={{ flex: 1, background: glassBg("rgba(255,250,243,0.55)"), borderRadius: "14px", padding: "14px", cursor: "pointer" }}>
  <div className="fw-label fw-eyebrow" style={{ fontSize: "10px", letterSpacing: "0.1em", color: "#aaa", marginBottom: "4px" }}>← Prev · {prev.number}</div>
  <div style={{ fontSize: "13px", fontWeight: 600, color: "#1a1a1a", lineHeight: 1.3, letterSpacing: "-0.016em" }}>{prev.title || `Workshop ${prev.number}`}</div>
- </div>
+ </button>
  ) : <div style={{ flex: 1 }} />}
  {next ? (
- <div className="fw-card fw-link fw-tap fw-glass" role="button" tabIndex={0} onClick={() => onOpen(next.number)} onKeyDown={keyActivate(() => onOpen(next.number))} style={{ flex: 1, background: "rgba(255,250,243,0.55)", border: `0.5px solid ${accent}`, borderRadius: "14px", padding: "14px", cursor: "pointer", textAlign: "right" }}>
+ <button type="button" className="fw-card fw-link fw-tap fw-glass fw-btn-reset" onClick={() => onOpen(next.number)} style={{ flex: 1, background: glassBg("rgba(255,250,243,0.55)"), border: `0.5px solid ${accent}`, borderRadius: "14px", padding: "14px", cursor: "pointer", textAlign: "right" }}>
  <div className="fw-label" style={{ fontSize: "10px", letterSpacing: "0.1em", color: accent, marginBottom: "4px" }}>{next.number} · Next →</div>
  <div style={{ fontSize: "13px", fontWeight: 600, color: "#1a1a1a", lineHeight: 1.3, letterSpacing: "-0.016em" }}>{next.title || `Workshop ${next.number}`}</div>
- </div>
+ </button>
  ) : (
- <div className="fw-card fw-link fw-tap fw-glass" role="button" tabIndex={0} onClick={onHome} onKeyDown={keyActivate(onHome)} style={{ flex: 1, background: "rgba(255,250,243,0.55)", borderRadius: "14px", padding: "14px", cursor: "pointer", textAlign: "right" }}>
+ <button type="button" className="fw-card fw-link fw-tap fw-glass fw-btn-reset" onClick={onHome} style={{ flex: 1, background: glassBg("rgba(255,250,243,0.55)"), borderRadius: "14px", padding: "14px", cursor: "pointer", textAlign: "right" }}>
  <div className="fw-label fw-eyebrow" style={{ fontSize: "10px", letterSpacing: "0.1em", color: "#aaa", marginBottom: "4px" }}>Series complete</div>
  <div style={{ fontSize: "13px", fontWeight: 600, color: "#1a1a1a", lineHeight: 1.3, letterSpacing: "-0.016em" }}>← All workshops</div>
- </div>
+ </button>
  )}
  </div>
 
  <div style={{ padding: "0 16px 20px" }}>
  {next ? (
- <div className="fw-cta fw-tap" role="button" tabIndex={0} onClick={() => onOpen(next.number)} onKeyDown={keyActivate(() => onOpen(next.number))} style={{ ...ctaBtn(accent, "#fff"), width: "100%", padding: "14px 16px", fontSize: "14px" }}>
+ <button type="button" className="fw-cta fw-tap" onClick={() => onOpen(next.number)} style={{ ...ctaBtn(accent, "#fff"), width: "100%", padding: "14px 16px", fontSize: "14px" }}>
  Continue to Workshop {next.number} — {next.title || `Workshop ${next.number}`} →
- </div>
+ </button>
  ) : (
- <div className="fw-cta fw-tap" role="button" tabIndex={0} onClick={onHome} onKeyDown={keyActivate(onHome)} style={{ ...ctaBtn(accent, "#fff"), width: "100%", padding: "14px 16px", fontSize: "14px" }}>
+ <button type="button" className="fw-cta fw-tap" onClick={onHome} style={{ ...ctaBtn(accent, "#fff"), width: "100%", padding: "14px 16px", fontSize: "14px" }}>
  Series complete — ← All workshops
- </div>
+ </button>
  )}
  </div>
 
@@ -2852,31 +2952,52 @@ function Detail({ number, onHome, onOpen }) {
 
 /* ── ROOT ─────────────────────────────────────────────────── */
 export default function FibonacciWorksHub() {
- const [selected, setSelected] = useState(() => readDeepLinkWs());
+ const [route, setRoute] = useState(() => readRoute());
  const [, setProgressTick] = useState(0);
+ const selected = route.ws;
+
+ const go = useCallback((next, { mode = "push", scroll = false, transition = true } = {}) => {
+ const apply = () => {
+ setRoute(next);
+ setProgressTick((t) => t + 1);
+ if (scroll && typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "auto" });
+ };
+ writeRoute(next, mode);
+ if (transition) withViewTransition(apply); else apply();
+ }, []);
 
  const open = useCallback((number) => {
  const n = normalizeWs(number) || number;
  markOpened(n);
- setProgressTick((t) => t + 1);
- setSelected(n);
- syncDeepLink(n);
- if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "auto" });
- }, []);
+ go({ ws: n, view: "guide", step: 0 }, { scroll: true });
+ }, [go]);
  const home = useCallback(() => {
- setProgressTick((t) => t + 1);
- setSelected(null);
- syncDeepLink(null);
- if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "auto" });
+ go({ ws: null, view: "guide", step: 0 }, { scroll: true });
+ }, [go]);
+ const routeRef = useRef(route);
+ routeRef.current = route;
+ const setView = useCallback((view) => {
+ const cur = routeRef.current;
+ if (!cur.ws || cur.view === view) return;
+ go({ ws: cur.ws, view, step: 0 });
+ }, [go]);
+ const setStep = useCallback((step) => {
+ const next = { ...routeRef.current, step };
+ routeRef.current = next;
+ writeRoute(next, "replace");
+ setRoute(next);
  }, []);
 
  useEffect(() => {
  const apply = () => {
- const n = readDeepLinkWs();
- setSelected((cur) => (n === cur ? cur : n));
- if (n) markOpened(n);
+ const next = readRoute();
+ setRoute((cur) => (cur.ws === next.ws && cur.view === next.view && cur.step === next.step ? cur : next));
+ if (next.ws) markOpened(next.ws);
+ setProgressTick((t) => t + 1);
  };
  apply();
+ // Canonicalise the landing URL (bad ws → Home, #ws=NN → ?ws=NN) without adding history.
+ writeRoute(readRoute(), "replace");
  window.addEventListener("popstate", apply);
  window.addEventListener("hashchange", apply);
  return () => {
@@ -2885,15 +3006,20 @@ export default function FibonacciWorksHub() {
  };
  }, []);
 
- useEffect(() => {
- // Keep URL aligned when state changes from Hub/Detail navigation
- syncDeepLink(selected);
- }, [selected]);
-
  return (
  <>
  <style>{STYLE}</style>
- {selected ? <Detail number={selected} onHome={home} onOpen={open} /> : <Hub onOpen={open} />}
+ {selected ? (
+ <Detail
+ number={selected}
+ onHome={home}
+ onOpen={open}
+ view={route.view}
+ onView={setView}
+ step={route.step}
+ onStep={setStep}
+ />
+ ) : <Hub onOpen={open} />}
  </>
  );
 }
