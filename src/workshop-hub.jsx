@@ -2259,7 +2259,7 @@ function TeachMode({ w, onExit, onPrint }) {
  onClick={() => setStep(i)}
  style={i === step ? { ["--fw-color"]: w.color, background: w.color, color: "#fffaf3", borderColor: "transparent" } : undefined}
  >
- {sec.icon} {sec.label.split(" ")[0]}
+ {sec.icon} {sec.label}
  </button>
  ))}
  </div>
@@ -2308,7 +2308,7 @@ function Hub({ onOpen }) {
  Everyday Teach Hub
  </h1>
  <p style={{ fontSize: "15.5px", lineHeight: 1.52, letterSpacing: "-0.012em", color: "rgba(255,250,243,0.84)", margin: "0 0 18px", fontWeight: 400 }}>
- Facilitator runbook + student path · 14 workshops · 4 streams · run slides again without re-researching · print outdoor cards when hands leave the room.
+ 14 hands-on workshops · 4 streams · slides, guides and outdoor print cards in one place.
  </p>
  <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginBottom: "18px" }}>
  <span className="fw-pill fw-label" style={{ borderRadius: "999px", padding: "6px 12px", fontSize: "10.5px", color: "#fff", letterSpacing: "0.1em" }}>14 Workshops</span>
