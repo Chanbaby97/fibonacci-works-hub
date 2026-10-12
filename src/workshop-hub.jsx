@@ -1195,6 +1195,129 @@ const STYLE = `
  }
  .fw-no-print, .fw-teach-bar, .fw-app-chrome, .fw-app::before, .fw-app::after { display: none !important; visibility: hidden !important; }
  }
+/* ── Teach chips wrap + no dead space above the teach bar (all widths) ── */
+.fw-chip-rail--wrap { flex-wrap: wrap; overflow-x: visible; }
+.fw-teach-body { display: flex; flex-direction: column; }
+.fw-teach-card { flex: 1 0 auto; }
+
+/* ── Tablet / projector (min-width only; phone styles untouched) ── */
+@media (min-width: 768px) {
+html { background: #14111c; }
+body { background-attachment: fixed; min-height: 100%; }
+.fw-app .fw-eyebrow { color: #6b5c4b !important; }
+.fw-app .fw-caption, .fw-app .fw-meta { color: #625444 !important; }
+.fw-app .fw-footer-meta { color: #5c4f40 !important; font-size: 13px; }
+.fw-app .fw-footer-copy { color: #4a3f33 !important; font-size: 14px !important; }
+.fw-app .fw-footer-rights { color: #6b5c4b !important; font-size: 11.5px !important; }
+.fw-app .fw-row-ios .fw-chevron { color: rgba(60, 40, 28, 0.5); }
+}
+
+@media (min-width: 1024px) {
+.fw-app {
+max-width: 1200px;
+margin: 24px auto;
+min-height: calc(100vh - 48px);
+min-height: calc(100dvh - 48px);
+--fw-fs-body: 1.125rem;
+--fw-fs-caption: 0.875rem;
+--fw-fs-label: 0.8125rem;
+font-size: 18px;
+}
+.fw-app--hub { max-width: 1200px; }
+
+/* Home */
+.fw-hub-hero { padding: 56px 48px 40px !important; }
+.fw-hub-hero > div:last-child { max-width: 820px; }
+.fw-hub-hero h1 { font-size: 3.4rem !important; }
+.fw-hub-hero p { font-size: 19px !important; }
+.fw-hub-hero .fw-pill, .fw-hub-hero .fw-label { font-size: 12.5px !important; }
+.fw-hub-hero .fw-cta { max-width: 620px; }
+.fw-hub-hero .fw-cta span:last-child { font-size: 19px !important; }
+.fw-hub-streams { padding: 8px 40px 28px !important; }
+.fw-hub-streams h2 { font-size: 26px !important; }
+.fw-hub-streams .fw-eyebrow { font-size: 12.5px !important; }
+.fw-app .fw-hub-grid {
+display: grid;
+grid-template-columns: repeat(2, minmax(0, 1fr));
+gap: 12px;
+background: none !important;
+border: 0;
+border-radius: 0;
+box-shadow: none;
+overflow: visible;
+-webkit-backdrop-filter: none;
+backdrop-filter: none;
+}
+.fw-app .fw-hub-grid > [data-fw-row] {
+border: 0.5px solid rgba(255, 255, 255, 0.66) !important;
+border-radius: 16px;
+min-height: 84px !important;
+padding: 14px 18px;
+background: linear-gradient(135deg, rgba(255, 252, 248, 0.72) 0%, rgba(255, 250, 243, 0.52) 100%);
+-webkit-backdrop-filter: blur(20px) saturate(1.35);
+backdrop-filter: blur(20px) saturate(1.35);
+box-shadow: var(--fw-glass-shadow);
+}
+.fw-app .fw-hub-grid > [data-fw-row] > div > div:first-child { font-size: 19px !important; }
+.fw-app .fw-hub-grid > [data-fw-row] .fw-meta { font-size: 14px !important; }
+
+/* Guide + Teach: wider content, larger type */
+.fw-app--guide > *:not(.fw-app-chrome):not(.fw-rise):not(.fw-footer) { padding-left: 40px !important; padding-right: 40px !important; }
+.fw-app--guide > .fw-rise { padding: 36px 40px 36px !important; }
+.fw-app--guide > .fw-rise > div:last-child {
+display: grid;
+grid-template-columns: minmax(0, 1fr) minmax(0, 540px);
+column-gap: 40px;
+align-items: start;
+}
+.fw-app--guide > .fw-rise > div:last-child > * { grid-column: 1; justify-self: start; }
+.fw-app--guide > .fw-rise > div:last-child > .fw-hero-still { grid-column: 2; grid-row: 1 / span 6; margin-top: 0; justify-self: stretch; }
+.fw-app--guide h1 { font-size: 3.2rem !important; }
+.fw-app--guide .fw-rise .fw-label { font-size: 13px !important; }
+.fw-app--guide p, .fw-app--guide li, .fw-app--guide .fw-answer-line { font-size: 18px !important; line-height: 1.6 !important; }
+.fw-app--guide p.fw-caption { font-size: 15px !important; }
+.fw-app--guide .fw-section-label { font-size: 22px !important; color: #4a3f33 !important; }
+.fw-app--guide .fw-block-title { font-size: 13px; }
+.fw-app--guide .fw-display { font-size: 26px !important; }
+.fw-app--guide .fw-prep-k { font-size: 12px; color: #6b5c4b; }
+.fw-app--guide .fw-prep-v { font-size: 19px; }
+.fw-app--guide [data-fw-row] span span:first-child { font-size: 19px !important; }
+.fw-app--guide [data-fw-row] span span.fw-meta { font-size: 16px !important; }
+.fw-app--guide [role="button"][aria-expanded] > span { font-size: 18.5px !important; }
+.fw-app--guide .fw-cta { font-size: 17px !important; }
+.fw-app--guide .fw-nav-bar > div { padding: 10px 32px 12px !important; }
+.fw-app--guide .fw-segment { max-width: 340px !important; }
+.fw-app--guide .fw-segment button { font-size: 15px; }
+.fw-app--guide .fw-nav-bar .fw-link { font-size: 17px !important; }
+.fw-app--guide .fw-figure { max-width: 760px; }
+
+.fw-app--teach .fw-app-chrome { padding: 22px 40px 18px !important; }
+.fw-app--teach .fw-app-chrome .fw-label { font-size: 13px !important; }
+.fw-app--teach .fw-app-chrome > div:nth-child(2) { font-size: 16px !important; }
+.fw-app--teach .fw-teach-body { padding: 24px 40px 12px !important; }
+.fw-app--teach .fw-teach-card {
+padding: 30px 36px 28px !important;
+display: grid;
+grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+column-gap: 36px;
+align-content: start;
+}
+.fw-app--teach .fw-teach-card > * { grid-column: 1 / -1; }
+.fw-app--teach .fw-teach-card > .fw-figure { grid-column: 1; }
+.fw-app--teach .fw-teach-card > .fw-figure + * { grid-column: 2; }
+.fw-app--teach .fw-teach-card .fw-eyebrow { font-size: 13px !important; }
+.fw-app--teach .fw-teach-card h2 { font-size: 36px !important; }
+.fw-app--teach p, .fw-app--teach li { font-size: 20px !important; line-height: 1.6 !important; }
+.fw-app--teach .fw-chip { font-size: 15px; min-height: 40px; padding: 8px 16px; }
+.fw-app--teach .fw-teach-bar { padding: 12px 40px calc(16px + var(--fw-safe-b)); }
+.fw-app--teach .fw-teach-bar > * { font-size: 17px !important; }
+.fw-app--teach .fw-teach-bar > div { font-size: 16px !important; }
+}
+
+@media (min-width: 1440px) {
+.fw-app--hub { max-width: 1360px; }
+.fw-app .fw-hub-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
 `;
 
 const keyActivate = (fn) => (e) => {
@@ -1202,11 +1325,11 @@ const keyActivate = (fn) => (e) => {
 };
 
 const Footer = () => (
- <div className="fw-bottom-pad" style={{ borderTop: "0.5px solid rgba(70,48,32,0.08)", paddingTop: 24, paddingLeft: 22, paddingRight: 22, textAlign: "center", background: "transparent" }}>
- <div className="fw-caption" style={{ marginBottom: "8px", letterSpacing: "0.04em" }}>Workshop Series · Cape Breton · Unama'ki · MSGAM</div>
- <div style={{ fontSize: "12px", color: "#8a7b68", letterSpacing: "-0.01em", marginBottom: "6px", fontWeight: 500 }}>© 2026 Isaiah Chandler</div>
+ <div className="fw-bottom-pad fw-footer" style={{ borderTop: "0.5px solid rgba(70,48,32,0.08)", paddingTop: 24, paddingLeft: 22, paddingRight: 22, textAlign: "center", background: "transparent" }}>
+ <div className="fw-caption fw-footer-meta" style={{ marginBottom: "8px", letterSpacing: "0.04em" }}>Workshop Series · Cape Breton · Unama'ki · MSGAM</div>
+ <div className="fw-footer-copy" style={{ fontSize: "12px", color: "#8a7b68", letterSpacing: "-0.01em", marginBottom: "6px", fontWeight: 500 }}>© 2026 Isaiah Chandler</div>
  <div className="fw-display" style={{ fontSize: "16px", color: "#4a7c3f", letterSpacing: "-0.028em", marginBottom: "4px", fontWeight: 700 }}>The Fibonacci Works™</div>
- <div className="fw-label" style={{ fontSize: "10px", color: "#b3a494", letterSpacing: "0.12em" }}>All rights reserved.</div>
+ <div className="fw-label fw-footer-rights" style={{ fontSize: "10px", color: "#b3a494", letterSpacing: "0.12em" }}>All rights reserved.</div>
  </div>
 );
 
@@ -1232,8 +1355,8 @@ const ctaBtn = (bg, color, border) => ({
  boxShadow: "0 6px 16px rgba(28, 16, 40, 0.1), inset 0 0.5px 0 rgba(255,255,255,0.5)",
 });
 
-const AppShell = ({ children, tone }) => (
- <div className="fw-app" style={{ fontFamily: FW_SANS, color: "#241c16", ...tone }}>
+const AppShell = ({ children, tone, variant }) => (
+ <div className={variant ? `fw-app fw-app--${variant}` : "fw-app"} style={{ fontFamily: FW_SANS, color: "#241c16", ...tone }}>
  {children}
  </div>
 );
@@ -1529,7 +1652,7 @@ function FacilitatorPrepCard({ w, onPrint }) {
  <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
  <button type="button" className="fw-tap fw-cta" aria-label="Fewer people" onClick={() => setHeadcount((h) => Math.max(1, (Number(h) || 1) - 1))} style={{ ...ctaBtn("#fff", color, `1.5px solid ${color}`), width: 44, height: 44, padding: 0 }}>−</button>
  <label style={{ flex: 1, display: "flex", flexDirection: "column", gap: 4 }}>
- <span className="fw-label" style={{ fontSize: 10.5, letterSpacing: "0.14em", color: "#9a8b78" }}>PEOPLE</span>
+ <span className="fw-label fw-eyebrow" style={{ fontSize: 10.5, letterSpacing: "0.14em", color: "#9a8b78" }}>PEOPLE</span>
  <input
  type="number"
  min={1}
@@ -1543,7 +1666,7 @@ function FacilitatorPrepCard({ w, onPrint }) {
  </div>
  {prep.scalable.length > 0 && (
  <>
- <div className="fw-label" style={{ fontSize: 10.5, letterSpacing: "0.12em", color: "#9a8b78", marginBottom: 6 }}>Take-home / per-person × {n}</div>
+ <div className="fw-label fw-eyebrow" style={{ fontSize: 10.5, letterSpacing: "0.12em", color: "#9a8b78", marginBottom: 6 }}>Take-home / per-person × {n}</div>
  <ul>
  {prep.scalable.map((item) => (
  <li key={item}>
@@ -1556,7 +1679,7 @@ function FacilitatorPrepCard({ w, onPrint }) {
  )}
  {prep.shared.length > 0 && (
  <>
- <div className="fw-label" style={{ fontSize: 10.5, letterSpacing: "0.12em", color: "#9a8b78", margin: "10px 0 6px" }}>Room / shared (not × headcount)</div>
+ <div className="fw-label fw-eyebrow" style={{ fontSize: 10.5, letterSpacing: "0.12em", color: "#9a8b78", margin: "10px 0 6px" }}>Room / shared (not × headcount)</div>
  <ul>
  {prep.shared.map((item) => (
  <li key={item}>
@@ -2105,12 +2228,12 @@ function TeachMode({ w, onExit, onPrint }) {
  )}
 
  {/* Step body */}
- <div style={{ flex: 1, padding: "16px 14px 8px" }}>
- <div key={step} className="fw-rise fw-glass" style={{ background: `linear-gradient(180deg, ${w.color}24 0%, rgba(255,250,243,0.5) 42%)`, borderRadius: 20, border: `0.5px solid rgba(255,255,255,0.58)`, padding: "22px 16px 20px", minHeight: 280 }}>
+ <div className="fw-teach-body" style={{ flex: 1, padding: "16px 14px 8px" }}>
+ <div key={step} className="fw-rise fw-glass fw-teach-card" style={{ background: `linear-gradient(180deg, ${w.color}24 0%, rgba(255,250,243,0.5) 42%)`, borderRadius: 20, border: `0.5px solid rgba(255,255,255,0.58)`, padding: "22px 16px 20px", minHeight: 280 }}>
  <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 14 }}>
  <span style={{ width: 48, height: 48, borderRadius: 14, display: "grid", placeItems: "center", background: `${w.color}1a`, fontSize: 26 }}>{s.icon}</span>
  <div>
- <div className="fw-label" style={{ fontSize: 11, letterSpacing: "0.12em", color: "#a89884" }}>Step {step + 1} of {total}</div>
+ <div className="fw-label fw-eyebrow" style={{ fontSize: 11, letterSpacing: "0.12em", color: "#a89884" }}>Step {step + 1} of {total}</div>
  <h2 className="fw-display fw-type-glass" style={{ margin: "2px 0 0", fontSize: 24, fontWeight: 700, color: w.color, letterSpacing: "-0.028em" }}>{s.label}</h2>
  </div>
  </div>
@@ -2125,7 +2248,7 @@ function TeachMode({ w, onExit, onPrint }) {
  </div>
 
  {/* Quick jump chips — iOS pill rail */}
- <div className="fw-chip-rail" role="tablist" aria-label="Workshop sections">
+ <div className="fw-chip-rail fw-chip-rail--wrap" role="tablist" aria-label="Workshop sections">
  {sections.map((sec, i) => (
  <button
  key={sec.id}
@@ -2173,8 +2296,8 @@ function Hub({ onOpen }) {
  const allDone = completedCount >= 14;
 
  return (
- <AppShell>
- <div style={{ background: "linear-gradient(168deg, #221830 0%, #2a2840 22%, #3c4a34 70%, #6a6248 100%)", padding: "calc(44px + env(safe-area-inset-top, 0px)) 20px 28px", position: "relative", overflow: "hidden" }}>
+ <AppShell variant="hub">
+ <div className="fw-hub-hero" style={{ background: "linear-gradient(168deg, #221830 0%, #2a2840 22%, #3c4a34 70%, #6a6248 100%)", padding: "calc(44px + env(safe-area-inset-top, 0px)) 20px 28px", position: "relative", overflow: "hidden" }}>
  <div aria-hidden="true" style={{ position: "absolute", top: -50, right: -30, width: 240, height: 240, borderRadius: "50%", background: "radial-gradient(circle, rgba(255,236,206,0.5), rgba(196,160,106,0) 68%)" }} />
  <div aria-hidden="true" style={{ position: "absolute", bottom: -50, left: -30, width: 200, height: 200, borderRadius: "50%", background: "radial-gradient(circle, rgba(122,182,72,0.28), transparent 70%)" }} />
  <div style={{ position: "relative" }}>
@@ -2226,7 +2349,7 @@ function Hub({ onOpen }) {
  </div>
  </div>
 
- <div style={{ padding: "8px 16px 12px" }}>
+ <div className="fw-hub-streams" style={{ padding: "8px 16px 12px" }}>
  {STREAMS.map((stream) => {
  const items = WORKSHOPS.filter((w) => w.stream === stream.name);
  return (
@@ -2234,12 +2357,12 @@ function Hub({ onOpen }) {
  <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "10px", padding: "0 2px" }}>
  <div style={{ width: "4px", alignSelf: "stretch", minHeight: "28px", borderRadius: "99px", background: `linear-gradient(180deg, ${stream.accent}, ${stream.color})`, boxShadow: `0 0 10px ${stream.color}44` }} />
  <div style={{ flex: 1 }}>
- <div className="fw-label" style={{ fontSize: "10px", letterSpacing: "0.12em", color: "#a89884", marginBottom: "2px" }}>{stream.range}</div>
+ <div className="fw-label fw-eyebrow" style={{ fontSize: "10px", letterSpacing: "0.12em", color: "#a89884", marginBottom: "2px" }}>{stream.range}</div>
  <h2 className="fw-display fw-type-glass" style={{ margin: 0, fontSize: "20px", fontWeight: 700, letterSpacing: "-0.028em", color: "#241c16" }}>{stream.name}</h2>
  </div>
  </div>
 
- <div className="fw-group" style={{ background: `linear-gradient(115deg, ${stream.color}18 0%, rgba(255,250,243,0.5) 42%)` }}>
+ <div className="fw-group fw-hub-grid" style={{ background: `linear-gradient(115deg, ${stream.color}18 0%, rgba(255,250,243,0.5) 42%)` }}>
  {items.map((w) => {
  const opened = progress.completed.includes(w.number);
  const meta = streamMeta(w.stream);
@@ -2261,7 +2384,7 @@ function Hub({ onOpen }) {
  <div style={{ fontSize: "16px", fontWeight: 600, lineHeight: 1.25, letterSpacing: "-0.02em", color: "#241c16" }}>
  {w.title || `Workshop ${w.number}`}
  </div>
- <div className="fw-caption" style={{ marginTop: 2 }}>
+ <div className="fw-caption fw-meta" style={{ marginTop: 2 }}>
  {w.duration || ""}{opened ? " · ✓ opened" : ""}
  </div>
  </div>
@@ -2457,7 +2580,7 @@ function FullGuide({ w, onOpen, next, onHome, onTeach, onPrint }) {
 
  <div style={{ padding: "20px 16px 0" }}>
  <p style={{ fontSize: "15.5px", lineHeight: 1.62, letterSpacing: "-0.012em", color: "#3d342c", margin: 0, borderLeft: `3px solid ${w.color}`, paddingLeft: "14px" }}>{w.about}</p>
- <p className="fw-caption" style={{ margin: "12px 0 0", letterSpacing: "0.02em", lineHeight: 1.5 }}>Flow: Welcome → Knowledge → Hands-On → Discussion → Take-Home → Next · {w.duration}</p>
+ <p className="fw-caption fw-meta" style={{ margin: "12px 0 0", letterSpacing: "0.02em", lineHeight: 1.5 }}>Flow: Welcome → Knowledge → Hands-On → Discussion → Take-Home → Next · {w.duration}</p>
  </div>
 
  <div style={{ padding: "16px 16px 0" }}>
@@ -2469,7 +2592,7 @@ function FullGuide({ w, onOpen, next, onHome, onTeach, onPrint }) {
  <h2 className="fw-section-label" style={{ margin: 0, color: "#8a7b68" }}>Key Learning Points</h2>
  {allChecked && <span className="fw-label" style={{ fontSize: "10.5px", color: w.color, letterSpacing: "0.1em" }}>ALL COVERED ✓</span>}
  </div>
- <p className="fw-caption" style={{ margin: "0 0 10px", paddingLeft: 4 }}>Tap a point for the answer</p>
+ <p className="fw-caption fw-meta" style={{ margin: "0 0 10px", paddingLeft: 4 }}>Tap a point for the answer</p>
  <div className="fw-group" style={{ background: `linear-gradient(135deg, ${w.color}14 0%, rgba(255,250,243,0.55) 50%)` }}>
  {w.keypoints.map((kp) => (
  <div
@@ -2495,7 +2618,7 @@ function FullGuide({ w, onOpen, next, onHome, onTeach, onPrint }) {
  >
  <span style={{ flex: 1, minWidth: 0 }}>
  <span style={{ display: "block", fontSize: "15.5px", fontWeight: 600, letterSpacing: "-0.016em", color: checked[kp.label] ? w.color : "#1a1a1a", marginBottom: "2px" }}>{kp.label}</span>
- <span style={{ display: "block", fontSize: "13px", color: "#8a7b68", lineHeight: 1.4 }}>{kp.detail}</span>
+ <span className="fw-meta" style={{ display: "block", fontSize: "13px", color: "#8a7b68", lineHeight: 1.4 }}>{kp.detail}</span>
  </span>
  <span style={{ flexShrink: 0, fontSize: "13px", letterSpacing: "-0.01em", color: w.color, fontFamily: FW_SANS, fontWeight: 600 }}>Answer ›</span>
  </button>
@@ -2552,7 +2675,7 @@ function FullGuide({ w, onOpen, next, onHome, onTeach, onPrint }) {
  </div>
 
  <div style={{ marginTop: "18px", paddingTop: "16px", borderTop: "1px solid #e8e8e8" }}>
- <div className="fw-label" style={{ fontSize: "11px", letterSpacing: "0.14em", color: "#a89884", marginBottom: "10px" }}>What's Next</div>
+ <div className="fw-label fw-eyebrow" style={{ fontSize: "11px", letterSpacing: "0.14em", color: "#a89884", marginBottom: "10px" }}>What's Next</div>
  {renderContinue("0")}
  </div>
  </div>
@@ -2613,7 +2736,7 @@ function Detail({ number, onHome, onOpen }) {
 
  if (view === "teach" && isComplete(w)) {
  return (
- <AppShell tone={{ ["--fw-color"]: w.color, ["--fw-accent"]: w.accent || w.color }}>
+ <AppShell variant="teach" tone={{ ["--fw-color"]: w.color, ["--fw-accent"]: w.accent || w.color }}>
  <TeachMode w={w} onExit={() => setView("guide")} onPrint={() => setView("print")} />
  </AppShell>
  );
@@ -2621,7 +2744,7 @@ function Detail({ number, onHome, onOpen }) {
 
  if (view === "print" && isComplete(w)) {
  return (
- <AppShell tone={{ ["--fw-color"]: w.color, ["--fw-accent"]: w.accent || w.color }}>
+ <AppShell variant="print" tone={{ ["--fw-color"]: w.color, ["--fw-accent"]: w.accent || w.color }}>
  <PrintSheetView
  w={w}
  onClose={() => setView("guide")}
@@ -2632,7 +2755,7 @@ function Detail({ number, onHome, onOpen }) {
  }
 
  return (
- <AppShell tone={{ ["--fw-color"]: accent, ["--fw-accent"]: w.accent || accent }}>
+ <AppShell variant="guide" tone={{ ["--fw-color"]: accent, ["--fw-accent"]: w.accent || accent }}>
  <div className="fw-app-chrome fw-nav-bar" style={{ borderTop: `3px solid ${accent}` }}>
  <div style={{ padding: "8px 12px 10px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px" }}>
  <span
@@ -2693,7 +2816,7 @@ function Detail({ number, onHome, onOpen }) {
  <div style={{ padding: "8px 16px 12px", display: "flex", gap: "10px" }}>
  {prev ? (
  <div className="fw-card fw-link fw-tap fw-glass" role="button" tabIndex={0} onClick={() => onOpen(prev.number)} onKeyDown={keyActivate(() => onOpen(prev.number))} style={{ flex: 1, background: "rgba(255,250,243,0.55)", borderRadius: "14px", padding: "14px", cursor: "pointer" }}>
- <div className="fw-label" style={{ fontSize: "10px", letterSpacing: "0.1em", color: "#aaa", marginBottom: "4px" }}>← Prev · {prev.number}</div>
+ <div className="fw-label fw-eyebrow" style={{ fontSize: "10px", letterSpacing: "0.1em", color: "#aaa", marginBottom: "4px" }}>← Prev · {prev.number}</div>
  <div style={{ fontSize: "13px", fontWeight: 600, color: "#1a1a1a", lineHeight: 1.3, letterSpacing: "-0.016em" }}>{prev.title || `Workshop ${prev.number}`}</div>
  </div>
  ) : <div style={{ flex: 1 }} />}
@@ -2704,7 +2827,7 @@ function Detail({ number, onHome, onOpen }) {
  </div>
  ) : (
  <div className="fw-card fw-link fw-tap fw-glass" role="button" tabIndex={0} onClick={onHome} onKeyDown={keyActivate(onHome)} style={{ flex: 1, background: "rgba(255,250,243,0.55)", borderRadius: "14px", padding: "14px", cursor: "pointer", textAlign: "right" }}>
- <div className="fw-label" style={{ fontSize: "10px", letterSpacing: "0.1em", color: "#aaa", marginBottom: "4px" }}>Series complete</div>
+ <div className="fw-label fw-eyebrow" style={{ fontSize: "10px", letterSpacing: "0.1em", color: "#aaa", marginBottom: "4px" }}>Series complete</div>
  <div style={{ fontSize: "13px", fontWeight: 600, color: "#1a1a1a", lineHeight: 1.3, letterSpacing: "-0.016em" }}>← All workshops</div>
  </div>
  )}
