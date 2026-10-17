@@ -66,7 +66,7 @@
  "bullets": [
  "There is no one frost date for all of Unama'ki",
  "Sydney-area published averages often sit in late May",
- "Highlands and inland spots run later — check local",
+ "Some inland and higher spots run later — check local",
  "Forecast frost: cover rows or bring pots in; wind steals heat",
  "Later: short fall winterizing card"
  ]
@@ -432,7 +432,7 @@
  {
  "title": "CANNING & PICKLING",
  "bullets": [
- "Boiling-water canner: high-acid only (pH 4.6 or lower)",
+ "Boiling-water canner: high-acid only (pH below 4.6)",
  "Tomatoes are borderline — tested recipes add acid",
  "Low-acid veg, meat, seafood, soup: pressure canner only",
  "Never change time, jar size, or ingredients",
@@ -470,7 +470,7 @@
  ]
  },
  {
- "title": "MI'KMAQ FOOD TRADITIONS",
+ "title": "HONOURING KNOWLEDGE KEEPERS",
  "bullets": [
  "We do not teach Mi'kmaq food knowledge",
  "Knowledge keepers speak for themselves, if they choose",
@@ -597,7 +597,7 @@
  "Roofer tickets are voluntary in Nova Scotia",
  "Still ask TMI: training, safety plan, WCB letter",
  "Liability insurance and a written scope",
- "Similar reroof is often permit-exempt — ask your town",
+ "Similar reroof is often permit-exempt in NS — but CBRM requires a permit for larger jobs; confirm locally with your building office",
  "You decide; height work is theirs"
  ]
  },
@@ -659,7 +659,7 @@
  "Spring walk after the thaw",
  "Fall seal before a hard freeze",
  "Hoses off; seals on; gutters clear",
- "Sydney A frost averages about Oct 10",
+ "Sydney-area average first fall frost: mid to late October — highlands often earlier; follow the forecast",
  "Highlands freeze earlier — use the forecast"
  ]
  },
@@ -1157,7 +1157,7 @@
  "title": "COMPOSTING BASICS",
  "bullets": [
  "Curbside green cart and a backyard bin are not the same list",
- "CBRM green cart: food scraps, including meat and dairy — no plastic bags",
+ "CBRM green cart takes meat, dairy, and cooking grease — liners only if they carry the compostable logo",
  "Backyard bin: plant scraps and grounds, plus leaves or shredded paper",
  "Keep meat and oil out of an open backyard pile",
  "Sharps go in a pharmacy container — never a bin"
@@ -1190,7 +1190,7 @@
  "Lids off when your community guide says so",
  "Paper and cardboard stay dry in their own bag",
  "Dirty recycling gets rejected",
- "CBRM: transparent blue bags only — a clear bag of recyclables can be left"
+ "CBRM: clear or transparent blue bags — no black or dark bags for recycling"
  ]
  },
  {
@@ -1260,7 +1260,7 @@
  "bullets": [
  "NS Bee Industry Act: register to keep bees — even one colony",
  "Within 10 days of getting bees; certificate ends 31 December",
- "Re-register by 1 November — beekeeping@novascotia.ca",
+ "Re-register by 1 November — beekeeping@novascotia.ca or 902-890-3377",
  "NSBA: registration is free; association membership is a separate fee",
  "Bees or used gear from outside NS need an import permit — do not order first"
  ]
@@ -1279,7 +1279,7 @@
  "title": "BEE SAFETY",
  "bullets": [
  "No hive is opened here without a veil, suit, and gloves",
- "Only a geared facilitator touches a live hive; everyone else stands back",
+ "Only a fully geared, experienced beekeeper opens a live hive; everyone else stands back",
  "Allergy, weather, or a hot colony: model or video",
  "Smoker stays cold unless a mentor has shown you",
  "A swarm: stay back, do not poke it, call a beekeeper"
@@ -1320,7 +1320,7 @@
  "bullets": [
  "Same seven steps, in order",
  "Gear named before any demo",
- "Live bees only for a geared facilitator — or cancel",
+ "Live bees only with a fully geared, experienced beekeeper — or cancel",
  "Registration facts written, not filed for someone else",
  "No bees ordered today"
  ]
@@ -1404,7 +1404,7 @@
  "Seal the worst gap you can reach from the floor",
  "When a bulb you use dies, price an LED in the store",
  "Turn heat down only if everyone in the house stays warm",
- "Bigger retrofits are a contractor job — this class stops at habits"
+ "Bigger retrofits are a contractor job; wiring and gas work go to licensed trades"
  ]
  },
  {
@@ -1453,6 +1453,7 @@
 /** Card label → deck slide title when the names differ but the bullets are that point. */
 const POINT_SLIDE_ALIAS = {
  "03|food networks": "community networks",
+ "05|food traditions": "honouring knowledge keepers",
  "04|year round growing": "year round crops",
  "07|winterization": "cape breton winter",
  "12|clean recycling": "rinsing recyclables",

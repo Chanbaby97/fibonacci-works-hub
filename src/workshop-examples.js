@@ -315,7 +315,7 @@ export const WORKSHOP_EXAMPLES = {
  points: {
  "Canning & Pickling": {
  examples: [
- "Boiling-water canner: high-acid only (pH 4.6 or lower)",
+ "Boiling-water canner: high-acid only (pH below 4.6)",
  "Tomatoes are borderline — tested recipes add acid",
  "Low-acid veg, meat, seafood, soup: pressure canner only",
  "A mentor does not replace a current tested recipe",
@@ -422,7 +422,7 @@ export const WORKSHOP_EXAMPLES = {
  "Seasonal Prep": {
  examples: [
  "Spring after thaw; fall seal before hard freeze",
- "Sydney-area first fall frost typically mid-October; harder freezes common in November — forecast-check, not a fixed week",
+ "Sydney-area first fall frost: mid to late October average; follow the forecast",
  ],
  },
  "Weatherproofing": {
@@ -461,7 +461,7 @@ export const WORKSHOP_EXAMPLES = {
  },
  takeHome: {
  tryThis: [
- "Same starter specs: weatherstrip sample + calendar + outage checklist; seal before hard freeze (often late Oct–Nov — check forecast)",
+ "Same starter specs: weatherstrip sample + calendar + outage checklist; seal before the first frost (mid to late October average; follow the forecast)",
  ],
  },
  },
@@ -477,7 +477,7 @@ export const WORKSHOP_EXAMPLES = {
  "Power Tool Safety": {
  examples: [
  "Facilitator-supervised drill and/or saw as planned",
- "PPE: safety glasses; hearing protection; gloves as needed",
+ "PPE: Eye and hearing protection; gloves for carrying lumber only — gloves off on any spinning saw or drill",
  "One person operates; unplug when changing bits",
  ],
  },
@@ -696,7 +696,7 @@ export const WORKSHOP_EXAMPLES = {
  "Composting Basics": {
  examples: [
  "Curbside green cart ≠ backyard bin — different lists",
- "CBRM green cart: food scraps including meat and dairy — no plastic bags",
+ "CBRM green cart takes meat, dairy, and cooking grease — liners only if they carry the compostable logo",
  "Backyard bin: plant scraps and grounds, plus leaves or shredded paper",
  "Keep meat and oil out of an open backyard pile; sharps → pharmacy container",
  ],
@@ -714,7 +714,7 @@ export const WORKSHOP_EXAMPLES = {
  "Empty, then rinse until no food film",
  "Lids off when your community guide says so",
  "Paper and cardboard stay dry in their own bag",
- "CBRM: transparent blue bags only — a clear bag of recyclables can be left",
+ "CBRM: clear or transparent blue bags — no black or dark bags for recycling",
  ],
  },
  "Bag and Store": {
