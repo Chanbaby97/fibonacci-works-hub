@@ -1566,12 +1566,6 @@ const SHARED_MAT_RE = /shared|demo|facilitator|sample|supervised|projector|smart
 const LATER_COST_RE = /later|starter setup|hoop house|repair\/replace|registry|banking fees|card reader|tool starter set|boosts\/ads|full starter|first-year/i;
 const SESSION_COST_RE = /session materials|print packet|print checklist|small project materials|weatherproofing follow-up|bin\/box setup|starter jar kit|planning packet/i;
 
-function parseMoneyRange(line) {
- const m = String(line || "").match(/\$(\d+)\s*[–-]\s*\$?(\d+)/);
- if (!m) return null;
- return { lo: Number(m[1]), hi: Number(m[2]) };
-}
-
 function extractFacilitatorPrep(w) {
  const activity = (w.sections || []).find((s) => s.id === "activity");
  const { blocks } = parseSectionContent(activity?.content || "");
@@ -1589,38 +1583,9 @@ function extractFacilitatorPrep(w) {
  const hasQr = materials.some((m) => /QR/i.test(m));
  if (!hasQr) scalable.push("QR card for phone follow-along");
 
- let sessionRange = null;
- let sessionLabel = "";
- let laterNotes = [];
- for (const line of costLines) {
- if (LATER_COST_RE.test(line) && !SESSION_COST_RE.test(line)) {
- laterNotes.push(line);
- continue;
- }
- const range = parseMoneyRange(line);
- if (!range) continue;
- if (!sessionRange && (SESSION_COST_RE.test(line) || /per person/i.test(line))) {
- sessionRange = range;
- sessionLabel = line;
- }
- }
- // Fallbacks from known workshop patterns (still from existing cost lines only)
- if (!sessionRange) {
- for (const line of costLines) {
- if (LATER_COST_RE.test(line)) continue;
- const range = parseMoneyRange(line);
- if (range) {
- sessionRange = range;
- sessionLabel = line;
- break;
- }
- }
- }
- // WS13 etc: session may be "low / included" with no $ — keep note, don't invent
- if (!sessionRange) {
- const soft = costLines.find((l) => /included|low\s*\/\s*included|packet\/tasting/i.test(l));
- if (soft) sessionLabel = soft;
- }
+ // No $ amounts on the hub: never parse or multiply prices from cost lines.
+ const laterNotes = costLines.filter((line) => LATER_COST_RE.test(line) && !SESSION_COST_RE.test(line));
+ const sessionLabel = costLines.find((l) => /included|low\s*\/\s*included|packet\/tasting/i.test(l)) || "";
 
  const sectionOrder = (w.sections || []).map((s) => s.label);
  const sticky = stickyTakeaway(w);
@@ -1630,7 +1595,6 @@ function extractFacilitatorPrep(w) {
  shared,
  kit,
  costLines,
- sessionRange,
  sessionLabel,
  laterNotes,
  sectionOrder,
@@ -1701,8 +1665,6 @@ function FacilitatorPrepCard({ w, onPrint }) {
  } catch { setCopied(false); }
  };
 
- const totalLo = prep.sessionRange ? prep.sessionRange.lo * n : null;
- const totalHi = prep.sessionRange ? prep.sessionRange.hi * n : null;
  const color = w.color || "#4a7c3f";
 
  return (
@@ -1776,21 +1738,11 @@ function FacilitatorPrepCard({ w, onPrint }) {
  </ul>
  </>
  )}
- {prep.sessionRange ? (
- <p style={{ margin: "12px 0 0", fontSize: 14.5, lineHeight: 1.5, color: "#3a3128" }}>
- <strong style={{ color }}>Rough session materials CAD for {n}:</strong>{" "}
- ${totalLo}–${totalHi}{" "}
- <span style={{ color: "#7a6b5c" }}>(${prep.sessionRange.lo}–${prep.sessionRange.hi} per person × {n})</span>
- <br />
- <span className="fw-caption">confirm locally</span>
- </p>
- ) : (
  <p style={{ margin: "12px 0 0", fontSize: 13.5, lineHeight: 1.5, color: "#6d5e50" }}>
  No clear per-person session cost to multiply in the existing cost notes
  {prep.sessionLabel ? <> — {prep.sessionLabel}</> : null}.
  Scale the printable / kit lines above; confirm locally.
  </p>
- )}
  {prep.laterNotes.length > 0 && (
  <p style={{ margin: "8px 0 0", fontSize: 12.5, lineHeight: 1.45, color: "#7a6b5c" }}>
  Not multiplied for class: {prep.laterNotes[0]}
