@@ -7,6 +7,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="theme-color" content="#221830" />
     <meta name="format-detection" content="telephone=no" />
+    <meta name="robots" content="noindex, nofollow" />
     <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="./favicon.ico" sizes="any" />
     <title>The Fibonacci Works — Workshop Hub</title>
@@ -1645,6 +1646,47 @@ align-content: start;
 @media (min-width: 1440px) {
 .fw-app--hub { max-width: 1360px; }
 .fw-app .fw-hub-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* ── Teach: fit one screen on laptops/projectors so the chip row never sits under the Prev/Next bar ── */
+@media (min-width: 1024px) {
+.fw-app--teach { display: flex; flex-direction: column; height: calc(100vh - 48px); height: calc(100dvh - 48px); min-height: 0 !important; }
+.fw-app--teach > div:first-child { flex: 1 1 auto; min-height: 0 !important; height: 100%; }
+.fw-app--teach .fw-app-chrome, .fw-app--teach .fw-teach-bar { flex: 0 0 auto; }
+.fw-app--teach .fw-teach-body { flex: 1 1 auto !important; min-height: 0; overflow: hidden; padding-bottom: 16px !important; }
+.fw-app--teach .fw-teach-card { flex: 1 1 auto; min-height: 0 !important; overflow-y: auto; }
+.fw-app--teach .fw-chip-rail { flex: 0 0 auto; padding: 14px 0 4px; overflow: visible; }
+.fw-app--teach .fw-teach-bar { position: relative; bottom: auto; }
+}
+@media (min-width: 1024px) and (max-height: 820px) {
+.fw-app--teach .fw-teach-card { padding-top: 20px !important; padding-bottom: 18px !important; }
+.fw-app--teach .fw-teach-card > .fw-figure { max-width: 400px; }
+}
+
+/* ── Projector (>=1600px): wide Teach layout, larger type, fill the card ── */
+@media (min-width: 1600px) {
+.fw-app--teach { max-width: 88vw; width: 88vw; }
+.fw-app--teach .fw-app-chrome { padding: 26px 56px 20px !important; }
+.fw-app--teach .fw-app-chrome .fw-label { font-size: 15px !important; }
+.fw-app--teach .fw-app-chrome > div:nth-child(2) { font-size: 20px !important; }
+.fw-app--teach .fw-teach-body { padding: 28px 56px 16px !important; }
+.fw-app--teach .fw-teach-card {
+padding: 40px 52px 40px !important;
+grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+column-gap: 56px;
+align-content: start;
+}
+.fw-app--teach .fw-teach-card > .fw-figure { align-self: start; }
+.fw-app--teach .fw-teach-card > .fw-figure img, .fw-app--teach .fw-teach-card > .fw-figure svg { width: 100%; height: auto; }
+.fw-app--teach .fw-teach-card .fw-eyebrow { font-size: 16px !important; }
+.fw-app--teach .fw-teach-card h2 { font-size: 52px !important; }
+.fw-app--teach .fw-teach-card > div:first-child > span { width: 68px !important; height: 68px !important; font-size: 36px !important; border-radius: 18px !important; }
+.fw-app--teach p, .fw-app--teach li { font-size: 30px !important; line-height: 1.55 !important; }
+.fw-app--teach .fw-notes-toggle { font-size: 17px; }
+.fw-app--teach .fw-chip { font-size: 18px; min-height: 52px; padding: 10px 20px; }
+.fw-app--teach .fw-teach-bar { padding: 14px 56px 18px; }
+.fw-app--teach .fw-teach-bar > * { font-size: 20px !important; }
+.fw-app--teach .fw-teach-bar .fw-cta { min-height: 56px; }
 }
 `,G=e=>`${/gradient\(/.test(e)?e:`linear-gradient(${e}, ${e})`}, var(--fw-glass-base)`,nd=()=>s.jsxs("div",{className:"fw-bottom-pad fw-footer",style:{borderTop:"0.5px solid rgba(70,48,32,0.08)",paddingTop:24,paddingLeft:22,paddingRight:22,textAlign:"center",background:"transparent"},children:[s.jsx("div",{className:"fw-caption fw-footer-meta",style:{marginBottom:"8px",letterSpacing:"0.04em"},children:"Workshop Series · Cape Breton · Unama'ki · MSGAM"}),s.jsx("div",{className:"fw-footer-copy",style:{fontSize:"12px",color:"#8a7b68",letterSpacing:"-0.01em",marginBottom:"6px",fontWeight:500},children:"© 2026 Isaiah Chandler"}),s.jsx("div",{className:"fw-display",style:{fontSize:"16px",color:"#4a7c3f",letterSpacing:"-0.028em",marginBottom:"4px",fontWeight:700},children:"The Fibonacci Works™"}),s.jsx("div",{className:"fw-label fw-footer-rights",style:{fontSize:"10px",color:"#b3a494",letterSpacing:"0.12em"},children:"All rights reserved."})]}),H=(e,t,n)=>({display:"inline-flex",alignItems:"center",justifyContent:"center",gap:"8px",padding:"12px 16px",minHeight:44,borderRadius:"12px",fontSize:"15px",fontWeight:600,letterSpacing:"-0.016em",fontFamily:nt,cursor:"pointer",border:n||"none",background:e,color:t,lineHeight:1.2,textAlign:"center",WebkitFontSmoothing:"antialiased",boxShadow:"0 6px 16px rgba(28, 16, 40, 0.1), inset 0 0.5px 0 rgba(255,255,255,0.5)"}),Go=({children:e,tone:t,variant:n})=>s.jsx("div",{className:n?`fw-app fw-app--${n}`:"fw-app",style:{fontFamily:nt,color:"#241c16",...t},children:e}),Nl=[{key:"materials",match:"🧰 Materials needed",title:"Materials needed"},{key:"kit",match:"🧰 Take-home kit",title:"Take-home kit"},{key:"cost",match:"💵 Rough cost",title:"Rough cost"},{key:"redo",match:"🏠 At-home redo",title:"At-home redo"},{key:"need",match:"📦 What you need",title:"What you need"},{key:"done",match:"✅ Done looks like",title:"Done looks like"},{key:"takeaway",match:"📌 Takeaway",title:"Takeaway to write down"},{key:"redopath",match:"Redo path:",title:"Redo path"}];function pi(e){return String(e||"").replace(/^[\s•✓✔\-–—]+/,"").replace(/^\d+\.\s*/,"").trim()}function Ht(e){const t=String(e||""),n=[];for(const i of Nl){const l=t.indexOf(i.match);l>=0&&n.push({...i,at:l})}n.sort((i,l)=>i.at-l.at);const o=n.length?t.slice(0,n[0].at).trim():t.trim(),r=n.map((i,l)=>{const c=l+1<n.length?n[l+1].at:t.length,u=t.slice(i.at,c),m=u.indexOf(`
 `),g=u.slice(i.match.length,m>=0?m:u.length).replace(/^[:\s]+/,"").trim(),p=i.key==="redopath"&&g&&!/^\(.*\):?$/.test(g)?g:"",y=m>=0?u.slice(m+1):"",v=[p,...y.split(`

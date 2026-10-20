@@ -1320,6 +1320,47 @@ align-content: start;
 .fw-app--hub { max-width: 1360px; }
 .fw-app .fw-hub-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
+
+/* ── Teach: fit one screen on laptops/projectors so the chip row never sits under the Prev/Next bar ── */
+@media (min-width: 1024px) {
+.fw-app--teach { display: flex; flex-direction: column; height: calc(100vh - 48px); height: calc(100dvh - 48px); min-height: 0 !important; }
+.fw-app--teach > div:first-child { flex: 1 1 auto; min-height: 0 !important; height: 100%; }
+.fw-app--teach .fw-app-chrome, .fw-app--teach .fw-teach-bar { flex: 0 0 auto; }
+.fw-app--teach .fw-teach-body { flex: 1 1 auto !important; min-height: 0; overflow: hidden; padding-bottom: 16px !important; }
+.fw-app--teach .fw-teach-card { flex: 1 1 auto; min-height: 0 !important; overflow-y: auto; }
+.fw-app--teach .fw-chip-rail { flex: 0 0 auto; padding: 14px 0 4px; overflow: visible; }
+.fw-app--teach .fw-teach-bar { position: relative; bottom: auto; }
+}
+@media (min-width: 1024px) and (max-height: 820px) {
+.fw-app--teach .fw-teach-card { padding-top: 20px !important; padding-bottom: 18px !important; }
+.fw-app--teach .fw-teach-card > .fw-figure { max-width: 400px; }
+}
+
+/* ── Projector (>=1600px): wide Teach layout, larger type, fill the card ── */
+@media (min-width: 1600px) {
+.fw-app--teach { max-width: 88vw; width: 88vw; }
+.fw-app--teach .fw-app-chrome { padding: 26px 56px 20px !important; }
+.fw-app--teach .fw-app-chrome .fw-label { font-size: 15px !important; }
+.fw-app--teach .fw-app-chrome > div:nth-child(2) { font-size: 20px !important; }
+.fw-app--teach .fw-teach-body { padding: 28px 56px 16px !important; }
+.fw-app--teach .fw-teach-card {
+padding: 40px 52px 40px !important;
+grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+column-gap: 56px;
+align-content: start;
+}
+.fw-app--teach .fw-teach-card > .fw-figure { align-self: start; }
+.fw-app--teach .fw-teach-card > .fw-figure img, .fw-app--teach .fw-teach-card > .fw-figure svg { width: 100%; height: auto; }
+.fw-app--teach .fw-teach-card .fw-eyebrow { font-size: 16px !important; }
+.fw-app--teach .fw-teach-card h2 { font-size: 52px !important; }
+.fw-app--teach .fw-teach-card > div:first-child > span { width: 68px !important; height: 68px !important; font-size: 36px !important; border-radius: 18px !important; }
+.fw-app--teach p, .fw-app--teach li { font-size: 30px !important; line-height: 1.55 !important; }
+.fw-app--teach .fw-notes-toggle { font-size: 17px; }
+.fw-app--teach .fw-chip { font-size: 18px; min-height: 52px; padding: 10px 20px; }
+.fw-app--teach .fw-teach-bar { padding: 14px 56px 18px; }
+.fw-app--teach .fw-teach-bar > * { font-size: 20px !important; }
+.fw-app--teach .fw-teach-bar .fw-cta { min-height: 56px; }
+}
 `;
 
 /* premium-pass: glass surfaces no longer use backdrop-filter. The old blur re-sampled the
