@@ -1172,6 +1172,29 @@ const STYLE = `
  ::view-transition-new(root) { animation: fw-vt-in .26s var(--fw-spring-soft) both; }
  ::view-transition-group(fw-chrome) { animation-duration: .24s; }
  .fw-print-card { break-inside: avoid; page-break-inside: avoid; }
+ /* Editable session details on the printout (date / time / place + lunch line) */
+ .fw-details { border-radius: 14px; padding: 14px 16px 12px; margin: 0 0 16px; background: #fff; border: 1.5px solid color-mix(in srgb, var(--fw-color) 33%, transparent); }
+ .fw-details-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 12px; margin: 0 0 6px; }
+ .fw-details-grid { display: grid; grid-template-columns: 1fr; gap: 4px 18px; }
+ @media (min-width: 640px) { .fw-details-grid { grid-template-columns: 1fr 1fr 1.35fr; } }
+ .fw-field { display: block; min-width: 0; }
+ .fw-field-label { display: block; font-size: 10.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #8a7b6a; margin: 6px 0 0; }
+ .fw-edit {
+ -webkit-appearance: none; appearance: none; display: block; width: 100%; min-height: 44px; margin: 0; padding: 8px 2px 7px;
+ font: inherit; font-family: inherit; font-size: 16px; font-weight: 600; letter-spacing: -0.012em; color: #231c17;
+ background: transparent; border: 0; border-bottom: 1px dashed rgba(70,48,32,0.28); border-radius: 0; outline: none;
+ transition: border-color .18s ease, background .18s ease;
+ }
+ .fw-edit::placeholder { color: #b3a594; font-weight: 500; }
+ .fw-edit:hover { background: rgba(255,248,238,0.7); }
+ .fw-edit:focus { border-bottom: 1.5px solid var(--fw-color); background: color-mix(in srgb, var(--fw-color) 6%, transparent); }
+ .fw-lunch { margin: 12px 0 2px; border-radius: 12px; background: color-mix(in srgb, var(--fw-color) 9%, #fff); border: 0.5px solid color-mix(in srgb, var(--fw-color) 28%, transparent); padding: 2px 12px; }
+ .fw-lunch .fw-edit { text-align: center; font-size: 17px; font-weight: 700; border-bottom-color: transparent; color: #3a2a1e; }
+ .fw-lunch .fw-edit:hover, .fw-lunch .fw-edit:focus { background: transparent; }
+ .fw-lunch .fw-edit:focus { border-bottom: 1.5px solid var(--fw-color); }
+ .fw-edit-hint { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #9a8b78; letter-spacing: 0; white-space: nowrap; }
+ .fw-edit-reset { -webkit-appearance: none; appearance: none; border: 0; background: none; padding: 0 2px; min-height: 32px; font: inherit; font-size: 12px; font-weight: 600; color: var(--fw-color); cursor: pointer; }
+ .fw-print-val { display: none; }
  @media (prefers-reduced-motion: reduce) {
  * { transition: none !important; animation: none !important; }
  .fw-rise, .fw-sec-panel, .fw-sheet, .fw-sheet-scrim, .fw-menu-panel { animation: none !important; }
@@ -1198,6 +1221,16 @@ const STYLE = `
  box-shadow: none !important;
  }
  .fw-no-print, .fw-teach-bar, .fw-app-chrome, .fw-app::before, .fw-app::after { display: none !important; visibility: hidden !important; }
+ .fw-edit, .fw-edit-hint, .fw-edit-reset { display: none !important; }
+ html, body { background: #fff !important; }
+ .fw-print-val { display: block !important; font-size: 13.5pt; font-weight: 700; color: #000 !important; padding: 4px 0 4px; border-bottom: 1px solid #777; min-height: 1.6em; }
+ .fw-details { border: 1.5px solid #333 !important; background: #fff !important; break-inside: avoid; page-break-inside: avoid; }
+ .fw-lunch { background: #fff !important; border: 1px solid #333 !important; }
+ .fw-lunch .fw-print-val { text-align: center; border-bottom: 0; }
+ .fw-details-grid { grid-template-columns: 1fr !important; gap: 2px 0 !important; }
+ .fw-field { display: flex !important; align-items: baseline; gap: 12px; }
+ .fw-field .fw-field-label { flex: 0 0 52px; margin: 0; color: #444 !important; }
+ .fw-field .fw-print-val { flex: 1; min-width: 0; min-height: 2em; padding-top: 10px; }
  }
 /* ── Teach chips wrap + no dead space above the teach bar (all widths) ── */
 .fw-chip-rail--wrap { flex-wrap: wrap; overflow-x: visible; }
@@ -2127,6 +2160,68 @@ function buildPrintSections(w) {
  return sections;
 }
 
+/* Editable session details for the printout. Every workshop runs the same way;
+   only these details change, so they are typed in on the Print view and saved
+   on this device (localStorage, one entry per workshop). Blank fields print as
+   fill-in lines. */
+const SESSION_DEFAULTS = { date: "", time: "", place: "", lunch: "Lunch provided" };
+const SESSION_KEY = (num) => `fw-print-details-${num}`;
+function useSessionDetails(num) {
+ const [d, setD] = useState(() => {
+ try {
+ const raw = typeof window !== "undefined" && window.localStorage.getItem(SESSION_KEY(num));
+ return raw ? { ...SESSION_DEFAULTS, ...JSON.parse(raw) } : { ...SESSION_DEFAULTS };
+ } catch { return { ...SESSION_DEFAULTS }; }
+ });
+ const update = (k, v) => setD((prev) => {
+ const next = { ...prev, [k]: v };
+ try { window.localStorage.setItem(SESSION_KEY(num), JSON.stringify(next)); } catch { /* ignore */ }
+ return next;
+ });
+ const reset = () => {
+ try { window.localStorage.removeItem(SESSION_KEY(num)); } catch { /* ignore */ }
+ setD({ ...SESSION_DEFAULTS });
+ };
+ return [d, update, reset];
+}
+function EditField({ label, value, placeholder, onChange, blank = "\u00a0" }) {
+ return (
+ <label className="fw-field">
+ <span className="fw-field-label">{label}</span>
+ <input className="fw-edit" type="text" value={value} placeholder={placeholder} aria-label={`${label} (tap to edit)`}
+ onChange={(e) => onChange(e.target.value)} autoComplete="off" spellCheck="false" enterKeyHint="done"
+ onKeyDown={(e) => { if (e.key === "Enter") e.currentTarget.blur(); }} />
+ <span className="fw-print-val">{value.trim() || blank}</span>
+ </label>
+ );
+}
+function SessionDetailsCard({ w }) {
+ const [d, update, reset] = useSessionDetails(w.number);
+ const edited = JSON.stringify(d) !== JSON.stringify(SESSION_DEFAULTS);
+ return (
+ <div className="fw-details fw-print-card">
+ <div className="fw-details-head">
+ <div className="fw-label" style={{ fontSize: 10.5, letterSpacing: "0.12em", color: w.color, fontWeight: 700 }}>Session details</div>
+ <span className="fw-edit-hint">
+ <span aria-hidden="true">✎</span> Tap to edit · saved on this device
+ {edited && <><span aria-hidden="true">·</span><button type="button" className="fw-edit-reset" onClick={reset}>Reset</button></>}
+ </span>
+ </div>
+ <div className="fw-details-grid">
+ <EditField label="Date" value={d.date} placeholder="Add date" onChange={(v) => update("date", v)} />
+ <EditField label="Time" value={d.time} placeholder="Add time" onChange={(v) => update("time", v)} />
+ <EditField label="Place" value={d.place} placeholder="Add place" onChange={(v) => update("place", v)} />
+ </div>
+ <div className="fw-lunch">
+ <input className="fw-edit" type="text" value={d.lunch} placeholder="Lunch provided" aria-label="Lunch line (tap to edit)"
+ onChange={(e) => update("lunch", e.target.value)} autoComplete="off" enterKeyHint="done"
+ onKeyDown={(e) => { if (e.key === "Enter") e.currentTarget.blur(); }} />
+ <span className="fw-print-val">{d.lunch.trim() || "Lunch provided"}</span>
+ </div>
+ </div>
+ );
+}
+
 function PrintSheetView({ w, onClose, onPrint }) {
  const sections = buildPrintSections(w);
  return (
@@ -2142,6 +2237,7 @@ function PrintSheetView({ w, onClose, onPrint }) {
  <h1 className="fw-display" style={{ margin: "0 0 4px", fontSize: 26, fontWeight: 700, letterSpacing: "-0.028em" }}>{w.emoji} {w.title}</h1>
  <div className="fw-caption" style={{ marginBottom: 10, color: "#666" }}>Workshop {w.number} · {w.duration} · {w.stream}</div>
  <p className="fw-caption" style={{ lineHeight: 1.55, color: "#7a6b5c", margin: "0 0 16px" }}>Print this for the yard, shop, or kitchen table — not only the indoor screen.</p>
+ <SessionDetailsCard key={w.number} w={w} />
  <div className="fw-print-card" style={{ border: `1.5px solid ${w.color}55`, borderRadius: 12, padding: "12px 14px", background: "#fff", marginBottom: 16, display: "flex", gap: 14, alignItems: "center", flexWrap: "wrap" }}>
  <WorkshopQr url={workshopDeepUrl(w.number)} color={w.color} size={120} />
  <div style={{ flex: 1, minWidth: 160 }}>
