@@ -46,7 +46,7 @@
  "bullets": [
  "Start long crops indoors while frost is still outside",
  "Direct-sow many cool crops before tomatoes go out",
- "Sydney-area averages often fall in late May — not island-wide",
+ "Sydney airport average last frost about May 22 — not island-wide",
  "Averages are history — use this year's forecast",
  "Timing beats guessing"
  ]
@@ -65,8 +65,8 @@
  "title": "FROST AWARENESS",
  "bullets": [
  "There is no one frost date for all of Unama'ki",
- "Sydney-area published averages often sit in late May",
- "Some inland and higher spots run later — check local",
+ "Sydney airport average last frost: about May 22",
+ "Averages are not a promise — follow the forecast",
  "Forecast frost: cover rows or bring pots in; wind steals heat",
  "Later: short fall winterizing card"
  ]
@@ -659,8 +659,8 @@
  "Spring walk after the thaw",
  "Fall seal before a hard freeze",
  "Hoses off; seals on; gutters clear",
- "Sydney-area average first fall frost: mid to late October — highlands often earlier; follow the forecast",
- "Highlands freeze earlier — use the forecast"
+ "Sydney airport first frost: about Oct 20 average",
+ "Averages are not a promise — follow the forecast"
  ]
  },
  {
@@ -1261,8 +1261,8 @@
  "NS Bee Industry Act: register to keep bees — even one colony",
  "Within 10 days of getting bees; certificate ends 31 December",
  "Re-register by 1 November — beekeeping@novascotia.ca or 902-890-3377",
- "NSBA: registration is free; association membership is a separate fee",
- "Bees or used gear from outside NS need an import permit — do not order first"
+ "Current forms list no fee — confirm with the provincial office; NSBA membership is separate",
+ "Bees or used gear from outside NS need an import permit; new never-used gear does not"
  ]
  },
  {
@@ -1292,7 +1292,7 @@
  "Cape Breton winter is long — plan to leave honey on the hive",
  "Reportable pests: read the province package, do not improvise treatment",
  "No permit to move bees from mainland NS to Cape Breton",
- "Still ask about varroa; Cape Breton beekeepers prefer island stock"
+ "Still ask about varroa before moving bees to Cape Breton"
  ]
  },
  {

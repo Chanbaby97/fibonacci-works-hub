@@ -50,7 +50,7 @@ export const WORKSHOP_EXAMPLES = {
  },
  "Frost Awareness": {
  examples: [
- "Do not teach one frost date for all of Unama'ki — Sydney-area averages often late May; highlands/inland differ",
+ "Do not teach one frost date for all of Unama'ki — Sydney airport averages about May 22 (ECCC 1991–2020); follow the forecast",
  "Check the forecast: cover rows or bring pots in; wind steals heat",
  "Later: short fall winterizing card — spring care stays the focus today",
  ],
@@ -422,7 +422,7 @@ export const WORKSHOP_EXAMPLES = {
  "Seasonal Prep": {
  examples: [
  "Spring after thaw; fall seal before hard freeze",
- "Sydney-area first fall frost: mid to late October average; follow the forecast",
+ "Sydney airport first fall frost averages about October 20 (ECCC 1991–2020) — forecast-check, not a fixed week",
  ],
  },
  "Weatherproofing": {
@@ -461,7 +461,7 @@ export const WORKSHOP_EXAMPLES = {
  },
  takeHome: {
  tryThis: [
- "Same starter specs: weatherstrip sample + calendar + outage checklist; seal before the first frost (mid to late October average; follow the forecast)",
+ "Same starter specs: weatherstrip sample + calendar + outage checklist; seal before the first frost (Sydney airport averages about October 20; follow the forecast)",
  ],
  },
  },
